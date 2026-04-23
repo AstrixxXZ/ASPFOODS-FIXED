@@ -1,0 +1,120 @@
+@{
+    ViewData["Title"] = "Контакти";
+    var contactName = ViewData["ContactName"] as string ?? string.Empty;
+    var contactEmail = ViewData["ContactEmail"] as string ?? string.Empty;
+    var contactSubject = ViewData["ContactSubject"] as string ?? string.Empty;
+    var contactMessage = ViewData["ContactMessage"] as string ?? string.Empty;
+    var contactSuccess = TempData["ContactSuccess"] as string;
+    var contactError = TempData["ContactError"] as string;
+}
+
+<div class="page-hero">
+    <div class="container">
+        <h1>Свържете се с <span class="text-gradient">Нас</span></h1>
+        <p>Имате въпроси? Ще се радваме да ви помогнем. Свържете се с нашия екип.</p>
+    </div>
+</div>
+
+<div class="container">
+    <section class="sf-section" style="padding-top: 0;">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+                    <div>
+                        <h5>Адрес</h5>
+                        <p>ул. Здравословна 123<br>София 1000, България</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <i class="bi bi-telephone"></i>
+                    </div>
+                    <div>
+                        <h5>Телефон</h5>
+                        <p>+359 888 123 456<br>Пон-Пет: 9:00 - 18:00</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+                    <div>
+                        <h5>Имейл</h5>
+                        <p>info@superfoods.bg<br>support@superfoods.bg</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <i class="bi bi-clock"></i>
+                    </div>
+                    <div>
+                        <h5>Работно Време</h5>
+                        <p>Понеделник - Петък: 9:00 - 18:00<br>Събота: 10:00 - 14:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3 style="margin-bottom: 1.5rem; font-weight: 700;">Изпратете съобщение</h3>
+
+                @if (!string.IsNullOrWhiteSpace(contactSuccess))
+                {
+                    <div class="alert alert-success" role="alert">@contactSuccess</div>
+                }
+                @if (!string.IsNullOrWhiteSpace(contactError))
+                {
+                    <div class="alert alert-danger" role="alert">@contactError</div>
+                }
+
+                <form asp-action="Contacts" asp-controller="Home" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label class="form-label" for="contact-name">Вашето име</label>
+                        <input id="contact-name" type="text" name="name" class="form-control" placeholder="Иван Иванов" value="@contactName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="contact-email">Имейл адрес</label>
+                        <input id="contact-email" type="email" name="email" class="form-control" placeholder="ivan@example.com" value="@contactEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="contact-subject">Тема</label>
+                        <input id="contact-subject" type="text" name="subject" class="form-control" placeholder="Въпрос относно продукт" value="@contactSubject" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="contact-message">Съобщение</label>
+                        <textarea id="contact-message" name="message" class="form-control" rows="5" placeholder="Напишете вашето съобщение тук..." required>@contactMessage</textarea>
+                    </div>
+                    <button type="submit" class="btn-sf-submit">
+                        <i class="bi bi-send"></i> Изпрати съобщение
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="sf-section">
+        <div class="sf-section-title">
+            <h2>Често Задавани <span class="text-gradient">Въпроси</span></h2>
+        </div>
+        <div class="sf-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <div class="sf-card">
+                <h3 style="font-size: 1.1rem;">Как мога да направя поръчка?</h3>
+                <p>Изберете продуктите, добавете ги в количката и следвайте стъпките за плащане. Приемаме карти и наложен платеж.</p>
+            </div>
+            <div class="sf-card">
+                <h3 style="font-size: 1.1rem;">Какви са сроковете за доставка?</h3>
+                <p>Доставяме до 48 часа в работни дни до всяка точка в България. Безплатна доставка при поръчки над 100 лв.</p>
+            </div>
+            <div class="sf-card">
+                <h3 style="font-size: 1.1rem;">Мога ли да върна продукт?</h3>
+                <p>Да, имате право на връщане до 14 дни от получаването, ако продуктът е в оригинална опаковка.</p>
+            </div>
+        </div>
+    </section>
+</div>

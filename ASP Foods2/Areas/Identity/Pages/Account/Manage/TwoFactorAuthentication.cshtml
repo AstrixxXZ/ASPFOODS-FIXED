@@ -1,0 +1,106 @@
+@page
+@model TwoFactorAuthenticationModel
+@{
+    ViewData["Title"] = "Двуфакторна автентикация";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<div class="profile-header">
+    <h3><i class="bi bi-shield-check me-2"></i>Двуфакторна автентикация (2FA)</h3>
+    <p>Допълнителна защита за вашия акаунт</p>
+</div>
+
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="two-factor-info">
+    <div class="info-card">
+        <div class="info-icon">
+            <i class="bi bi-info-circle"></i>
+        </div>
+        <div class="info-content">
+            <h5>Какво е двуфакторна автентикация?</h5>
+            <p>Двуфакторната автентикация добавя допълнително ниво на сигурност към вашия акаунт, като изисква втори метод за потвърждение на самоличността ви при вход.</p>
+        </div>
+    </div>
+</div>
+
+<div class="two-factor-status mt-4">
+    @if (Model.Is2faEnabled)
+    {
+        <div class="status-enabled">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            Двуфакторната автентикация е <strong>активирана</strong>
+        </div>
+    }
+    else
+    {
+        <div class="status-disabled">
+            <i class="bi bi-x-circle-fill me-2"></i>
+            Двуфакторната автентикация е <strong>деактивирана</strong>
+        </div>
+    }
+</div>
+
+<style>
+    .profile-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .profile-header h3 {
+        margin: 0;
+        color: var(--sf-text);
+        font-weight: 700;
+    }
+
+    .profile-header p {
+        margin: 0.5rem 0 0;
+        color: var(--sf-text-muted);
+        font-size: 0.95rem;
+    }
+
+    .info-card {
+        display: flex;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 12px;
+    }
+
+    .info-icon {
+        font-size: 1.5rem;
+        color: #3b82f6;
+    }
+
+    .info-content h5 {
+        margin: 0 0 0.5rem;
+        color: var(--sf-text);
+        font-weight: 600;
+    }
+
+    .info-content p {
+        margin: 0;
+        color: var(--sf-text-muted);
+        font-size: 0.9rem;
+    }
+
+    .status-enabled {
+        padding: 1rem 1.5rem;
+        background: rgba(0, 255, 156, 0.1);
+        border: 1px solid rgba(0, 255, 156, 0.3);
+        border-radius: 10px;
+        color: var(--sf-green);
+        font-size: 1rem;
+    }
+
+    .status-disabled {
+        padding: 1rem 1.5rem;
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 10px;
+        color: #ef4444;
+        font-size: 1rem;
+    }
+</style>

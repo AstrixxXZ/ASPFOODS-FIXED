@@ -1,0 +1,537 @@
+@model ASP_Foods2.Models.OrderCheckoutViewModel
+
+@{
+    ViewData["Title"] = "Потвърди поръчка";
+}
+
+<div class="page-hero" style="padding-bottom: 2rem;">
+    <div class="container">
+        <h1><i class="bi bi-credit-card-2-front me-3"></i>Потвърди <span class="text-gradient">Поръчка</span></h1>
+        <p>Клиентът идва от текущия профил, а количествата се взимат директно от количката.</p>
+    </div>
+</div>
+
+<div class="container">
+    @if (Model.HasItems)
+    {
+        <div class="checkout-layout">
+            <div class="checkout-main">
+                <div class="checkout-card">
+                    <div class="checkout-card__header">
+                        <div class="checkout-card__icon">
+                            <i class="bi bi-person-check"></i>
+                        </div>
+                        <div>
+                            <h3>Данни за клиента</h3>
+                            <p>Използваме информацията от логнатия акаунт.</p>
+                        </div>
+                    </div>
+
+                    <div class="checkout-profile">
+                        <div class="checkout-profile__badge">
+                            @string.Concat((Model.ClientName ?? "П")[0])
+                        </div>
+                        <div>
+                            <strong>@Model.ClientName</strong>
+                            @if (!string.IsNullOrWhiteSpace(Model.ClientEmail))
+                            {
+                                <span>@Model.ClientEmail</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="checkout-meta-grid">
+                        <div class="checkout-meta-card">
+                            <span>Дата на поръчката</span>
+                            <strong>@Model.OrderDate.ToString("dd.MM.yyyy HH:mm")</strong>
+                        </div>
+                        <div class="checkout-meta-card">
+                            <span>Общо продукти</span>
+                            <strong>@Model.TotalQuantity бр.</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout-card">
+                    <div class="checkout-card__header">
+                        <div class="checkout-card__icon">
+                            <i class="bi bi-bag-check"></i>
+                        </div>
+                        <div>
+                            <h3>Продукти в поръчката</h3>
+                            <p>Количествата са взети от количката и не се въвеждат повторно.</p>
+                        </div>
+                    </div>
+
+                    <div class="checkout-items">
+                        @foreach (var item in Model.Items)
+                        {
+                            <article class="checkout-item">
+                                <div class="checkout-item__media">
+                                    @if (!string.IsNullOrWhiteSpace(item.ImageUrl))
+                                    {
+                                        <img src="@item.ImageUrl" alt="@item.ProductName" class="checkout-item__image" />
+                                    }
+                                    else
+                                    {
+                                        <div class="checkout-item__placeholder">
+                                            <i class="bi bi-box-seam"></i>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="checkout-item__content">
+                                    <div>
+                                        <h4>@item.ProductName</h4>
+                                        @if (!string.IsNullOrWhiteSpace(item.CatalogId))
+                                        {
+                                            <p>Каталожен номер: @item.CatalogId</p>
+                                        }
+                                    </div>
+
+                                    <div class="checkout-item__details">
+                                        <span>Количество: <strong>@item.Quantity</strong></span>
+                                        <span>Ед. цена: <strong>@item.UnitPrice.ToString("F2") лв</strong></span>
+                                        <span class="checkout-item__total">Общо: @item.TotalPrice.ToString("F2") лв</span>
+                                    </div>
+                                </div>
+                            </article>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <aside class="checkout-sidebar">
+                <div class="checkout-summary">
+                    <span class="checkout-summary__eyebrow">Обобщение</span>
+                    <h3>Готово за изпращане</h3>
+
+                    <div class="checkout-summary__row">
+                        <span>Артикули</span>
+                        <strong>@Model.Items.Count</strong>
+                    </div>
+                    <div class="checkout-summary__row">
+                        <span>Общо количество</span>
+                        <strong>@Model.TotalQuantity бр.</strong>
+                    </div>
+                    <div class="checkout-summary__row">
+                        <span>Доставка</span>
+                        <strong style="color: var(--sf-green);">Безплатна</strong>
+                    </div>
+
+                    <div class="checkout-summary__total">
+                        <span>Крайна сума</span>
+                        <strong>@Model.TotalAmount.ToString("F2") лв</strong>
+                    </div>
+
+                    <form asp-action="CreateConfirmed" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn-admin-primary checkout-submit">
+                            <i class="bi bi-check2-circle me-2"></i>Потвърди поръчката
+                        </button>
+                    </form>
+
+                    <a asp-controller="Carts" asp-action="Index" class="btn-admin-secondary checkout-back">
+                        <i class="bi bi-arrow-left me-2"></i>Назад към количката
+                    </a>
+                </div>
+            </aside>
+        </div>
+    }
+    else
+    {
+        <div class="checkout-empty">
+            <div class="checkout-empty__icon">
+                <i class="bi bi-cart-x"></i>
+            </div>
+            <h3>Няма продукти за поръчка</h3>
+            <p>Количката е празна. Добави продукти и после се върни тук за потвърждение.</p>
+            <div class="checkout-empty__actions">
+                <a asp-controller="Home" asp-action="Products" class="btn-admin-primary">
+                    <i class="bi bi-box-seam me-2"></i>Разгледай продуктите
+                </a>
+                <a asp-controller="Carts" asp-action="Index" class="btn-admin-secondary">
+                    <i class="bi bi-cart3 me-2"></i>Отвори количката
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .checkout-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 340px;
+        gap: 1.5rem;
+        align-items: start;
+        margin-bottom: 3rem;
+    }
+
+    .checkout-main {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .checkout-card,
+    .checkout-summary,
+    .checkout-empty {
+        background: var(--sf-bg-card);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: var(--sf-radius-lg);
+        box-shadow: var(--sf-shadow);
+    }
+
+    .checkout-card {
+        overflow: hidden;
+    }
+
+    .checkout-card__header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.8rem 2rem;
+        background: linear-gradient(135deg, rgba(0, 255, 156, 0.1) 0%, rgba(0, 255, 156, 0.02) 100%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .checkout-card__icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--sf-gradient);
+        color: #000;
+        font-size: 1.35rem;
+        flex-shrink: 0;
+    }
+
+    .checkout-card__header h3 {
+        margin: 0;
+        color: var(--sf-text);
+        font-weight: 700;
+    }
+
+    .checkout-card__header p {
+        margin: 0.35rem 0 0;
+        color: var(--sf-text-muted);
+        font-size: 0.92rem;
+    }
+
+    .checkout-profile {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem 2rem 1rem;
+    }
+
+    .checkout-profile__badge {
+        width: 56px;
+        height: 56px;
+        border-radius: 18px;
+        background: rgba(0, 255, 156, 0.1);
+        border: 1px solid rgba(0, 255, 156, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--sf-green);
+        font-weight: 800;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        flex-shrink: 0;
+    }
+
+    .checkout-profile strong {
+        display: block;
+        color: var(--sf-text);
+        font-size: 1.05rem;
+    }
+
+    .checkout-profile span {
+        display: block;
+        margin-top: 0.2rem;
+        color: var(--sf-text-muted);
+        font-size: 0.9rem;
+    }
+
+    .checkout-meta-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        padding: 0 2rem 2rem;
+    }
+
+    .checkout-meta-card {
+        padding: 1rem 1.1rem;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .checkout-meta-card span {
+        display: block;
+        color: var(--sf-text-muted);
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .checkout-meta-card strong {
+        color: var(--sf-text);
+        font-size: 1rem;
+    }
+
+    .checkout-items {
+        display: grid;
+        gap: 1rem;
+        padding: 1.5rem 2rem 2rem;
+    }
+
+    .checkout-item {
+        display: grid;
+        grid-template-columns: 96px 1fr;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .checkout-item__media {
+        border-radius: 16px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.03);
+        min-height: 96px;
+    }
+
+    .checkout-item__image,
+    .checkout-item__placeholder {
+        width: 100%;
+        height: 96px;
+    }
+
+    .checkout-item__image {
+        object-fit: cover;
+        display: block;
+    }
+
+    .checkout-item__placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--sf-green);
+        background: rgba(0, 255, 156, 0.08);
+        font-size: 1.4rem;
+    }
+
+    .checkout-item__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 0.75rem;
+    }
+
+    .checkout-item__content h4 {
+        margin: 0;
+        color: var(--sf-text);
+        font-weight: 700;
+    }
+
+    .checkout-item__content p {
+        margin: 0.35rem 0 0;
+        color: var(--sf-text-muted);
+        font-size: 0.9rem;
+    }
+
+    .checkout-item__details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem 1.25rem;
+        color: var(--sf-text-muted);
+        font-size: 0.9rem;
+    }
+
+    .checkout-item__details strong {
+        color: var(--sf-text);
+    }
+
+    .checkout-item__total {
+        color: var(--sf-green);
+        font-weight: 700;
+    }
+
+    .checkout-summary {
+        padding: 1.75rem;
+        position: sticky;
+        top: 110px;
+    }
+
+    .checkout-summary__eyebrow {
+        display: inline-block;
+        margin-bottom: 0.75rem;
+        color: var(--sf-green);
+        font-size: 0.82rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+    .checkout-summary h3 {
+        margin-bottom: 1.25rem;
+        color: var(--sf-text);
+        font-weight: 800;
+    }
+
+    .checkout-summary__row,
+    .checkout-summary__total {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .checkout-summary__row {
+        padding: 0.85rem 0;
+        color: var(--sf-text-muted);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .checkout-summary__row strong {
+        color: var(--sf-text);
+    }
+
+    .checkout-summary__total {
+        margin: 1.2rem 0 1.5rem;
+        padding-top: 1rem;
+        color: var(--sf-text);
+        font-size: 1.05rem;
+        font-weight: 700;
+    }
+
+    .checkout-summary__total strong {
+        color: var(--sf-green);
+        font-size: 1.35rem;
+    }
+
+    .checkout-submit,
+    .checkout-back {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .checkout-back {
+        margin-top: 0.85rem;
+        text-decoration: none;
+    }
+
+    .checkout-empty {
+        text-align: center;
+        padding: 3rem 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .checkout-empty__icon {
+        width: 88px;
+        height: 88px;
+        margin: 0 auto 1.2rem;
+        border-radius: 24px;
+        background: rgba(0, 255, 156, 0.08);
+        border: 1px solid rgba(0, 255, 156, 0.16);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--sf-green);
+        font-size: 2rem;
+    }
+
+    .checkout-empty h3 {
+        color: var(--sf-text);
+        margin-bottom: 0.6rem;
+    }
+
+    .checkout-empty p {
+        color: var(--sf-text-muted);
+        max-width: 46ch;
+        margin: 0 auto 1.5rem;
+    }
+
+    .checkout-empty__actions {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .btn-admin-primary {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.9rem 2rem;
+        border-radius: 12px;
+        background: var(--sf-gradient);
+        color: #000;
+        font-weight: 700;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+        transition: var(--sf-transition);
+        text-decoration: none;
+    }
+
+    .btn-admin-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 255, 156, 0.3);
+        color: #000;
+    }
+
+    .btn-admin-secondary {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.9rem 1.5rem;
+        border-radius: 12px;
+        background: transparent;
+        color: var(--sf-text-muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        transition: var(--sf-transition);
+        text-decoration: none;
+    }
+
+    .btn-admin-secondary:hover {
+        border-color: var(--sf-green);
+        color: var(--sf-green);
+    }
+
+    @@media (max-width: 992px) {
+        .checkout-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .checkout-summary {
+            position: static;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .checkout-meta-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .checkout-item {
+            grid-template-columns: 1fr;
+        }
+
+        .checkout-item__media {
+            max-width: 120px;
+        }
+
+        .checkout-empty__actions {
+            flex-direction: column;
+        }
+
+        .checkout-empty__actions a {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>

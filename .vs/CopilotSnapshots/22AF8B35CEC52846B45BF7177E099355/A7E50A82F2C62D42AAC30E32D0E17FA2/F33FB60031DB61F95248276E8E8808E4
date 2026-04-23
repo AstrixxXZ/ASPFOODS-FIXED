@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="hero-section">
+    <h1>🥑 Fresh & Healthy Foods</h1>
+    <p>Discover the finest selection of superfoods, organic produce, and healthy ingredients delivered straight to your table.</p>
+    <a class="btn-hero" asp-area="Identity" asp-page="/Account/Register">Get Started</a>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="feature-card">
+            <div class="feature-icon">🥦</div>
+            <h5>Fresh Produce</h5>
+            <p>Hand-picked organic fruits and vegetables sourced from trusted local farms.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="feature-card">
+            <div class="feature-icon">🚚</div>
+            <h5>Fast Delivery</h5>
+            <p>Get your favorite healthy foods delivered quickly and safely to your doorstep.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="feature-card">
+            <div class="feature-icon">💚</div>
+            <h5>100% Natural</h5>
+            <p>All our products are certified organic, non-GMO, and sustainably sourced.</p>
+        </div>
+    </div>
+</div>

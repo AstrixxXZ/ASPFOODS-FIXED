@@ -1,0 +1,117 @@
+@model IEnumerable<ASP_Foods2.Data.Brand>
+@using System.Linq
+
+@{
+    var brands = (Model ?? Enumerable.Empty<ASP_Foods2.Data.Brand>())
+        .OrderBy(brand => brand.Name)
+        .ToList();
+
+    ViewData["Title"] = "Марки";
+
+    string GetInitials(string? name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return "?";
+        }
+
+        return string.Concat(
+            name.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Take(2)
+                .Select(part => char.ToUpperInvariant(part[0])));
+    }
+}
+
+<section class="brands-page">
+    <div class="container">
+        <div class="brands-hero">
+            <div class="brands-hero__content">
+                <span class="brands-eyebrow">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    Каталог марки
+                </span>
+                <h1>По-чист и подреден изглед за всички брандове</h1>
+                <p>
+                    Управлявай марките в каталога от едно място с по-ясна структура,
+                    по-добър контраст и бърз достъп до всяко действие.
+                </p>
+            </div>
+
+            <div class="brands-hero__panel">
+                <div class="brands-stat">
+                    <span class="brands-stat__value">@brands.Count</span>
+                    <span class="brands-stat__label">общо марки</span>
+                </div>
+
+                <div class="brands-hero__divider"></div>
+
+                <p class="brands-hero__note">
+                    Добавяне, преглед, редакция и изтриване без претрупана таблица.
+                </p>
+            </div>
+        </div>
+
+        <div class="brands-toolbar">
+            <div class="brands-toolbar__meta">
+                <span class="brands-toolbar__badge">
+                    <i class="bi bi-stars"></i>
+                    Подредени по азбучен ред
+                </span>
+            </div>
+
+            <a asp-action="Create" class="brands-btn brands-btn--primary">
+                <i class="bi bi-plus-circle"></i>
+                Добави марка
+            </a>
+        </div>
+
+        @if (brands.Any())
+        {
+            <div class="brands-grid">
+                @foreach (var item in brands)
+                {
+                    <article class="brand-card">
+                        <div class="brand-card__header">
+                            <div class="brand-card__avatar">@GetInitials(item.Name)</div>
+                            <span class="brand-card__id">ID #@item.Id</span>
+                        </div>
+
+                        <div class="brand-card__body">
+                            <h2>@item.Name</h2>
+                            <p>Марка, която може да се използва в продуктовия каталог на SuperFoods.</p>
+                        </div>
+
+                        <div class="brand-card__actions">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="brands-btn brands-btn--ghost">
+                                <i class="bi bi-eye"></i>
+                                Детайли
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="brands-btn brands-btn--outline">
+                                <i class="bi bi-pencil-square"></i>
+                                Редакция
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="brands-btn brands-btn--danger">
+                                <i class="bi bi-trash3"></i>
+                                Изтрий
+                            </a>
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="brands-empty">
+                <div class="brands-empty__icon">
+                    <i class="bi bi-tags"></i>
+                </div>
+                <h2>Все още няма добавени марки</h2>
+                <p>Започни с първия бранд и изгради по-подреден каталог за продуктите.</p>
+                <a asp-action="Create" class="brands-btn brands-btn--primary">
+                    <i class="bi bi-plus-circle"></i>
+                    Създай първа марка
+                </a>
+            </div>
+        }
+    </div>
+</section>

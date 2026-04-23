@@ -1,0 +1,130 @@
+﻿@model IEnumerable<ASP_Foods2.Data.Cart>
+@{
+    ViewData["Title"] = "Количка";
+    var total = Model?.Sum(c => c.Products?.Price * c.Quantity ?? 0) ?? 0;
+}
+
+<div class="page-hero">
+    <div class="container">
+        <h1><i class="bi bi-cart3 me-3"></i><span class="text-gradient">Количка</span></h1>
+        <p>Преглед на вашите избрани продукти</p>
+    </div>
+</div>
+
+<div class="container">
+    <section class="sf-section" style="padding-top: 0;">
+        @if (Model != null && Model.Any())
+        {
+            <div class="row">
+                <div class="col-lg-8 mb-4">
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Продукт</th>
+                                <th>Цена</th>
+                                <th>Количество</th>
+                                <th>Общо</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                var itemTotal = (item.Products?.Price ?? 0) * item.Quantity;
+                                <tr>
+                                    <td>
+                                        <div class="cart-product-info">
+                                            <div class="cart-product-icon">🌿</div>
+                                            <span class="cart-product-name">@item.Products?.Name</span>
+                                        </div>
+                                    </td>
+                                    <td class="cart-price">@((item.Products?.Price ?? 0).ToString("F2")) лв</td>
+                                    <td>
+                                        <form asp-controller="Carts" asp-action="UpdateQuantity" method="post" class="d-flex align-items-center gap-2">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <input type="number" name="quantity" value="@item.Quantity" min="1" class="cart-quantity-input" />
+                                            <button type="submit" class="btn btn-sm" style="background: rgba(0,255,156,0.1); color: var(--sf-green); border: none; border-radius: 6px; padding: 0.4rem 0.6rem;">
+                                                <i class="bi bi-check-lg"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td class="cart-price">@itemTotal.ToString("F2") лв</td>
+                                    <td>
+                                        <form asp-controller="Carts" asp-action="RemoveFromCart" method="post">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <button type="submit" class="cart-remove-btn">
+                                                <i class="bi bi-trash3"></i>
+                                            </form>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-4">
+                    <div class="cart-summary">
+                        <h4><i class="bi bi-receipt me-2"></i>Обобщение</h4>
+                        <div class="cart-summary-row">
+                            <span>Продукти (@Model.Sum(c => c.Quantity))</span>
+                            <span>@total.ToString("F2") лв</span>
+                        </div>
+                        <div class="cart-summary-row">
+                            <span>Доставка</span>
+                            <span style="color: var(--sf-green);">Безплатна</span>
+                        </div>
+                        <hr style="border-color: rgba(255,255,255,0.1); margin: 1rem 0;">
+                        <div class="cart-summary-row">
+                            <span style="font-weight: 700;">Общо</span>
+                            <span class="cart-summary-total">@total.ToString("F2") лв</span>
+                        </div>
+                        <a asp-controller="Orders" asp-action="Create" class="btn-sf-primary mt-3" style="text-decoration: none;">
+                            <i class="bi bi-credit-card me-2"></i>Към плащане
+                        </a>
+                        <a asp-controller="Home" asp-action="Products" class="d-block text-center mt-3" style="color: var(--sf-text-muted);">
+                            <i class="bi bi-arrow-left me-1"></i>Продължи пазаруването
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="bi bi-cart-x"></i>
+                </div>
+                <h3>Количката е празна</h3>
+                <p>Все още нямате добавени продукти в количката.</p>
+                <a asp-controller="Home" asp-action="Products" class="btn-sf-hero" style="margin-top: 1.5rem;">
+                    <i class="bi bi-box-seam me-2"></i>Разгледай продуктите
+                </a>
+            </div>
+        }
+    </section>
+</div>
+
+<style>
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: var(--sf-bg-card);
+        border-radius: var(--sf-radius-lg);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .empty-state-icon {
+        font-size: 4rem;
+        color: var(--sf-text-muted);
+        margin-bottom: 1.5rem;
+    }
+
+    .empty-state h3 {
+        color: var(--sf-text);
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+        color: var(--sf-text-muted);
+    }
+</style>

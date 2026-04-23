@@ -1,0 +1,97 @@
+@model ASP_Foods2.Data.Brand
+
+@{
+    ViewData["Title"] = "Нова марка";
+}
+
+<section class="brand-form-page">
+    <div class="container">
+        <div class="brand-form-shell">
+            <div class="brand-form-intro">
+                <span class="brands-eyebrow">
+                    <i class="bi bi-plus-square"></i>
+                    Нова марка
+                </span>
+
+                <h1>Добави нов бранд в каталога</h1>
+                <p>
+                    Създай нова марка, която след това може да се използва в продуктите,
+                    филтрите и административните списъци на SuperFoods.
+                </p>
+
+                <div class="brand-form-tips">
+                    <div class="brand-form-tip">
+                        <div class="brand-form-tip__icon">
+                            <i class="bi bi-type"></i>
+                        </div>
+                        <div>
+                            <h2>Кратко и разпознаваемо име</h2>
+                            <p>Използвай официалното име на марката, за да се намира лесно в каталога.</p>
+                        </div>
+                    </div>
+
+                    <div class="brand-form-tip">
+                        <div class="brand-form-tip__icon">
+                            <i class="bi bi-diagram-3"></i>
+                        </div>
+                        <div>
+                            <h2>По-добра подредба</h2>
+                            <p>Всяка нова марка се добавя към централизирания списък за по-ясно управление.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="brand-form-card">
+                <div class="brand-form-card__header">
+                    <div>
+                        <span class="brand-form-card__eyebrow">Форма за създаване</span>
+                        <h2>Детайли за марката</h2>
+                    </div>
+                </div>
+
+                <form asp-action="Create" class="brand-form">
+                    <div asp-validation-summary="ModelOnly" class="brand-form__summary text-danger"></div>
+
+                    <div class="brand-form__group">
+                        <label asp-for="Name" class="brand-form__label">Име на марката</label>
+                        <div class="brand-form__field">
+                            <i class="bi bi-tag"></i>
+                            <input asp-for="Name"
+                                   class="form-control brand-form__input"
+                                   placeholder="Напр. Nature's Way"
+                                   data-brand-preview-input />
+                        </div>
+                        <p class="brand-form__helper">Това име ще се вижда в списъка с марки и при избор на продукт.</p>
+                        <span asp-validation-for="Name" class="brand-form__error text-danger"></span>
+                    </div>
+
+                    <div class="brand-form-preview">
+                        <span class="brand-form-preview__badge" data-brand-preview-badge>НМ</span>
+                        <div>
+                            <span class="brand-form-preview__label">Преглед</span>
+                            <strong class="brand-form-preview__name" data-brand-preview-text>Нова марка</strong>
+                            <p>Така ще изглежда записът в обновения списък с брандове.</p>
+                        </div>
+                    </div>
+
+                    <div class="brand-form__actions">
+                        <button type="submit" class="brands-btn brands-btn--primary brand-form__submit">
+                            <i class="bi bi-check2-circle"></i>
+                            Създай марка
+                        </button>
+
+                        <a asp-action="Index" class="brands-btn brands-btn--ghost">
+                            <i class="bi bi-arrow-left"></i>
+                            Назад към марки
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

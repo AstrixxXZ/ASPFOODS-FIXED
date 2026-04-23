@@ -1,0 +1,36 @@
+@model string
+
+@if (!String.IsNullOrEmpty(Model))
+{
+    var statusMessageClass = Model.StartsWith("Грешка") || Model.StartsWith("Error") ? "alert-danger" : "alert-success";
+    <div class="alert @statusMessageClass alert-dismissible fade show" role="alert">
+        @if (statusMessageClass == "alert-success")
+        {
+            <i class="bi bi-check-circle me-2"></i>
+        }
+        else
+        {
+            <i class="bi bi-exclamation-circle me-2"></i>
+        }
+        @Model
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<style>
+    .alert-success {
+        background: rgba(0, 255, 156, 0.1) !important;
+        border: 1px solid rgba(0, 255, 156, 0.3) !important;
+        color: var(--sf-green) !important;
+    }
+
+    .alert-danger {
+        background: rgba(239, 68, 68, 0.1) !important;
+        border: 1px solid rgba(239, 68, 68, 0.3) !important;
+        color: #ef4444 !important;
+    }
+
+    .alert .btn-close {
+        filter: invert(1);
+    }
+</style>

@@ -1,0 +1,242 @@
+﻿@model IEnumerable<ASP_Foods2.Data.Category>
+
+@{
+    ViewData["Title"] = "Категории";
+}
+
+<div class="page-hero" style="padding-bottom: 2rem;">
+    <div class="container">
+        <h1><i class="bi bi-tags me-3"></i>Управление на <span class="text-gradient">Категории</span></h1>
+        <p>Създавайте и управлявайте категориите на продуктите</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="admin-toolbar">
+        <div class="admin-toolbar-left">
+            <span class="admin-count">
+                <i class="bi bi-folder me-2"></i>@Model.Count() категории
+            </span>
+        </div>
+        <div class="admin-toolbar-right">
+            <a asp-action="Create" class="btn-admin-primary">
+                <i class="bi bi-plus-lg me-2"></i>Добави категория
+            </a>
+        </div>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="admin-grid">
+            @foreach (var item in Model)
+            {
+                <div class="admin-card">
+                    <div class="admin-card-icon">
+                        <i class="bi bi-folder2"></i>
+                    </div>
+                    <div class="admin-card-content">
+                        <h4>@item.Name</h4>
+                        <p class="admin-card-meta">
+                            <i class="bi bi-box-seam me-1"></i>
+                            @(item.Products?.Count ?? 0) продукта
+                        </p>
+                    </div>
+                    <div class="admin-card-actions">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="action-btn action-btn-edit" title="Редактирай">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="action-btn action-btn-delete" title="Изтрий">
+                            <i class="bi bi-trash3"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="empty-state-icon">
+                <i class="bi bi-folder-x"></i>
+            </div>
+            <h3>Няма добавени категории</h3>
+            <p>Започнете като добавите първата категория.</p>
+            <a asp-action="Create" class="btn-sf-hero" style="margin-top: 1.5rem;">
+                <i class="bi bi-plus-lg me-2"></i>Добави първа категория
+            </a>
+        </div>
+    }
+
+    <div class="admin-back-link">
+        <a asp-controller="Products" asp-action="Index">
+            <i class="bi bi-arrow-left me-2"></i>Назад към продуктите
+        </a>
+    </div>
+</div>
+
+<style>
+    .admin-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1rem 1.5rem;
+        background: var(--sf-bg-card);
+        border-radius: var(--sf-radius);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .admin-count {
+        color: var(--sf-text-muted);
+        font-weight: 500;
+    }
+
+    .admin-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .admin-card {
+        background: var(--sf-bg-card);
+        border-radius: var(--sf-radius);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        transition: var(--sf-transition);
+    }
+
+    .admin-card:hover {
+        border-color: rgba(0, 255, 156, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .admin-card-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background: rgba(0, 255, 156, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        color: var(--sf-green);
+        flex-shrink: 0;
+    }
+
+    .admin-card-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .admin-card-content h4 {
+        margin: 0;
+        font-weight: 600;
+        color: var(--sf-text);
+        font-size: 1.1rem;
+    }
+
+    .admin-card-meta {
+        margin: 0.25rem 0 0;
+        font-size: 0.85rem;
+        color: var(--sf-text-muted);
+    }
+
+    .admin-card-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .action-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: var(--sf-transition);
+    }
+
+    .action-btn-edit {
+        background: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+    }
+
+    .action-btn-edit:hover {
+        background: rgba(59, 130, 246, 0.2);
+        color: #3b82f6;
+    }
+
+    .action-btn-delete {
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+    }
+
+    .action-btn-delete:hover {
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+    }
+
+    .btn-admin-primary {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: 10px;
+        background: var(--sf-gradient);
+        color: #000;
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: var(--sf-transition);
+    }
+
+    .btn-admin-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 255, 156, 0.3);
+        color: #000;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: var(--sf-bg-card);
+        border-radius: var(--sf-radius-lg);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .empty-state-icon {
+        font-size: 4rem;
+        color: var(--sf-text-muted);
+        margin-bottom: 1.5rem;
+    }
+
+    .empty-state h3 {
+        color: var(--sf-text);
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+        color: var(--sf-text-muted);
+    }
+
+    .admin-back-link {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .admin-back-link a {
+        color: var(--sf-text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--sf-transition);
+    }
+
+    .admin-back-link a:hover {
+        color: var(--sf-green);
+    }
+</style>

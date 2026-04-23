@@ -1,0 +1,141 @@
+@inject SignInManager<ASP_Foods2.Data.Client> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+
+<nav class="manage-nav">
+    <div class="manage-nav-header">
+        <div class="manage-nav-avatar">
+            <i class="bi bi-person-circle"></i>
+        </div>
+        <div class="manage-nav-user">
+            <span class="manage-nav-name">@User.Identity?.Name</span>
+            <span class="manage-nav-email">Потребител</span>
+        </div>
+    </div>
+
+    <ul class="manage-nav-list">
+        <li class="manage-nav-item @ManageNavPages.IndexNavClass(ViewContext)">
+            <a asp-page="./Index" class="manage-nav-link">
+                <i class="bi bi-person me-2"></i>Профил
+            </a>
+        </li>
+        <li class="manage-nav-item">
+            <a asp-area="" asp-controller="Orders" asp-action="My" class="manage-nav-link">
+                <i class="bi bi-bag-check me-2"></i>Моите поръчки
+            </a>
+        </li>
+        <li class="manage-nav-item @ManageNavPages.EmailNavClass(ViewContext)">
+            <a asp-page="./Email" class="manage-nav-link">
+                <i class="bi bi-envelope me-2"></i>Имейл
+            </a>
+        </li>
+        <li class="manage-nav-item @ManageNavPages.ChangePasswordNavClass(ViewContext)">
+            <a asp-page="./ChangePassword" class="manage-nav-link">
+                <i class="bi bi-key me-2"></i>Парола
+            </a>
+        </li>
+        @if (hasExternalLogins)
+        {
+            <li class="manage-nav-item @ManageNavPages.ExternalLoginsNavClass(ViewContext)">
+                <a asp-page="./ExternalLogins" class="manage-nav-link">
+                    <i class="bi bi-link-45deg me-2"></i>Външни входове
+                </a>
+            </li>
+        }
+        <li class="manage-nav-item @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)">
+            <a asp-page="./TwoFactorAuthentication" class="manage-nav-link">
+                <i class="bi bi-shield-check me-2"></i>Двуфакторна автентикация
+            </a>
+        </li>
+        <li class="manage-nav-item @ManageNavPages.PersonalDataNavClass(ViewContext)">
+            <a asp-page="./PersonalData" class="manage-nav-link">
+                <i class="bi bi-database me-2"></i>Лични данни
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<style>
+    .manage-nav {
+        background: var(--sf-bg-card);
+        border-radius: var(--sf-radius-lg);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        overflow: hidden;
+    }
+
+    .manage-nav-header {
+        padding: 1.5rem;
+        background: linear-gradient(135deg, rgba(0, 255, 156, 0.1) 0%, rgba(0, 255, 156, 0.02) 100%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .manage-nav-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--sf-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: #000;
+    }
+
+    .manage-nav-user {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .manage-nav-name {
+        font-weight: 600;
+        color: var(--sf-text);
+        font-size: 0.95rem;
+        word-break: break-all;
+    }
+
+    .manage-nav-email {
+        font-size: 0.8rem;
+        color: var(--sf-text-muted);
+    }
+
+    .manage-nav-list {
+        list-style: none;
+        margin: 0;
+        padding: 0.5rem 0;
+    }
+
+    .manage-nav-item {
+        margin: 0;
+    }
+
+    .manage-nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.85rem 1.5rem;
+        color: var(--sf-text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: var(--sf-transition);
+        border-left: 3px solid transparent;
+    }
+
+    .manage-nav-link:hover {
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--sf-text);
+    }
+
+    .manage-nav-item.active .manage-nav-link {
+        background: rgba(0, 255, 156, 0.08);
+        color: var(--sf-green);
+        border-left-color: var(--sf-green);
+    }
+
+    .manage-nav-link i {
+        font-size: 1.1rem;
+    }
+</style>

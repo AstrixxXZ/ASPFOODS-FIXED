@@ -1,0 +1,255 @@
+﻿@model IReadOnlyList<ASP_Foods2.Models.AdminProfileListItemViewModel>
+
+@{
+    ViewData["Title"] = "Профили";
+}
+
+<section class="admin-dashboard-page">
+    <div class="container">
+        <div class="admin-dashboard-hero admin-profiles-hero">
+            <div class="admin-dashboard-hero__content">
+                <span class="admin-dashboard-eyebrow">
+                    <i class="bi bi-people"></i>
+                    Потребителски профили
+                </span>
+                <h1>Всички профили в системата</h1>
+                <p>Преглеждай данните на клиентите, отваряй конкретен профил, редактирай информацията и занулявай паролата при нужда.</p>
+            </div>
+
+            <div class="admin-dashboard-hero__panel">
+                <span class="admin-dashboard-hero__label">Регистрирани профили</span>
+                <strong>@Model.Count</strong>
+                <p>Потребители и администратори, създадени в SuperFoods.</p>
+            </div>
+        </div>
+
+        <section class="admin-panel-card">
+            <div class="admin-panel-card__header admin-profiles-header">
+                <div>
+                    <span class="admin-panel-card__eyebrow">Профили</span>
+                    <h2>Списък с потребители</h2>
+                </div>
+                <a asp-action="Index" class="admin-panel-card__link">
+                    <i class="bi bi-arrow-left"></i>
+                    Назад към панела
+                </a>
+            </div>
+
+            @if (Model.Any())
+            {
+                <div class="admin-profiles-grid">
+                    @foreach (var profile in Model)
+                    {
+                        <article class="admin-profile-card">
+                            <div class="admin-profile-card__top">
+                                <div class="admin-profile-avatar" aria-hidden="true">
+                                    <i class="bi bi-person"></i>
+                                </div>
+                                <div class="admin-profile-main">
+                                    <h3>@profile.FullName</h3>
+                                    <span>@profile.UserName</span>
+                                </div>
+                                <span class="admin-profile-pill">@profile.Roles</span>
+                            </div>
+
+                            <div class="admin-profile-data">
+                                <div>
+                                    <span>Имейл</span>
+                                    <strong>@profile.Email</strong>
+                                </div>
+                                <div>
+                                    <span>Телефон</span>
+                                    <strong>@(string.IsNullOrWhiteSpace(profile.PhoneNumber) ? "Няма телефон" : profile.PhoneNumber)</strong>
+                                </div>
+                                <div>
+                                    <span>Поръчки</span>
+                                    <strong>@profile.OrderCount</strong>
+                                </div>
+                            </div>
+
+                            <div class="admin-profile-actions">
+                                <a asp-action="ProfileDetails" asp-route-id="@profile.Id" class="admin-profile-action admin-profile-action--primary">
+                                    <i class="bi bi-eye"></i>
+                                    Виж
+                                </a>
+                                <a asp-action="EditProfile" asp-route-id="@profile.Id" class="admin-profile-action">
+                                    <i class="bi bi-pencil"></i>
+                                    Редактирай
+                                </a>
+                            </div>
+                        </article>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="admin-panel-empty">
+                    <i class="bi bi-person-x"></i>
+                    <h3>Няма профили</h3>
+                    <p>Когато има регистрирани потребители, те ще се появят тук.</p>
+                </div>
+            }
+        </section>
+    </div>
+</section>
+
+<style>
+    .admin-profiles-hero {
+        grid-template-columns: minmax(0, 1.65fr) minmax(260px, 0.75fr);
+    }
+
+    .admin-profiles-header {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .admin-profiles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+    }
+
+    .admin-profile-card {
+        min-width: 0;
+        padding: 1rem;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.035);
+        border: 1px solid rgba(255, 255, 255, 0.065);
+        display: grid;
+        gap: 1rem;
+        transition: var(--sf-transition);
+    }
+
+    .admin-profile-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(0, 255, 156, 0.18);
+        background: rgba(0, 255, 156, 0.035);
+    }
+
+    .admin-profile-card__top {
+        display: grid;
+        grid-template-columns: 48px minmax(0, 1fr);
+        gap: 0.8rem;
+        align-items: center;
+    }
+
+    .admin-profile-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 255, 156, 0.1);
+        border: 1px solid rgba(0, 255, 156, 0.18);
+        color: var(--sf-green);
+        font-size: 1.2rem;
+    }
+
+    .admin-profile-main {
+        min-width: 0;
+    }
+
+    .admin-profile-main h3 {
+        margin: 0;
+        color: #fff;
+        font-size: 1.05rem;
+        line-height: 1.25;
+        font-weight: 800;
+        overflow-wrap: anywhere;
+    }
+
+    .admin-profile-main span,
+    .admin-profile-data span {
+        color: var(--sf-text-muted);
+        font-size: 0.82rem;
+    }
+
+    .admin-profile-pill {
+        grid-column: 1 / -1;
+        justify-self: start;
+        max-width: 100%;
+        padding: 0.45rem 0.75rem;
+        border-radius: 999px;
+        background: rgba(0, 255, 156, 0.09);
+        border: 1px solid rgba(0, 255, 156, 0.18);
+        color: var(--sf-green);
+        font-weight: 800;
+        font-size: 0.82rem;
+        overflow-wrap: anywhere;
+    }
+
+    .admin-profile-data {
+        display: grid;
+        gap: 0.65rem;
+    }
+
+    .admin-profile-data div {
+        min-width: 0;
+        display: grid;
+        gap: 0.15rem;
+    }
+
+    .admin-profile-data strong {
+        color: #fff;
+        font-size: 0.95rem;
+        line-height: 1.3;
+        overflow-wrap: anywhere;
+    }
+
+    .admin-profile-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.65rem;
+    }
+
+    .admin-profile-action {
+        min-height: 42px;
+        padding: 0.65rem 0.75rem;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.045);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 0.9rem;
+        transition: var(--sf-transition);
+        white-space: nowrap;
+    }
+
+    .admin-profile-action:hover {
+        transform: translateY(-2px);
+        color: #fff;
+        border-color: rgba(0, 255, 156, 0.24);
+        background: rgba(0, 255, 156, 0.08);
+    }
+
+    .admin-profile-action--primary {
+        background: var(--sf-gradient);
+        color: #000;
+        border-color: transparent;
+    }
+
+    .admin-profile-action--primary:hover {
+        color: #000;
+        box-shadow: 0 12px 26px rgba(0, 255, 156, 0.2);
+    }
+
+    @@media (max-width: 767px) {
+        .admin-profiles-hero {
+            grid-template-columns: 1fr;
+        }
+
+        .admin-profiles-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .admin-profile-actions {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

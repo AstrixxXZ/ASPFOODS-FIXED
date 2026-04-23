@@ -1,0 +1,196 @@
+@model IEnumerable<ASP_Foods2.Data.Order>
+@using System.Linq
+
+@{
+    ViewData["Title"] = "Моите поръчки";
+
+    var orders = (Model ?? Enumerable.Empty<ASP_Foods2.Data.Order>())
+        .OrderByDescending(order => order.DateAdded)
+        .ToList();
+
+    var totalQuantity = orders.Sum(order => order.Quantity);
+    var totalAmount = orders.Sum(order => (order.Products?.Price ?? 0m) * order.Quantity);
+    var latestStatus = orders.FirstOrDefault()?.Status ?? "Няма поръчки";
+}
+
+<section class="my-orders-page">
+    <div class="container">
+        <div class="my-orders-hero my-orders-hero--compact">
+            <div class="my-orders-hero__content">
+                <span class="my-orders-eyebrow">
+                    <i class="bi bi-bag-check"></i>
+                    Моят профил
+                </span>
+                <h1>Моите поръчки</h1>
+                <p>Следи поръчките си и текущия им статус.</p>
+            </div>
+
+            <div class="my-orders-hero__panel">
+                <span>Последен статус</span>
+                <strong>@latestStatus</strong>
+                <p>@orders.Count поръчани продукта</p>
+            </div>
+        </div>
+
+        <div class="my-orders-stats">
+            <article class="my-orders-stat">
+                <span class="my-orders-stat__icon"><i class="bi bi-receipt"></i></span>
+                <div>
+                    <span>Поръчки</span>
+                    <strong>@orders.Count</strong>
+                </div>
+            </article>
+            <article class="my-orders-stat">
+                <span class="my-orders-stat__icon"><i class="bi bi-box2-heart"></i></span>
+                <div>
+                    <span>Общо бройки</span>
+                    <strong>@totalQuantity</strong>
+                </div>
+            </article>
+            <article class="my-orders-stat">
+                <span class="my-orders-stat__icon"><i class="bi bi-cash-coin"></i></span>
+                <div>
+                    <span>Стойност</span>
+                    <strong>@totalAmount.ToString("0.00") лв.</strong>
+                </div>
+            </article>
+        </div>
+
+        @if (orders.Any())
+        {
+            <div class="my-orders-list">
+                @foreach (var order in orders)
+                {
+                    var product = order.Products;
+                    var productName = product?.Name ?? "Продукт";
+                    var catalogId = string.IsNullOrWhiteSpace(product?.CatalogId) ? "Без код" : product.CatalogId;
+                    var status = NormalizeStatus(order.Status);
+                    var statusClass = GetStatusClass(status);
+                    var itemTotal = (product?.Price ?? 0m) * order.Quantity;
+                    var statusPercent = GetStatusPercent(status);
+                    var progressStyle = $"--progress:{statusPercent}%";
+
+                    <article class="my-order-card">
+                        <div class="my-order-card__media">
+                            @if (!string.IsNullOrWhiteSpace(product?.ImageUrl))
+                            {
+                                <img src="@product.ImageUrl" alt="@productName" />
+                            }
+                            else
+                            {
+                                <i class="bi bi-box2-heart"></i>
+                            }
+                        </div>
+
+                        <div class="my-order-card__body">
+                            <div class="my-order-card__top">
+                                <div>
+                                    <span class="my-order-card__number">Поръчка #@order.Id</span>
+                                    <h2>@productName</h2>
+                                    <p>@catalogId</p>
+                                </div>
+                                <span class="my-order-status my-order-status--@statusClass">
+                                    <i class="bi bi-truck"></i>
+                                    @status
+                                </span>
+                            </div>
+
+                            <div class="my-order-meta">
+                                <span><i class="bi bi-calendar2-week"></i> @order.DateAdded.ToString("dd.MM.yyyy HH:mm")</span>
+                                <span><i class="bi bi-layers"></i> @order.Quantity бр.</span>
+                                <span><i class="bi bi-cash-coin"></i> @itemTotal.ToString("0.00") лв.</span>
+                            </div>
+
+                            <div class="my-order-tracker my-order-tracker--@statusClass"
+                                 style="@progressStyle"
+                                 role="progressbar"
+                                 aria-label="Статус на поръчката"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 aria-valuenow="@statusPercent">
+                                <div class="my-order-tracker__meter" aria-hidden="true">
+                                    <span class="my-order-tracker__fill"></span>
+                                    <span class="my-order-tracker__truck">
+                                        <i class="bi bi-truck"></i>
+                                    </span>
+                                    <strong>@statusPercent%</strong>
+                                </div>
+                                <div class="my-order-tracker__content">
+                                    <span>Статус на доставка</span>
+                                    <strong>@status</strong>
+                                    <small>@GetStatusHint(status)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="my-orders-empty">
+                <div class="my-orders-empty__icon">
+                    <i class="bi bi-bag-x"></i>
+                </div>
+                <h2>Все още нямаш поръчки</h2>
+                <p>Когато потвърдиш количката си, поръчките ще се появят тук със статус за проследяване.</p>
+                <a asp-controller="Home" asp-action="Products" class="order-edit-btn order-edit-btn--primary">
+                    <i class="bi bi-box-seam"></i>
+                    <span>Разгледай продукти</span>
+                </a>
+            </div>
+        }
+    </div>
+</section>
+
+@functions {
+    private static string NormalizeStatus(string? status)
+    {
+        var normalizedStatus = (status ?? string.Empty).Trim();
+
+        return normalizedStatus switch
+        {
+            "Обработва се" => "Обработва се",
+            "Изпратена" => "Изпратена",
+            "Доставена" => "Доставена",
+            "Отказана" => "Отказана",
+            _ => "Приета"
+        };
+    }
+
+    private static string GetStatusClass(string status)
+    {
+        return NormalizeStatus(status) switch
+        {
+            "Обработва се" => "processing",
+            "Изпратена" => "sent",
+            "Доставена" => "delivered",
+            "Отказана" => "cancelled",
+            _ => "accepted"
+        };
+    }
+
+    private static int GetStatusPercent(string status)
+    {
+        return NormalizeStatus(status) switch
+        {
+            "Обработва се" => 45,
+            "Изпратена" => 75,
+            "Доставена" => 100,
+            "Отказана" => 0,
+            _ => 20
+        };
+    }
+
+    private static string GetStatusHint(string status)
+    {
+        return NormalizeStatus(status) switch
+        {
+            "Обработва се" => "Подготвяме поръчката ти.",
+            "Изпратена" => "Поръчката е на път.",
+            "Доставена" => "Поръчката е доставена.",
+            "Отказана" => "Поръчката е отказана.",
+            _ => "Поръчката е приета."
+        };
+    }
+}

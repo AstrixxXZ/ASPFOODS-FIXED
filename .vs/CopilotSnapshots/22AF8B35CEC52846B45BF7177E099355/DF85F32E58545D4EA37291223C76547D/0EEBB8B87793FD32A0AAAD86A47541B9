@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Продукти";
+}
+
+<div class="page-hero">
+    <div class="container">
+        <h1>Натурални <span class="text-gradient">Суперхрани</span></h1>
+        <p>Подбрани продукти за ежедневна енергия, силен имунитет и устойчив тонус.</p>
+    </div>
+</div>
+
+<div class="container">
+    <section class="sf-section" style="padding-top: 0;">
+        <div class="sf-grid">
+            <article class="sf-card sf-product-card">
+                <div class="product-image" style="background: radial-gradient(circle, rgba(0,255,156,0.1) 0%, transparent 70%); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 4rem;">🌿</span>
+                </div>
+                <h3>Спирулина</h3>
+                <p>Висока концентрация на протеин, витамини и микроелементи за активен начин на живот.</p>
+                <div class="product-price">86.90 лв</div>
+                <button class="btn-buy">
+                    <i class="bi bi-cart-plus me-2"></i>Добави в количка
+                </button>
+            </article>
+
+            <article class="sf-card sf-product-card">
+                <div class="product-image" style="background: radial-gradient(circle, rgba(255,193,7,0.1) 0%, transparent 70%); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 4rem;">🌾</span>
+                </div>
+                <h3>Куркума</h3>
+                <p>Подпомага възстановяването на мускулите и ставите при активно спортуващи хора.</p>
+                <div class="product-price">55.40 лв</div>
+                <button class="btn-buy">
+                    <i class="bi bi-cart-plus me-2"></i>Добави в количка
+                </button>
+            </article>
+
+            <article class="sf-card sf-product-card">
+                <div class="product-image" style="background: radial-gradient(circle, rgba(139,69,19,0.1) 0%, transparent 70%); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 4rem;">⚡</span>
+                </div>
+                <h3>Мака</h3>
+                <p>Адаптоген за издръжливост, баланс на хормоните и възстановяване след натоварване.</p>
+                <div class="product-price">30.80 лв</div>
+                <button class="btn-buy">
+                    <i class="bi bi-cart-plus me-2"></i>Добави в количка
+                </button>
+            </article>
+
+            <article class="sf-card sf-product-card">
+                <div class="product-image" style="background: radial-gradient(circle, rgba(0,128,0,0.1) 0%, transparent 70%); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 4rem;">🌊</span>
+                </div>
+                <h3>Водорасли</h3>
+                <p>Комбинация от зелени суперхрани за тонус, имунна защита и ясна концентрация.</p>
+                <div class="product-price">48.70 лв</div>
+                <button class="btn-buy">
+                    <i class="bi bi-cart-plus me-2"></i>Добави в количка
+                </button>
+            </article>
+
+            <article class="sf-card sf-product-card">
+                <div class="product-image" style="background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 4rem;">🥛</span>
+                </div>
+                <h3>Коластра</h3>
+                <p>Концентрирани имуноглобулини и аминокиселини за бързо възстановяване и сила.</p>
+                <div class="product-price">120.00 лв</div>
+                <button class="btn-buy">
+                    <i class="bi bi-cart-plus me-2"></i>Добави в количка
+                </button>
+            </article>
+
+            <article class="sf-card sf-product-card">
+                <div class="product-image" style="background: radial-gradient(circle, rgba(0,255,156,0.08) 0%, transparent 70%); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 4rem;">🥄</span>
+                </div>
+                <h3>Чия семена</h3>
+                <p>Богати на Омега-3 мастни киселини и фибри за здравословно храносмилане.</p>
+                <div class="product-price">24.90 лв</div>
+                <button class="btn-buy">
+                    <i class="bi bi-cart-plus me-2"></i>Добави в количка
+                </button>
+            </article>
+        </div>
+    </section>
+</div>

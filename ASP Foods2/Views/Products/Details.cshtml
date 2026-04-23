@@ -1,0 +1,137 @@
+@model ASP_Foods2.Data.Product
+
+@{
+    ViewData["Title"] = "Детайли за продукт";
+}
+
+<div class="page-hero" style="padding-bottom: 2rem;">
+    <div class="container">
+        <h1><i class="bi bi-eye me-3"></i>Детайли за <span class="text-gradient">Продукт</span></h1>
+        <p>Пълен преглед на информацията и снимката на продукта</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="product-details-card">
+        <div class="product-details-media">
+            @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" alt="@Model.Name" class="product-details-image" />
+            }
+            else
+            {
+                <div class="product-details-placeholder">
+                    <i class="bi bi-card-image"></i>
+                    <span>Няма качена снимка</span>
+                </div>
+            }
+        </div>
+        <div class="product-details-content">
+            <h2>@Model.Name</h2>
+            <p class="product-details-description">@Model.Description</p>
+            <dl class="row product-details-list">
+                <dt class="col-sm-4">Каталожен номер</dt>
+                <dd class="col-sm-8">@Model.CatalogId</dd>
+                <dt class="col-sm-4">Категория</dt>
+                <dd class="col-sm-8">@Model.Categories?.Name</dd>
+                <dt class="col-sm-4">Тип</dt>
+                <dd class="col-sm-8">@Model.TypeProducts?.Name</dd>
+                <dt class="col-sm-4">Марка</dt>
+                <dd class="col-sm-8">@Model.Brands?.Name</dd>
+                <dt class="col-sm-4">Количество</dt>
+                <dd class="col-sm-8">@Model.Quantity @Model.Units?.Name</dd>
+                <dt class="col-sm-4">Цена</dt>
+                <dd class="col-sm-8 text-success">@Model.Price.ToString("F2") лв</dd>
+                <dt class="col-sm-4">Добавен</dt>
+                <dd class="col-sm-8">@Model.DateAdded.ToString("dd.MM.yyyy")</dd>
+            </dl>
+            <div class="product-details-actions">
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn-admin-primary">Редактирай</a>
+                <a asp-action="Index" class="btn-admin-secondary">Назад към списъка</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-details-card {
+        display: grid;
+        grid-template-columns: minmax(260px, 340px) 1fr;
+        gap: 2rem;
+        background: var(--sf-bg-card);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: var(--sf-radius-lg);
+        padding: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .product-details-media {
+        border-radius: 20px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.03);
+        min-height: 320px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .product-details-image {
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+    }
+
+    .product-details-placeholder {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+        justify-content: center;
+        color: var(--sf-text-muted);
+    }
+
+    .product-details-placeholder i {
+        font-size: 2.2rem;
+        color: var(--sf-green);
+    }
+
+    .product-details-content h2 {
+        margin-bottom: 0.75rem;
+        color: var(--sf-text);
+        font-weight: 800;
+    }
+
+    .product-details-description {
+        color: var(--sf-text-muted);
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+    }
+
+    .product-details-list dt,
+    .product-details-list dd {
+        padding: 0.6rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .product-details-list dt {
+        color: var(--sf-text-muted);
+    }
+
+    .product-details-list dd {
+        color: var(--sf-text);
+        font-weight: 500;
+    }
+
+    .product-details-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    @@media (max-width: 768px) {
+        .product-details-card {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

@@ -1,0 +1,336 @@
+@{
+    ViewData["Title"] = "Начало";
+    var isAuthenticated = User.Identity?.IsAuthenticated == true;
+}
+
+@if (!isAuthenticated)
+{
+    <div class="guest-promo-modal is-hidden" id="guestPromoModal" role="dialog" aria-modal="true" aria-label="Специална оферта">
+        <div class="guest-promo-backdrop" data-promo-close></div>
+        <div class="guest-promo-dialog">
+            <button type="button" class="guest-promo-close" data-promo-close aria-label="Затвори промоцията">
+                <i class="bi bi-x-lg"></i>
+            </button>
+            <a asp-area="Identity" asp-page="/Account/Register" class="guest-promo-link" aria-label="Регистрирай се за промо оферта">
+                <img src="~/images/promociqtamanqk.png" alt="20% отстъпка за всички суперхрани при регистрация" />
+            </a>
+        </div>
+    </div>
+
+    <style>
+        body.promo-modal-open {
+            overflow: hidden;
+        }
+
+        .guest-promo-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            perspective: 1200px;
+        }
+
+        .guest-promo-modal.is-hidden {
+            display: none;
+        }
+
+        .guest-promo-backdrop {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 50% 45%, rgba(0, 255, 156, 0.12), transparent 34%),
+                rgba(0, 0, 0, 0.42);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            animation: promoBackdropIn 0.65s ease forwards;
+        }
+
+        .guest-promo-dialog {
+            position: relative;
+            width: fit-content;
+            max-width: min(88vw, 620px);
+            overflow: hidden;
+            border-radius: 14px;
+            background: transparent;
+            box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55), 0 0 0 rgba(0, 255, 156, 0);
+            animation: promoModalIn 1s cubic-bezier(0.16, 1, 0.3, 1), promoGlowPulse 2.4s ease-in-out 1s infinite;
+            transform-origin: center;
+        }
+
+        .guest-promo-dialog::before,
+        .guest-promo-dialog::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        .guest-promo-dialog::before {
+            z-index: 1;
+            border: 1px solid rgba(0, 255, 156, 0.34);
+            box-shadow: inset 0 0 24px rgba(0, 255, 156, 0.12);
+            opacity: 0;
+            animation: promoEdgeFlash 1.35s ease-out 0.18s both;
+        }
+
+        .guest-promo-dialog::after {
+            z-index: 1;
+            background: linear-gradient(115deg, transparent 0%, transparent 38%, rgba(255, 255, 255, 0.5) 48%, transparent 58%, transparent 100%);
+            transform: translateX(-130%) skewX(-12deg);
+            mix-blend-mode: screen;
+            animation: promoLightSweep 1.15s ease-out 0.45s both;
+        }
+
+        .guest-promo-link {
+            display: block;
+        }
+
+        .guest-promo-link img {
+            display: block;
+            width: min(88vw, 620px);
+            height: auto;
+            animation: promoImageSnap 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .guest-promo-close {
+            position: absolute;
+            top: 0.7rem;
+            right: 0.7rem;
+            z-index: 2;
+            width: 42px;
+            height: 42px;
+            border: 0;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10, 10, 10, 0.76);
+            color: #fff;
+            cursor: pointer;
+            transition: var(--sf-transition);
+        }
+
+        .guest-promo-close:hover,
+        .guest-promo-close:focus {
+            background: var(--sf-green);
+            color: #000;
+            outline: none;
+        }
+
+        @@keyframes promoModalIn {
+            0% {
+                opacity: 0;
+                transform: translateY(52px) scale(0.74) rotateX(58deg) rotateZ(-5deg);
+                filter: blur(14px) saturate(0.7);
+                clip-path: inset(42% 42% 42% 42% round 28px);
+            }
+
+            42% {
+                opacity: 1;
+                transform: translateY(-10px) scale(1.035) rotateX(-8deg) rotateZ(1.6deg);
+                filter: blur(0) saturate(1.2);
+                clip-path: inset(0 0 0 0 round 14px);
+            }
+
+            70% {
+                opacity: 1;
+                transform: translateY(3px) scale(0.992) rotateX(2deg) rotateZ(-0.35deg);
+                filter: blur(0);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+                filter: blur(0);
+            }
+        }
+
+        @@keyframes promoImageSnap {
+            0% {
+                transform: scale(1.18);
+            }
+
+            55% {
+                transform: scale(0.985);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @@keyframes promoLightSweep {
+            0%, 18% {
+                opacity: 0;
+                transform: translateX(-130%) skewX(-12deg);
+            }
+
+            38% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateX(130%) skewX(-12deg);
+            }
+        }
+
+        @@keyframes promoEdgeFlash {
+            0% {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+
+            35% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.72;
+                transform: scale(1);
+            }
+        }
+
+        @@keyframes promoGlowPulse {
+            0%, 100% {
+                box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55), 0 0 0 rgba(0, 255, 156, 0);
+            }
+
+            50% {
+                box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55), 0 0 34px rgba(0, 255, 156, 0.18);
+            }
+        }
+
+        @@keyframes promoBackdropIn {
+            from {
+                opacity: 0;
+                transform: scale(1.04);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @@media (max-width: 767px) {
+            .guest-promo-dialog {
+                max-width: min(90vw, 420px);
+            }
+
+            .guest-promo-link img {
+                width: min(90vw, 420px);
+            }
+
+            .guest-promo-close {
+                width: 38px;
+                height: 38px;
+            }
+        }
+    </style>
+
+    <script>
+        (() => {
+            const modal = document.getElementById('guestPromoModal');
+            if (!modal) {
+                return;
+            }
+
+            const showModal = () => {
+                modal.classList.remove('is-hidden');
+                document.body.classList.add('promo-modal-open');
+            };
+
+            const closeModal = () => {
+                modal.classList.add('is-hidden');
+                document.body.classList.remove('promo-modal-open');
+            };
+
+            modal.querySelectorAll('[data-promo-close]').forEach((element) => {
+                element.addEventListener('click', closeModal);
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && !modal.classList.contains('is-hidden')) {
+                    closeModal();
+                }
+            });
+
+            window.setTimeout(showModal, 10000);
+        })();
+    </script>
+}
+
+<div class="hero-section">
+    <div class="hero-glass">
+        <h1>Чистата енергия<br>на природата</h1>
+        <p>Суперхрани, подбрани за максимална сила и баланс. Открийте силата на природата с нашите 100% натурални продукти.</p>
+        <a class="btn-sf-hero" asp-controller="Home" asp-action="Products">
+            <i class="bi bi-box-seam"></i> Разгледай продуктите
+        </a>
+    </div>
+</div>
+
+<div class="container">
+    <section class="sf-section">
+        <div class="sf-section-title">
+            <h2>Нашите <span class="text-gradient">Суперхрани</span></h2>
+            <p>Подбрани продукти за ежедневна енергия и силен имунитет</p>
+        </div>
+        <div class="sf-grid">
+            <div class="sf-card">
+                <span class="sf-card-icon">🌿</span>
+                <h3>Спирулина</h3>
+                <p>Висока концентрация на протеин, витамини и микроелементи за активен начин на живот.</p>
+                <span class="sf-tag">Енергия</span>
+            </div>
+            <div class="sf-card">
+                <span class="sf-card-icon">🥄</span>
+                <h3>Чия</h3>
+                <p>Омега-3 и фибри за дълготрайна ситост и балансирано хранене всеки ден.</p>
+                <span class="sf-tag">Баланс</span>
+            </div>
+            <div class="sf-card">
+                <span class="sf-card-icon">⚡</span>
+                <h3>Мака</h3>
+                <p>Адаптоген за издръжливост, хормонален баланс и възстановяване след натоварване.</p>
+                <span class="sf-tag">Сила</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="sf-benefits">
+        <div class="sf-benefit">
+            <div class="sf-benefit-icon">
+                <i class="bi bi-leaf"></i>
+            </div>
+            <h4>100% Натурално</h4>
+            <p>Без добавки, оцветители и синтетични съставки</p>
+        </div>
+        <div class="sf-benefit">
+            <div class="sf-benefit-icon">
+                <i class="bi bi-clipboard2-pulse"></i>
+            </div>
+            <h4>Научно Подкрепено</h4>
+            <p>Доказани хранителни свойства и ползи за здравето</p>
+        </div>
+        <div class="sf-benefit">
+            <div class="sf-benefit-icon">
+                <i class="bi bi-lightning-charge"></i>
+            </div>
+            <h4>Бързо Усвояване</h4>
+            <p>Максимална бионаличност за вашето тяло</p>
+        </div>
+        <div class="sf-benefit">
+            <div class="sf-benefit-icon">
+                <i class="bi bi-truck"></i>
+            </div>
+            <h4>Бърза Доставка</h4>
+            <p>Доставка до всяка точка в страната до 48 часа</p>
+        </div>
+    </section>
+</div>

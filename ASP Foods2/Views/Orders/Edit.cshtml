@@ -1,0 +1,155 @@
+@model ASP_Foods2.Data.Order
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Редакция на поръчка";
+
+    var clientOptions = ViewBag.ClientId as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+    var productOptions = ViewBag.ProductId as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+    var selectedClient = clientOptions.FirstOrDefault(option => option.Selected)?.Text ?? "Избери клиент";
+    var selectedProduct = productOptions.FirstOrDefault(option => option.Selected)?.Text ?? "Избери продукт";
+    var selectedStatus = string.IsNullOrWhiteSpace(Model.Status) ? "Приета" : Model.Status;
+}
+
+<section class="order-edit-page">
+    <div class="container">
+        <div class="order-edit-hero">
+            <div class="order-edit-hero__content">
+                <a asp-action="Index" class="order-edit-back">
+                    <i class="bi bi-arrow-left"></i>
+                    <span>Към поръчките</span>
+                </a>
+
+                <span class="order-edit-eyebrow">
+                    <i class="bi bi-pencil-square"></i>
+                    Админ редакция
+                </span>
+                <h1>Поръчка #@Model.Id</h1>
+                <p>Обнови клиента, продукта, количеството, датата и статуса в една чиста, бърза форма.</p>
+            </div>
+
+            <div class="order-edit-hero__panel">
+                <span class="order-edit-hero__label">Текущ статус</span>
+                <strong>@selectedStatus</strong>
+                <time datetime="@Model.DateAdded.ToString("O")">@Model.DateAdded.ToString("dd.MM.yyyy HH:mm")</time>
+            </div>
+        </div>
+
+        <div class="order-edit-shell">
+            <aside class="order-edit-summary" aria-label="Преглед на поръчката">
+                <div class="order-edit-summary__header">
+                    <span class="order-edit-summary__icon">
+                        <i class="bi bi-receipt-cutoff"></i>
+                    </span>
+                    <div>
+                        <span>Бърз преглед</span>
+                        <strong>#@Model.Id</strong>
+                    </div>
+                </div>
+
+                <div class="order-edit-summary__list">
+                    <div class="order-edit-summary__item">
+                        <span><i class="bi bi-person"></i> Клиент</span>
+                        <strong>@selectedClient</strong>
+                    </div>
+                    <div class="order-edit-summary__item">
+                        <span><i class="bi bi-box2-heart"></i> Продукт</span>
+                        <strong>@selectedProduct</strong>
+                    </div>
+                    <div class="order-edit-summary__item">
+                        <span><i class="bi bi-layers"></i> Количество</span>
+                        <strong>@Model.Quantity бр.</strong>
+                    </div>
+                    <div class="order-edit-summary__item">
+                        <span><i class="bi bi-calendar2-week"></i> Дата</span>
+                        <strong>@Model.DateAdded.ToString("dd.MM.yyyy")</strong>
+                    </div>
+                    <div class="order-edit-summary__item">
+                        <span><i class="bi bi-truck"></i> Статус</span>
+                        <strong>@selectedStatus</strong>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="order-edit-card">
+                <div class="order-edit-card__header">
+                    <div>
+                        <span class="order-edit-card__eyebrow">Детайли</span>
+                        <h2>Редактирай поръчката</h2>
+                    </div>
+                    <span class="order-edit-card__badge">
+                        <i class="bi bi-shield-check"></i>
+                        Само админ
+                    </span>
+                </div>
+
+                <form asp-action="Edit" class="order-edit-form">
+                    <div asp-validation-summary="ModelOnly" class="order-edit-validation text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="order-edit-form__grid">
+                        <div class="order-edit-field">
+                            <label asp-for="ClientId" class="order-edit-field__label">Клиент</label>
+                            <div class="order-edit-field__control">
+                                <i class="bi bi-person-check"></i>
+                                <select asp-for="ClientId" class="form-select order-edit-input" asp-items="ViewBag.ClientId"></select>
+                            </div>
+                            <span asp-validation-for="ClientId" class="order-edit-field__error text-danger"></span>
+                        </div>
+
+                        <div class="order-edit-field">
+                            <label asp-for="ProductId" class="order-edit-field__label">Продукт</label>
+                            <div class="order-edit-field__control">
+                                <i class="bi bi-bag-heart"></i>
+                                <select asp-for="ProductId" class="form-select order-edit-input" asp-items="ViewBag.ProductId"></select>
+                            </div>
+                            <span asp-validation-for="ProductId" class="order-edit-field__error text-danger"></span>
+                        </div>
+
+                        <div class="order-edit-field">
+                            <label asp-for="Quantity" class="order-edit-field__label">Количество</label>
+                            <div class="order-edit-field__control">
+                                <i class="bi bi-123"></i>
+                                <input asp-for="Quantity" class="form-control order-edit-input" min="1" />
+                            </div>
+                            <span asp-validation-for="Quantity" class="order-edit-field__error text-danger"></span>
+                        </div>
+
+                        <div class="order-edit-field">
+                            <label asp-for="DateAdded" class="order-edit-field__label">Дата на поръчката</label>
+                            <div class="order-edit-field__control">
+                                <i class="bi bi-clock-history"></i>
+                                <input asp-for="DateAdded" class="form-control order-edit-input" />
+                            </div>
+                            <span asp-validation-for="DateAdded" class="order-edit-field__error text-danger"></span>
+                        </div>
+
+                        <div class="order-edit-field order-edit-field--wide">
+                            <label asp-for="Status" class="order-edit-field__label">Статус</label>
+                            <div class="order-edit-field__control">
+                                <i class="bi bi-truck"></i>
+                                <select asp-for="Status" class="form-select order-edit-input" asp-items="ViewBag.Status"></select>
+                            </div>
+                            <span asp-validation-for="Status" class="order-edit-field__error text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="order-edit-actions">
+                        <button type="submit" class="order-edit-btn order-edit-btn--primary">
+                            <i class="bi bi-check2-circle"></i>
+                            <span>Запази промените</span>
+                        </button>
+                        <a asp-action="Index" class="order-edit-btn order-edit-btn--ghost">
+                            <i class="bi bi-x-lg"></i>
+                            <span>Отказ</span>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

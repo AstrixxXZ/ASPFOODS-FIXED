@@ -1,0 +1,236 @@
+@page
+@model ASP_Foods2.Areas.Identity.Pages.Account.AccessDeniedModel
+
+@{
+    ViewData["Title"] = "Нямаме достъп";
+}
+
+<section class="access-denied-page">
+    <div class="access-denied-stage">
+        <div class="access-denied-orbit access-denied-orbit--one"></div>
+        <div class="access-denied-orbit access-denied-orbit--two"></div>
+        <div class="access-denied-core">
+            <div class="access-denied-lock">
+                <i class="bi bi-shield-lock-fill"></i>
+            </div>
+            <span class="access-denied-badge">ADMIN ONLY ZONE</span>
+            <h1>Опаа. Май нямаме достъп не сме администратори?!?!</h1>
+            <p>
+                Тази страница е запазена за админ акаунт. Ние май се опитахме да влезем зад кулисите
+                без нужния пропуск.
+            </p>
+
+            <div class="access-denied-actions">
+                <a asp-controller="Home" asp-action="Products" class="btn-sf-primary access-denied-btn">
+                    <i class="bi bi-arrow-left-circle me-2"></i>Обратно към продуктите
+                </a>
+                <a asp-controller="Home" asp-action="Index" class="access-denied-link">
+                    Към началото
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .access-denied-page {
+        min-height: calc(100vh - 180px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8rem 1rem 4rem;
+        background:
+            radial-gradient(circle at 20% 20%, rgba(0, 255, 156, 0.08), transparent 30%),
+            radial-gradient(circle at 80% 10%, rgba(34, 211, 238, 0.09), transparent 28%),
+            radial-gradient(circle at 50% 80%, rgba(239, 68, 68, 0.12), transparent 35%);
+    }
+
+    .access-denied-stage {
+        position: relative;
+        width: min(100%, 920px);
+        padding: 3rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .access-denied-orbit {
+        position: absolute;
+        border-radius: 999px;
+        border: 1px dashed rgba(255, 255, 255, 0.12);
+        animation: accessSpin 14s linear infinite;
+    }
+
+    .access-denied-orbit::before,
+    .access-denied-orbit::after {
+        content: "";
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--sf-green);
+        box-shadow: 0 0 20px rgba(0, 255, 156, 0.6);
+    }
+
+    .access-denied-orbit--one {
+        width: 520px;
+        height: 520px;
+    }
+
+    .access-denied-orbit--one::before {
+        top: 22px;
+        left: 72px;
+    }
+
+    .access-denied-orbit--one::after {
+        right: 88px;
+        bottom: 18px;
+    }
+
+    .access-denied-orbit--two {
+        width: 680px;
+        height: 680px;
+        animation-direction: reverse;
+        animation-duration: 20s;
+        border-color: rgba(34, 211, 238, 0.12);
+    }
+
+    .access-denied-orbit--two::before {
+        top: 110px;
+        right: 46px;
+        background: #22d3ee;
+        box-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
+    }
+
+    .access-denied-orbit--two::after {
+        left: 54px;
+        bottom: 120px;
+        background: #f97316;
+        box-shadow: 0 0 20px rgba(249, 115, 22, 0.45);
+    }
+
+    .access-denied-core {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 640px);
+        text-align: center;
+        padding: 3rem 2rem;
+        border-radius: 32px;
+        background: linear-gradient(180deg, rgba(20, 20, 20, 0.96) 0%, rgba(13, 13, 13, 0.97) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(14px);
+    }
+
+    .access-denied-lock {
+        width: 108px;
+        height: 108px;
+        margin: 0 auto 1.25rem;
+        border-radius: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(0, 255, 156, 0.18), rgba(34, 211, 238, 0.12));
+        border: 1px solid rgba(0, 255, 156, 0.22);
+        color: var(--sf-green);
+        font-size: 3rem;
+        animation: accessPulse 2.8s ease-in-out infinite;
+    }
+
+    .access-denied-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 0.85rem;
+        margin-bottom: 1rem;
+        border-radius: 999px;
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.22);
+        color: #fca5a5;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+    }
+
+    .access-denied-core h1 {
+        margin: 0 0 1rem;
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        line-height: 1.06;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+    }
+
+    .access-denied-core p {
+        max-width: 36rem;
+        margin: 0 auto;
+        color: var(--sf-text-muted);
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    .access-denied-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+
+    .access-denied-btn {
+        min-width: 240px;
+    }
+
+    .access-denied-link {
+        color: rgba(255, 255, 255, 0.72);
+        text-decoration: none;
+        font-weight: 700;
+        transition: var(--sf-transition);
+    }
+
+    .access-denied-link:hover {
+        color: var(--sf-green);
+    }
+
+    @@keyframes accessSpin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    @@keyframes accessPulse {
+        0%, 100% {
+            transform: translateY(0) scale(1);
+            box-shadow: 0 0 0 rgba(0, 255, 156, 0);
+        }
+        50% {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 18px 35px rgba(0, 255, 156, 0.16);
+        }
+    }
+
+    @@media (max-width: 767px) {
+        .access-denied-stage {
+            padding: 1.5rem 0;
+        }
+
+        .access-denied-core {
+            padding: 2.25rem 1.4rem;
+        }
+
+        .access-denied-orbit--one {
+            width: 360px;
+            height: 360px;
+        }
+
+        .access-denied-orbit--two {
+            width: 460px;
+            height: 460px;
+        }
+
+        .access-denied-btn {
+            width: 100%;
+            min-width: 0;
+        }
+    }
+</style>

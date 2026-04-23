@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Начало";
+}
+
+<div class="hero-section">
+    <div class="hero-glass">
+        <h1>Чистата енергия<br>на природата</h1>
+        <p>Суперхрани, подбрани за максимална сила и баланс.</p>
+        <a class="btn-sf-hero" asp-area="Identity" asp-page="/Account/Register">Разгледай продуктите</a>
+    </div>
+</div>
+
+<section style="text-align: center; padding: 40px 0;">
+    <h2 style="font-weight: 700; margin-bottom: 8px;">Нашите суперхрани</h2>
+    <div class="sf-grid">
+        <div class="sf-card">
+            <h3>Спирулина</h3>
+            <p>Висока концентрация на протеин и микроелементи.</p>
+            <span class="sf-tag">Енергия</span>
+        </div>
+        <div class="sf-card">
+            <h3>Чия</h3>
+            <p>Омега-3 и фибри за дълготрайна ситост.</p>
+            <span class="sf-tag">Баланс</span>
+        </div>
+        <div class="sf-card">
+            <h3>Мака</h3>
+            <p>Адаптоген за издръжливост и хормонален баланс.</p>
+            <span class="sf-tag">Сила</span>
+        </div>
+    </div>
+</section>
+
+<section class="sf-benefits">
+    <div>
+        <h4>100% Натурално</h4>
+        <p>Без добавки и синтетика</p>
+    </div>
+    <div>
+        <h4>Научно подкрепено</h4>
+        <p>Доказани хранителни свойства</p>
+    </div>
+    <div>
+        <h4>Лесно усвояване</h4>
+        <p>Максимална бионаличност</p>
+    </div>
+</section>

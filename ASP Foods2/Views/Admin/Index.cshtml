@@ -1,0 +1,163 @@
+﻿@model ASP_Foods2.Models.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Админ панел";
+}
+
+<section class="admin-dashboard-page">
+    <div class="container">
+        <div class="admin-dashboard-hero">
+            <div class="admin-dashboard-hero__content">
+                <span class="admin-dashboard-eyebrow">
+                    <i class="bi bi-shield-check"></i>
+                    Център за управление
+                </span>
+                <h1>Администраторски панел за магазина</h1>
+                <p>
+                    Управлявай продукти, марки и поръчки от едно място с по-ясна структура,
+                    бързи преки пътища и обзор на най-важното в каталога.
+                </p>
+            </div>
+
+            <div class="admin-dashboard-hero__panel">
+                <span class="admin-dashboard-hero__label">Общо поръчани бройки</span>
+                <strong>@Model.TotalOrderedQuantity</strong>
+                <p>Бърз ориентир за движението на поръчките в системата.</p>
+            </div>
+
+            <div class="admin-dashboard-hero__panel">
+                <span class="admin-dashboard-hero__label">Общо поръчани бройки</span>
+                <strong>@Model.TotalOrderedQuantity</strong>
+                <p>Бърз ориентир за движението на поръчките в системата.</p>
+            </div>
+        </div>
+
+        <div class="admin-dashboard-stats">
+            <article class="admin-stat-card">
+                <span class="admin-stat-card__icon"><i class="bi bi-box-seam"></i></span>
+                <div>
+                    <span class="admin-stat-card__label">Продукти</span>
+                    <strong>@Model.ProductCount</strong>
+                </div>
+            </article>
+
+            <article class="admin-stat-card">
+                <span class="admin-stat-card__icon"><i class="bi bi-tags"></i></span>
+                <div>
+                    <span class="admin-stat-card__label">Марки</span>
+                    <strong>@Model.BrandCount</strong>
+                </div>
+            </article>
+
+            <article class="admin-stat-card">
+                <span class="admin-stat-card__icon"><i class="bi bi-receipt"></i></span>
+                <div>
+                    <span class="admin-stat-card__label">Поръчки</span>
+                    <strong>@Model.OrderCount</strong>
+                </div>
+            </article>
+
+            <article class="admin-stat-card">
+                <span class="admin-stat-card__icon"><i class="bi bi-grid-3x3-gap"></i></span>
+                <div>
+                    <span class="admin-stat-card__label">Категории</span>
+                    <strong>@Model.CategoryCount</strong>
+                </div>
+            </article>
+        </div>
+
+        <div class="admin-dashboard-grid">
+            <section class="admin-panel-card">
+                <div class="admin-panel-card__header">
+                    <div>
+                        <span class="admin-panel-card__eyebrow">Бързи действия</span>
+                        <h2>Управление на съдържанието</h2>
+                    </div>
+                    <span class="admin-panel-card__badge">SuperFoods</span>
+                </div>
+
+                <div class="admin-shortcuts">
+                    <a asp-controller="Products" asp-action="Create" class="admin-shortcut">
+                        <span class="admin-shortcut__icon"><i class="bi bi-plus-square"></i></span>
+                        <div>
+                            <strong>Добави продукт</strong>
+                            <p>Създай нов артикул с цена, количество и снимка.</p>
+                        </div>
+                    </a>
+
+                    <a asp-controller="Brands" asp-action="Create" class="admin-shortcut">
+                        <span class="admin-shortcut__icon"><i class="bi bi-bookmark-plus"></i></span>
+                        <div>
+                            <strong>Добави марка</strong>
+                            <p>Поддържай каталога подреден с нови брандове.</p>
+                        </div>
+                    </a>
+
+                    <a asp-controller="Orders" asp-action="Index" class="admin-shortcut">
+                        <span class="admin-shortcut__icon"><i class="bi bi-clipboard-data"></i></span>
+                        <div>
+                            <strong>Виж поръчки</strong>
+                            <p>Прегледай всички направени поръчки и техните детайли.</p>
+                        </div>
+                    </a>
+
+                    <a asp-controller="Admin" asp-action="Profiles" class="admin-shortcut">
+                        <span class="admin-shortcut__icon"><i class="bi bi-people"></i></span>
+                        <div>
+                            <strong>Профили</strong>
+                            <p>Виж потребителите, редактирай профили и занулявай пароли.</p>
+                        </div>
+                    </a>
+                    <a asp-controller="Categories" asp-action="Index" class="admin-shortcut">
+                        <span class="admin-shortcut__icon"><i class="bi bi-diagram-3"></i></span>
+                        <div>
+                            <strong>Категории</strong>
+                            <p>Следи структурата на каталога и групите продукти.</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="admin-panel-card">
+                <div class="admin-panel-card__header">
+                    <div>
+                        <span class="admin-panel-card__eyebrow">Последна активност</span>
+                        <h2>Най-нови поръчки</h2>
+                    </div>
+                    <a asp-controller="Orders" asp-action="Index" class="admin-panel-card__link">
+                        Отвори всички
+                    </a>
+                </div>
+
+                @if (Model.RecentOrders.Any())
+                {
+                    <div class="admin-recent-orders">
+                        @foreach (var order in Model.RecentOrders)
+                        {
+                            <article class="admin-recent-order">
+                                <div class="admin-recent-order__main">
+                                    <strong>@order.ProductName</strong>
+                                    <span>@order.ClientName</span>
+                                </div>
+                                <div class="admin-recent-order__meta">
+                                    <span>@(string.IsNullOrWhiteSpace(order.ProductCatalogId) ? "Без код" : order.ProductCatalogId)</span>
+                                    <span>@order.Quantity бр.</span>
+                                    <time>@order.DateAdded.ToString("dd.MM.yyyy HH:mm")</time>
+                                </div>
+                            </article>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="admin-panel-empty">
+                        <i class="bi bi-inbox"></i>
+                        <h3>Все още няма поръчки</h3>
+                        <p>Когато се появят нови поръчки, тук ще виждаш последните записи.</p>
+                    </div>
+                }
+            </section>
+        </div>
+    </div>
+</section>
+

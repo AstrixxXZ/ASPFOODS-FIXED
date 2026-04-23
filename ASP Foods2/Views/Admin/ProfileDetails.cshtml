@@ -1,0 +1,159 @@
+@model ASP_Foods2.Models.AdminProfileDetailsViewModel
+
+@{
+    ViewData["Title"] = "Детайли за профил";
+}
+
+<section class="admin-dashboard-page">
+    <div class="container">
+        <div class="admin-dashboard-hero">
+            <div class="admin-dashboard-hero__content">
+                <span class="admin-dashboard-eyebrow">
+                    <i class="bi bi-person-badge"></i>
+                    Профил
+                </span>
+                <h1>@Model.FirstName @Model.LastName</h1>
+                <p>Детайли за потребителския профил, роли, контактна информация и административни действия.</p>
+            </div>
+
+            <div class="admin-dashboard-hero__panel">
+                <span class="admin-dashboard-hero__label">Поръчки</span>
+                <strong>@Model.OrderCount</strong>
+                <p>Общ брой поръчки, свързани с този профил.</p>
+            </div>
+        </div>
+
+        <div class="admin-dashboard-grid">
+            <section class="admin-panel-card">
+                <div class="admin-panel-card__header">
+                    <div>
+                        <span class="admin-panel-card__eyebrow">Данни</span>
+                        <h2>Информация за профила</h2>
+                    </div>
+                    <a asp-action="Profiles" class="admin-panel-card__link">
+                        <i class="bi bi-arrow-left"></i>
+                        Всички профили
+                    </a>
+                </div>
+
+                <dl class="admin-profile-details">
+                    <dt>Потребителско име</dt>
+                    <dd>@Model.UserName</dd>
+                    <dt>Име</dt>
+                    <dd>@(string.IsNullOrWhiteSpace(Model.FirstName) ? "Няма име" : Model.FirstName)</dd>
+                    <dt>Фамилия</dt>
+                    <dd>@(string.IsNullOrWhiteSpace(Model.LastName) ? "Няма фамилия" : Model.LastName)</dd>
+                    <dt>Имейл</dt>
+                    <dd>@Model.Email</dd>
+                    <dt>Телефон</dt>
+                    <dd>@(string.IsNullOrWhiteSpace(Model.PhoneNumber) ? "Няма телефон" : Model.PhoneNumber)</dd>
+                    <dt>Роли</dt>
+                    <dd>@Model.Roles</dd>
+                    <dt>Имейл потвърден</dt>
+                    <dd>@(Model.EmailConfirmed ? "Да" : "Не")</dd>
+                    <dt>Телефон потвърден</dt>
+                    <dd>@(Model.PhoneNumberConfirmed ? "Да" : "Не")</dd>
+                </dl>
+            </section>
+
+            <section class="admin-panel-card">
+                <div class="admin-panel-card__header">
+                    <div>
+                        <span class="admin-panel-card__eyebrow">Действия</span>
+                        <h2>Администрация</h2>
+                    </div>
+                </div>
+
+                <div class="admin-profile-command-list">
+                    <a asp-action="EditProfile" asp-route-id="@Model.Id" class="admin-shortcut">
+                        <span class="admin-shortcut__icon"><i class="bi bi-pencil-square"></i></span>
+                        <div>
+                            <strong>Редактирай профила</strong>
+                            <p>Промени име, имейл, телефон и потвърждение на имейл.</p>
+                        </div>
+                    </a>
+
+                    <form asp-action="ResetProfilePassword" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Сигурни ли сте, че искате да занулите паролата на този профил към TestPass1?');">
+                        <button type="submit" class="admin-shortcut admin-profile-reset">
+                            <span class="admin-shortcut__icon"><i class="bi bi-key"></i></span>
+                            <span>
+                                <strong>Занули паролата</strong>
+                                <small>Новата парола ще бъде TestPass1.</small>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+
+<style>
+    .admin-profile-details {
+        display: grid;
+        grid-template-columns: 180px minmax(0, 1fr);
+        gap: 0;
+        margin: 0;
+    }
+
+    .admin-profile-details dt,
+    .admin-profile-details dd {
+        padding: 0.85rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .admin-profile-details dt {
+        color: var(--sf-text-muted);
+        font-weight: 700;
+    }
+
+    .admin-profile-details dd {
+        margin: 0;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .admin-profile-command-list {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .admin-profile-command-list form {
+        margin: 0;
+    }
+
+    .admin-profile-reset {
+        width: 100%;
+        border: 1px solid rgba(239, 68, 68, 0.24);
+        color: #fff;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .admin-profile-reset .admin-shortcut__icon {
+        background: rgba(239, 68, 68, 0.11);
+        border-color: rgba(239, 68, 68, 0.22);
+        color: #fca5a5;
+    }
+
+    .admin-profile-reset small {
+        display: block;
+        margin-top: 0.35rem;
+        color: var(--sf-text-muted);
+    }
+
+    @@media (max-width: 767px) {
+        .admin-profile-details {
+            grid-template-columns: 1fr;
+        }
+
+        .admin-profile-details dt {
+            padding-bottom: 0.25rem;
+            border-bottom: none;
+        }
+
+        .admin-profile-details dd {
+            padding-top: 0;
+        }
+    }
+</style>

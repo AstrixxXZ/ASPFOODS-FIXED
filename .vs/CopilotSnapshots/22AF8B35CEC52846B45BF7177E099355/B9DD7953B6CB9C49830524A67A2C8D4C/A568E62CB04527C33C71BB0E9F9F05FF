@@ -1,0 +1,197 @@
+﻿@model ASP_Foods2.Data.Category
+
+@{
+    ViewData["Title"] = "Изтрий категория";
+}
+
+<div class="page-hero" style="padding-bottom: 2rem;">
+    <div class="container">
+        <h1><i class="bi bi-trash3 me-3"></i>Изтрий <span class="text-gradient">Категория</span></h1>
+        <p>Потвърдете изтриването на категорията</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="delete-card">
+                <div class="delete-card-header">
+                    <div class="delete-icon">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+                    <h3>Сигурни ли сте?</h3>
+                    <p>Това действие не може да бъде отменено</p>
+                </div>
+
+                <div class="delete-card-body">
+                    <div class="delete-item">
+                        <div class="delete-item-icon">
+                            <i class="bi bi-folder2"></i>
+                        </div>
+                        <div class="delete-item-info">
+                            <span class="delete-item-label">Категория</span>
+                            <span class="delete-item-value">@Model.Name</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="delete-card-actions">
+                        <a asp-action="Index" class="btn-admin-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>Отказ
+                        </a>
+                        <button type="submit" class="btn-delete">
+                            <i class="bi bi-trash3 me-2"></i>Изтрий завинаги
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .delete-card {
+        background: var(--sf-bg-card);
+        border-radius: var(--sf-radius-lg);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        overflow: hidden;
+        margin-bottom: 3rem;
+    }
+
+    .delete-card-header {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.02) 100%);
+        padding: 2.5rem 2rem;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .delete-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: rgba(239, 68, 68, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: #ef4444;
+        margin: 0 auto 1.5rem;
+    }
+
+    .delete-card-header h3 {
+        margin: 0;
+        font-weight: 700;
+        color: var(--sf-text);
+        font-size: 1.5rem;
+    }
+
+    .delete-card-header p {
+        margin: 0.5rem 0 0;
+        color: var(--sf-text-muted);
+    }
+
+    .delete-card-body {
+        padding: 2rem;
+    }
+
+    .delete-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.25rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: var(--sf-radius);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .delete-item-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background: rgba(239, 68, 68, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        color: #ef4444;
+    }
+
+    .delete-item-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .delete-item-label {
+        font-size: 0.8rem;
+        color: var(--sf-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .delete-item-value {
+        font-weight: 600;
+        color: var(--sf-text);
+        font-size: 1.1rem;
+    }
+
+    .delete-card-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        background: rgba(0, 0, 0, 0.2);
+        gap: 1rem;
+    }
+
+    .btn-admin-secondary {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.9rem 1.5rem;
+        border-radius: 12px;
+        background: transparent;
+        color: var(--sf-text-muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        transition: var(--sf-transition);
+        text-decoration: none;
+    }
+
+    .btn-admin-secondary:hover {
+        border-color: var(--sf-green);
+        color: var(--sf-green);
+    }
+
+    .btn-delete {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.9rem 2rem;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: #fff;
+        font-weight: 700;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+        transition: var(--sf-transition);
+    }
+
+    .btn-delete:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+    }
+
+    @@media (max-width: 576px) {
+        .delete-card-actions {
+            flex-direction: column;
+        }
+
+        .btn-admin-secondary, .btn-delete {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>

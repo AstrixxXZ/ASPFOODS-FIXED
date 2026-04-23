@@ -1,0 +1,185 @@
+﻿@model IEnumerable<ASP_Foods2.Data.Product>
+@{
+    ViewData["Title"] = "Продукти";
+}
+
+<div class="page-hero">
+    <div class="container">
+        <h1>Натурални <span class="text-gradient">Суперхрани</span></h1>
+        <p>Подбрани продукти за ежедневна енергия, силен имунитет и устойчив тонус.</p>
+    </div>
+</div>
+
+<div class="container">
+    <section class="sf-section" style="padding-top: 0;">
+        @if (Model != null && Model.Any())
+        {
+            <div class="sf-grid">
+                @foreach (var product in Model)
+                {
+                    <article class="sf-card sf-product-card">
+                        <div class="product-image" style="background: radial-gradient(circle, rgba(0,255,156,0.1) 0%, transparent 70%); display: flex; align-items: center; justify-content: center;">
+                            <span style="font-size: 4rem;">🌿</span>
+                        </div>
+                        <div class="product-info">
+                            <h3>@product.Name</h3>
+                            <p class="product-description">@product.Description</p>
+                            <div class="product-meta">
+                                @if (product.Categories != null)
+                                {
+                                    <span class="sf-tag-small">@product.Categories.Name</span>
+                                }
+                                @if (product.Brands != null)
+                                {
+                                    <span class="sf-tag-small">@product.Brands.Name</span>
+                                }
+                            </div>
+                            <div class="product-footer">
+                                <div class="product-price">@product.Price.ToString("F2") лв</div>
+                                <form asp-controller="Carts" asp-action="AddToCart" method="post" style="display: inline;">
+                                    <input type="hidden" name="productId" value="@product.Id" />
+                                    <input type="hidden" name="quantity" value="1" />
+                                    <button type="submit" class="btn-buy">
+                                        <i class="bi bi-cart-plus me-1"></i>Купи
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="bi bi-box-seam"></i>
+                </div>
+                <h3>Няма налични продукти</h3>
+                <p>В момента няма добавени продукти в магазина.</p>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Products" asp-action="Create" class="btn-sf-hero" style="margin-top: 1rem;">
+                        <i class="bi bi-plus-lg me-2"></i>Добави продукт
+                    </a>
+                }
+            </div>
+        }
+    </section>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <section class="sf-section">
+            <div class="admin-actions">
+                <h4 style="margin-bottom: 1rem; color: var(--sf-text-muted);">
+                    <i class="bi bi-gear me-2"></i>Администраторски действия
+                </h4>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a asp-controller="Products" asp-action="Index" class="btn-admin">
+                        <i class="bi bi-list-ul me-2"></i>Управление на продукти
+                    </a>
+                    <a asp-controller="Products" asp-action="Create" class="btn-admin">
+                        <i class="bi bi-plus-lg me-2"></i>Добави нов продукт
+                    </a>
+                    <a asp-controller="Categories" asp-action="Index" class="btn-admin">
+                        <i class="bi bi-tags me-2"></i>Категории
+                    </a>
+                    <a asp-controller="Brands" asp-action="Index" class="btn-admin">
+                        <i class="bi bi-award me-2"></i>Марки
+                    </a>
+                </div>
+            </div>
+        </section>
+    }
+</div>
+
+<style>
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        flex-grow: 1;
+    }
+
+    .product-description {
+        font-size: 0.9rem;
+        color: var(--sf-text-muted);
+        line-height: 1.6;
+        flex-grow: 1;
+    }
+
+    .product-meta {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .sf-tag-small {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.75rem;
+        border-radius: 20px;
+        background: rgba(0, 255, 156, 0.08);
+        border: 1px solid rgba(0, 255, 156, 0.2);
+        color: var(--sf-green);
+        font-weight: 500;
+    }
+
+    .product-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: var(--sf-bg-card);
+        border-radius: var(--sf-radius-lg);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .empty-state-icon {
+        font-size: 4rem;
+        color: var(--sf-text-muted);
+        margin-bottom: 1.5rem;
+    }
+
+    .empty-state h3 {
+        color: var(--sf-text);
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+        color: var(--sf-text-muted);
+    }
+
+    .admin-actions {
+        background: rgba(255, 193, 7, 0.05);
+        border: 1px solid rgba(255, 193, 7, 0.2);
+        border-radius: var(--sf-radius);
+        padding: 1.5rem;
+    }
+
+    .btn-admin {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.6rem 1.2rem;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--sf-text);
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: var(--sf-transition);
+    }
+
+    .btn-admin:hover {
+        background: rgba(0, 255, 156, 0.1);
+        border-color: var(--sf-green-border);
+        color: var(--sf-green);
+    }
+</style>

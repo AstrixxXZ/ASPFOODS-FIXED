@@ -1,0 +1,339 @@
+﻿@model ASP_Foods2.Data.Product
+
+@{
+    ViewData["Title"] = "Редактирай продукт";
+}
+
+<div class="page-hero" style="padding-bottom: 2rem;">
+    <div class="container">
+        <h1><i class="bi bi-pencil-square me-3"></i>Редактирай <span class="text-gradient">Продукт</span></h1>
+        <p>Промени информацията за продукта</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="admin-form-card">
+                <div class="admin-form-header">
+                    <div class="admin-form-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">
+                        <i class="bi bi-pencil"></i>
+                    </div>
+                    <div>
+                        <h3>@Model.Name</h3>
+                        <p>SKU: @Model.CatalogId • Добавен: @Model.DateAdded.ToString("dd.MM.yyyy")</p>
+                    </div>
+                </div>
+
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="DateAdded" />
+
+                    <div class="form-section">
+                        <h5 class="form-section-title"><i class="bi bi-info-circle me-2"></i>Основна информация</h5>
+                        
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label asp-for="Name" class="form-label">Име на продукта</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                                    <input asp-for="Name" class="form-control" placeholder="Въведете име на продукта" />
+                                </div>
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="CatalogId" class="form-label">Каталожен номер</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-upc"></i></span>
+                                    <input asp-for="CatalogId" class="form-control" placeholder="SKU-001" />
+                                </div>
+                                <span asp-validation-for="CatalogId" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Описание</label>
+                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Въведете подробно описание на продукта..."></textarea>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h5 class="form-section-title"><i class="bi bi-folder me-2"></i>Категоризация</h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="CategoryId" class="form-label">Категория</label>
+                                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId">
+                                    <option value="">-- Избери категория --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="TypeProductId" class="form-label">Тип продукт</label>
+                                <select asp-for="TypeProductId" class="form-select" asp-items="ViewBag.TypeProductId">
+                                    <option value="">-- Избери тип --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="BrandId" class="form-label">Марка</label>
+                                <select asp-for="BrandId" class="form-select" asp-items="ViewBag.BrandId">
+                                    <option value="">-- Избери марка --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="UnitId" class="form-label">Мерна единица</label>
+                                <select asp-for="UnitId" class="form-select" asp-items="ViewBag.UnitId">
+                                    <option value="">-- Избери единица --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h5 class="form-section-title"><i class="bi bi-currency-dollar me-2"></i>Цена и наличност</h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Price" class="form-label">Цена (лв)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-currency-exchange"></i></span>
+                                    <input asp-for="Price" class="form-control" placeholder="0.00" step="0.01" />
+                                    <span class="input-group-text">лв</span>
+                                </div>
+                                <span asp-validation-for="Price" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Quantity" class="form-label">Количество</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-box"></i></span>
+                                    <input asp-for="Quantity" class="form-control" placeholder="0" />
+                                </div>
+                                <span asp-validation-for="Quantity" class="text-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <a asp-action="Index" class="btn-admin-secondary">
+                            <i class="bi bi-x-lg me-2"></i>Отказ
+                        </a>
+                        <div class="d-flex gap-2">
+                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn-admin-danger">
+                                <i class="bi bi-trash3 me-2"></i>Изтрий
+                            </a>
+                            <button type="submit" class="btn-admin-primary">
+                                <i class="bi bi-check-lg me-2"></i>Запази промените
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .admin-form-card {
+        background: var(--sf-bg-card);
+        border-radius: var(--sf-radius-lg);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 0;
+        overflow: hidden;
+        margin-bottom: 3rem;
+    }
+
+    .admin-form-header {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.02) 100%);
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .admin-form-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: #fff;
+    }
+
+    .admin-form-header h3 {
+        margin: 0;
+        font-weight: 700;
+        color: var(--sf-text);
+    }
+
+    .admin-form-header p {
+        margin: 0.25rem 0 0;
+        color: var(--sf-text-muted);
+        font-size: 0.9rem;
+    }
+
+    .form-section {
+        padding: 2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .form-section:last-of-type {
+        border-bottom: none;
+    }
+
+    .form-section-title {
+        color: var(--sf-green);
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .form-label {
+        color: var(--sf-text-muted);
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control, .form-select {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        transition: var(--sf-transition);
+    }
+
+    .form-control:focus, .form-select:focus {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: var(--sf-green);
+        box-shadow: 0 0 0 3px rgba(0, 255, 156, 0.1);
+        color: #fff;
+    }
+
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.35);
+    }
+
+    .form-select option {
+        background: #1a1a1a;
+        color: #fff;
+    }
+
+    .input-group-text {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--sf-green);
+        border-radius: 10px 0 0 10px;
+    }
+
+    .input-group .form-control {
+        border-radius: 0 10px 10px 0;
+    }
+
+    .input-group .form-control:not(:last-child) {
+        border-radius: 0;
+    }
+
+    .input-group > :last-child:not(.form-control) {
+        border-radius: 0 10px 10px 0;
+    }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        background: rgba(0, 0, 0, 0.2);
+        gap: 1rem;
+    }
+
+    .btn-admin-primary {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.9rem 2rem;
+        border-radius: 12px;
+        background: var(--sf-gradient);
+        color: #000;
+        font-weight: 700;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+        transition: var(--sf-transition);
+        text-decoration: none;
+    }
+
+    .btn-admin-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 255, 156, 0.3);
+        color: #000;
+    }
+
+    .btn-admin-secondary {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.9rem 1.5rem;
+        border-radius: 12px;
+        background: transparent;
+        color: var(--sf-text-muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        transition: var(--sf-transition);
+        text-decoration: none;
+    }
+
+    .btn-admin-secondary:hover {
+        border-color: var(--sf-green);
+        color: var(--sf-green);
+    }
+
+    .btn-admin-danger {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.9rem 1.5rem;
+        border-radius: 12px;
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        cursor: pointer;
+        transition: var(--sf-transition);
+        text-decoration: none;
+    }
+
+    .btn-admin-danger:hover {
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+    }
+
+    @@media (max-width: 768px) {
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .btn-admin-primary, .btn-admin-secondary, .btn-admin-danger {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
