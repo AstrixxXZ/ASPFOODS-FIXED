@@ -9,6 +9,12 @@
     ViewData["Title"] = "Поръчки";
 
     var totalQuantity = orders.Sum(order => order.Quantity);
+    var totalRevenue = orders.Sum(order =>
+    {
+        var unitPrice = order.UnitPrice > 0m ? order.UnitPrice : order.Products?.Price ?? 0m;
+        var subtotal = unitPrice * order.Quantity;
+        return Math.Max(subtotal - order.DiscountAmount, 0m);
+    });
     var uniqueClients = orders
         .Select(order => order.ClientId)
         .Where(clientId => !string.IsNullOrWhiteSpace(clientId))
@@ -76,6 +82,14 @@
                 <div>
                     <span class="orders-admin-stat__label">Поръчани бройки</span>
                     <strong>@totalQuantity</strong>
+                </div>
+            </article>
+
+            <article class="orders-admin-stat">
+                <span class="orders-admin-stat__icon"><i class="bi bi-cash-stack"></i></span>
+                <div>
+                    <span class="orders-admin-stat__label">Общ оборот</span>
+                    <strong>@totalRevenue.ToString("0.00") лв.</strong>
                 </div>
             </article>
         </div>

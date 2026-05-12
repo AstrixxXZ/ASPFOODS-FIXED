@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-1\\desktop\\asp-superfoods\\asp-foods2\\asp foods2\\data\\migrations\\20260511085909_inbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\data\\migrations\\20260511085909_inbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-1\\desktop\\asp-superfoods\\asp-foods2\\asp foods2\\services\\applicationbuilderextension (1).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\services\\applicationbuilderextension (1).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-1\\desktop\\asp-superfoods\\asp-foods2\\asp foods2\\views\\home\\products.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\home\\products.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -11,16 +19,16 @@
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-1\\desktop\\asp-superfoods\\asp-foods2\\asp foods2\\services\\applicationbuilderextension (1).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\services\\applicationbuilderextension (1).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-1\\desktop\\asp-superfoods\\asp-foods2\\asp foods2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-1\\desktop\\asp-superfoods\\asp-foods2\\asp foods2\\views\\products\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\products\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-1\\desktop\\asp-superfoods\\asp-foods2\\asp foods2\\data\\migrations\\20260511083519_suobshteniq.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\data\\migrations\\20260511083519_suobshteniq.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,34 +38,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Products.cshtml",
-              "DocumentMoniker": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Views\\Home\\Products.cshtml",
-              "RelativeDocumentMoniker": "ASP Foods2\\Views\\Home\\Products.cshtml",
-              "ToolTip": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Views\\Home\\Products.cshtml",
-              "RelativeToolTip": "ASP Foods2\\Views\\Home\\Products.cshtml",
-              "ViewState": "AgIAALIAAAAAAAAAAAAqwLkAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-23T11:29:51.118Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "ASP Foods2\\Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "ASP Foods2\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAFgAAAAAAAAAAAAqwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-23T11:29:07.497Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
@@ -72,20 +54,68 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20260511085909_inbox.cs",
+              "DocumentMoniker": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Data\\Migrations\\20260511085909_inbox.cs",
+              "RelativeDocumentMoniker": "ASP Foods2\\Data\\Migrations\\20260511085909_inbox.cs",
+              "ToolTip": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Data\\Migrations\\20260511085909_inbox.cs",
+              "RelativeToolTip": "ASP Foods2\\Data\\Migrations\\20260511085909_inbox.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABwAAABlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-11T08:59:09.536Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20260511083519_Suobshteniq.cs",
+              "DocumentMoniker": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Data\\Migrations\\20260511083519_Suobshteniq.cs",
+              "RelativeDocumentMoniker": "ASP Foods2\\Data\\Migrations\\20260511083519_Suobshteniq.cs",
+              "ToolTip": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Data\\Migrations\\20260511083519_Suobshteniq.cs",
+              "RelativeToolTip": "ASP Foods2\\Data\\Migrations\\20260511083519_Suobshteniq.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-11T08:35:19.831Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Products.cshtml",
+              "DocumentMoniker": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Views\\Home\\Products.cshtml",
+              "RelativeDocumentMoniker": "ASP Foods2\\Views\\Home\\Products.cshtml",
+              "ToolTip": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Views\\Home\\Products.cshtml",
+              "RelativeToolTip": "ASP Foods2\\Views\\Home\\Products.cshtml",
+              "ViewState": "AgIAALIAAAAAAAAAAAAqwLkAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-23T11:29:51.118Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "ASP Foods2\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "ASP Foods2\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAqwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-23T11:29:07.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "ApplicationBuilderExtension (1).cs",
               "DocumentMoniker": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Services\\ApplicationBuilderExtension (1).cs",
               "RelativeDocumentMoniker": "ASP Foods2\\Services\\ApplicationBuilderExtension (1).cs",
               "ToolTip": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Services\\ApplicationBuilderExtension (1).cs",
               "RelativeToolTip": "ASP Foods2\\Services\\ApplicationBuilderExtension (1).cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T11:00:50.75Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-23T11:00:50.75Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Program.cs",
               "RelativeDocumentMoniker": "ASP Foods2\\Program.cs",
@@ -93,12 +123,11 @@
               "RelativeToolTip": "ASP Foods2\\Program.cs",
               "ViewState": "AgIAAEAAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T11:00:30.051Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-23T11:00:30.051Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\1212-1\\Desktop\\Asp-Superfoods\\ASP-Foods2\\ASP Foods2\\Views\\Products\\Create.cshtml",
               "RelativeDocumentMoniker": "ASP Foods2\\Views\\Products\\Create.cshtml",
@@ -106,8 +135,7 @@
               "RelativeToolTip": "ASP Foods2\\Views\\Products\\Create.cshtml",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAAoAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-23T10:50:59.734Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-23T10:50:59.734Z"
             }
           ]
         }

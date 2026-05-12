@@ -14,6 +14,18 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ASP_Foods2.styles.css" asp-append-version="true" />
 </head>
+@{
+    var orderToastTitle = TempData["OrderToastTitle"] as string;
+    var orderToastSummary = TempData["OrderToastSummary"] as string;
+    var orderToastStatus = TempData["OrderToastStatus"] as string;
+    var orderToastDate = TempData["OrderToastDate"] as string;
+    var orderToastTotal = TempData["OrderToastTotal"] as string;
+    var orderToastPromo = TempData["OrderToastPromo"] as string;
+    var orderToastTargetUrl = TempData["OrderToastTargetUrl"] as string ?? "/Orders/My";
+    var showOrderToast = !string.IsNullOrWhiteSpace(orderToastTitle);
+    var successMessage = showOrderToast ? null : TempData["Success"] as string;
+    var errorMessage = TempData["Error"] as string;
+}
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark navbar-sf fixed-top">
@@ -72,18 +84,88 @@
     </header>
 
     <main role="main">
-        @if (TempData["Success"] != null)
+        @if (successMessage != null)
         {
             <div class="alert alert-success alert-dismissible fade show m-3" role="alert" style="position: fixed; top: 80px; right: 20px; z-index: 1050; max-width: 350px; background: rgba(0, 255, 156, 0.15); border: 1px solid var(--sf-green); color: var(--sf-green);">
-                <i class="bi bi-check-circle me-2"></i>@TempData["Success"]
+                <i class="bi bi-check-circle me-2"></i>@successMessage
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="filter: invert(1);"></button>
             </div>
         }
-        @if (TempData["Error"] != null)
+        @if (errorMessage != null)
         {
             <div class="alert alert-danger alert-dismissible fade show m-3" role="alert" style="position: fixed; top: 80px; right: 20px; z-index: 1050; max-width: 350px;">
-                <i class="bi bi-exclamation-circle me-2"></i>@TempData["Error"]
+                <i class="bi bi-exclamation-circle me-2"></i>@errorMessage
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (showOrderToast)
+        {
+            <div class="order-toast" data-order-toast>
+                <button type="button" class="order-toast__bubble" data-order-toast-toggle aria-expanded="false">
+                    <span class="order-toast__icon">
+                        <i class="bi bi-chat-dots-fill"></i>
+                    </span>
+                    <span class="order-toast__copy">
+                        <strong>@orderToastTitle</strong>
+                        <small>Натисни за детайли</small>
+                    </span>
+                    <span class="order-toast__ping"></span>
+                </button>
+
+                <section class="order-toast__panel" data-order-toast-panel hidden aria-label="Информация за изпратена поръчка">
+                    <div class="order-toast__panel-top">
+                        <div>
+                            <span class="order-toast__eyebrow">Поръчка</span>
+                            <h4>@orderToastTitle</h4>
+                        </div>
+                        <button type="button" class="order-toast__close" data-order-toast-close aria-label="Затвори">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+
+                    <div class="order-toast__grid">
+                        @if (!string.IsNullOrWhiteSpace(orderToastSummary))
+                        {
+                            <div class="order-toast__item">
+                                <span>Обобщение</span>
+                                <strong>@orderToastSummary</strong>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(orderToastStatus))
+                        {
+                            <div class="order-toast__item">
+                                <span>Статус</span>
+                                <strong>@orderToastStatus</strong>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(orderToastDate))
+                        {
+                            <div class="order-toast__item">
+                                <span>Изпратена на</span>
+                                <strong>@orderToastDate</strong>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(orderToastTotal))
+                        {
+                            <div class="order-toast__item">
+                                <span>Крайна сума</span>
+                                <strong>@orderToastTotal лв.</strong>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(orderToastPromo))
+                        {
+                            <div class="order-toast__item order-toast__item--full">
+                                <span>Промокод</span>
+                                <strong>@orderToastPromo</strong>
+                            </div>
+                        }
+                    </div>
+
+                    <a href="@orderToastTargetUrl" class="order-toast__link">
+                        <i class="bi bi-bag-check"></i>
+                        <span>Отвори Моите поръчки</span>
+                    </a>
+                </section>
             </div>
         }
         @RenderBody()
@@ -128,6 +210,41 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @if (showOrderToast)
+    {
+        <script>
+            (() => {
+                const toast = document.querySelector('[data-order-toast]');
+                if (!toast) return;
+
+                const toggle = toast.querySelector('[data-order-toast-toggle]');
+                const close = toast.querySelector('[data-order-toast-close]');
+                const panel = toast.querySelector('[data-order-toast-panel]');
+
+                const setExpanded = (expanded) => {
+                    toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+                    panel.hidden = !expanded;
+                    toast.classList.toggle('order-toast--open', expanded);
+                };
+
+                toggle.addEventListener('click', () => {
+                    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+                    setExpanded(!expanded);
+                });
+
+                close.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    setExpanded(false);
+                });
+
+                document.addEventListener('click', (event) => {
+                    if (!toast.contains(event.target)) {
+                        setExpanded(false);
+                    }
+                });
+            })();
+        </script>
+    }
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -156,6 +156,16 @@ namespace ASP_Foods2.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                var totalQuantity = orders.Sum(order => order.Quantity);
+                var totalAmount = orders.Sum(order => Math.Max((order.UnitPrice * order.Quantity) - order.DiscountAmount, 0m));
+
+                TempData["OrderToastTitle"] = "Поръчката е изпратена";
+                TempData["OrderToastSummary"] = $"{orders.Count} артикула / {totalQuantity} бр.";
+                TempData["OrderToastStatus"] = "Приета";
+                TempData["OrderToastDate"] = now.ToString("dd.MM.yyyy HH:mm");
+                TempData["OrderToastTotal"] = totalAmount.ToString("0.00");
+                TempData["OrderToastPromo"] = string.IsNullOrWhiteSpace(normalizedPromoCode) ? string.Empty : normalizedPromoCode;
+                TempData["OrderToastTargetUrl"] = Url.Action(nameof(My), "Orders") ?? "/Orders/My";
                 TempData["Success"] = "Поръчката е изпратена успешно! Можеш да следиш статуса и в Моите поръчки.";
                 return RedirectToAction(nameof(My));
             }
