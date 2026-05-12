@@ -1,0 +1,147 @@
+﻿@model ASP_Foods2.Models.SupportInboxPageViewModel
+
+@{
+    ViewData["Title"] = "Поща от съпорт";
+}
+
+<section class="support-inbox-page">
+    <div class="container">
+        <div class="support-inbox-hero">
+            <div>
+                <span class="support-inbox-hero__eyebrow">
+                    <i class="bi bi-envelope-paper-heart"></i>
+                    SuperFoodsBG Support
+                </span>
+                <h1>Поща от съпорт екипа</h1>
+                <p>
+                    Тук ще виждаш всички отговори от екипа на SuperFoodsBG по твоите въпроси,
+                    изпратени през контактната форма.
+                </p>
+            </div>
+
+            <div class="support-inbox-hero__stats">
+                <span>Нови при отваряне</span>
+                <strong>@Model.UnreadCount</strong>
+                <p>Непрочетените отговори се отбелязват като прочетени, когато отвориш тази страница.</p>
+            </div>
+        </div>
+
+        @if (Model.Replies.Count > 0)
+        {
+            <div class="support-inbox-list">
+                @foreach (var reply in Model.Replies)
+                {
+                    <article class="support-inbox-card @(reply.IsRead ? "is-read" : "is-unread")">
+                        <div class="support-inbox-card__header">
+                            <div>
+                                <div class="support-inbox-card__title-row">
+                                    <h2>@reply.Subject</h2>
+                                    @if (!reply.IsRead)
+                                    {
+                                        <span class="support-inbox-card__badge">Ново</span>
+                                    }
+                                </div>
+                                <p>@reply.SenderDisplayName</p>
+                            </div>
+                            <time>@reply.CreatedAt.ToString("dd.MM.yyyy HH:mm")</time>
+                        </div>
+
+                        <div class="support-inbox-card__body">
+                            <pre>@reply.Message</pre>
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="support-inbox-empty">
+                <i class="bi bi-inbox"></i>
+                <h2>Все още нямаш отговори</h2>
+                <p>Когато съпорт екипът отговори на твой въпрос, ще го видиш тук.</p>
+            </div>
+        }
+    </div>
+</section>
+
+<style>
+    .support-inbox-page { padding: 7.25rem 0 4rem; }
+    .support-inbox-hero {
+        display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(280px, .8fr); gap: 1.5rem; margin-bottom: 2rem;
+    }
+    .support-inbox-hero__eyebrow {
+        display: inline-flex; align-items: center; gap: .55rem; padding: .5rem .85rem; border-radius: 999px; background: rgba(34,197,94,.1);
+        border: 1px solid rgba(34,197,94,.25); color: #8ef0b2; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em;
+    }
+    .support-inbox-hero h1 { margin: 1rem 0 .75rem; color: #f7fafc; }
+    .support-inbox-hero p { margin: 0; color: rgba(226,232,240,.82); max-width: 60ch; }
+    .support-inbox-hero__stats {
+        padding: 1.5rem; border-radius: 18px; border: 1px solid rgba(34,197,94,.16); background: rgba(8,15,25,.95); box-shadow: 0 22px 50px rgba(2,6,23,.28);
+    }
+    .support-inbox-hero__stats span { display: block; color: rgba(148,163,184,.88); text-transform: uppercase; font-size: .78rem; letter-spacing: .08em; }
+    .support-inbox-hero__stats strong { display: block; margin: .6rem 0 .75rem; color: #f8fafc; font-size: clamp(2rem, 4vw, 3rem); line-height: 1; }
+    .support-inbox-list { display: grid; gap: 1rem; }
+    .support-inbox-card {
+        padding: 1.25rem; border-radius: 18px; border: 1px solid rgba(148,163,184,.12); background: rgba(8,15,25,.95); box-shadow: 0 18px 44px rgba(2,6,23,.24);
+    }
+    .support-inbox-card.is-unread { border-color: rgba(34,197,94,.26); box-shadow: 0 20px 52px rgba(34,197,94,.08); }
+    .support-inbox-card__header { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+    .support-inbox-card__title-row { display: flex; flex-wrap: wrap; gap: .65rem; align-items: center; margin-bottom: .35rem; }
+    .support-inbox-card__title-row h2 { margin: 0; color: #f8fafc; font-size: 1.2rem; }
+    .support-inbox-card__badge {
+        display: inline-flex; align-items: center; min-height: 28px; padding: 0 .7rem; border-radius: 999px; background: rgba(34,197,94,.12); color: #86efac; font-size: .78rem; font-weight: 700;
+    }
+    .support-inbox-card__header p, .support-inbox-card__header time { margin: 0; color: rgba(148,163,184,.9); word-break: break-word; }
+    .support-inbox-card__body {
+        padding: 1rem; border-radius: 14px; background: rgba(15,23,42,.72); border: 1px solid rgba(148,163,184,.12);
+    }
+    .support-inbox-card__body pre {
+        margin: 0; white-space: pre-wrap; word-break: break-word; font-family: inherit; line-height: 1.7; color: #e2e8f0;
+    }
+    .support-inbox-empty {
+        padding: 3rem 1.5rem; text-align: center; border-radius: 18px; border: 1px dashed rgba(148,163,184,.22); background: rgba(8,15,25,.82);
+    }
+    .support-inbox-empty i { font-size: 2.5rem; color: #86efac; }
+    .support-inbox-empty h2 { margin: 1rem 0 .5rem; color: #f8fafc; }
+    .support-inbox-empty p { margin: 0; color: rgba(226,232,240,.78); }
+    @@media (max-width: 991.98px) {
+        .support-inbox-page { padding-top: 8rem; }
+        .support-inbox-hero { grid-template-columns: 1fr; }
+        .support-inbox-card__header { flex-direction: column; }
+    }
+    @@media (max-width: 575.98px) {
+        .support-inbox-page {
+            padding-top: 8.75rem;
+        }
+        .support-inbox-hero {
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        .support-inbox-hero__eyebrow {
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+        }
+        .support-inbox-hero h1 {
+            font-size: clamp(1.8rem, 8vw, 2.4rem);
+            margin-top: .85rem;
+        }
+        .support-inbox-hero__stats,
+        .support-inbox-card,
+        .support-inbox-card__body,
+        .support-inbox-empty {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .support-inbox-card__title-row h2 {
+            font-size: 1.02rem;
+        }
+        .support-inbox-card__header time {
+            font-size: .9rem;
+        }
+        .support-inbox-card__body pre {
+            font-size: .96rem;
+            line-height: 1.6;
+        }
+    }
+</style>

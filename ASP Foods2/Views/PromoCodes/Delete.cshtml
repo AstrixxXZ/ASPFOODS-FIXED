@@ -1,0 +1,49 @@
+@model ASP_Foods2.Data.PromoCode
+
+@{
+    ViewData["Title"] = "Изтриване на промокод";
+}
+
+<section class="promo-delete-page">
+    <div class="container">
+        <div class="promo-delete-card">
+            <span class="promo-delete-card__eyebrow"><i class="bi bi-trash3"></i> Потвърждение</span>
+            <h1>Изтрий промокод</h1>
+            <p>Наистина ли искаш да изтриеш кода <strong>@Model.Code</strong>?</p>
+
+            <dl class="promo-delete-card__meta">
+                <div><dt>Отстъпка</dt><dd>@Model.DiscountPercent.ToString("0.##")%</dd></div>
+                <div><dt>Минимална сума</dt><dd>@Model.MinimumOrderAmount.ToString("0.00") лв</dd></div>
+                <div><dt>Използван</dt><dd>@Model.UsedCount пъти</dd></div>
+            </dl>
+
+            <form asp-action="Delete" method="post" class="promo-delete-card__actions">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="promo-delete-btn promo-delete-btn--danger">Изтрий</button>
+                <a asp-action="Index" class="promo-delete-btn promo-delete-btn--ghost">Отказ</a>
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+    .promo-delete-page { padding: 2rem 0 4rem; }
+    .promo-delete-card { max-width:640px; margin:0 auto; padding:1.5rem; border-radius:18px; background:var(--sf-bg-card); border:1px solid rgba(255,255,255,.05); box-shadow:var(--sf-shadow); }
+    .promo-delete-card__eyebrow { display:inline-flex; gap:.5rem; align-items:center; color:#fecaca; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.18); padding:.5rem .8rem; border-radius:999px; }
+    .promo-delete-card h1 { margin:1rem 0 .6rem; color:var(--sf-text); }
+    .promo-delete-card p { color:var(--sf-text-muted); }
+    .promo-delete-card__meta { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem; margin:1.2rem 0; }
+    .promo-delete-card__meta div { padding:.85rem 1rem; border-radius:14px; background:rgba(255,255,255,.03); }
+    .promo-delete-card__meta dt { color:var(--sf-text-muted); font-size:.8rem; margin-bottom:.25rem; }
+    .promo-delete-card__meta dd { margin:0; color:var(--sf-text); font-weight:700; }
+    .promo-delete-card__actions { display:flex; gap:.75rem; flex-wrap:wrap; }
+    .promo-delete-btn { min-height:44px; padding:.8rem 1rem; border-radius:12px; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; font-weight:700; border:none; }
+    .promo-delete-btn--danger { background:rgba(239,68,68,.14); color:#fecaca; border:1px solid rgba(239,68,68,.18); }
+    .promo-delete-btn--ghost { background:transparent; color:var(--sf-text-muted); border:1px solid rgba(255,255,255,.08); }
+    @@media (max-width: 767.98px) {
+        .promo-delete-page { padding-top: 6.5rem; }
+        .promo-delete-card__meta { grid-template-columns:1fr; }
+        .promo-delete-card__actions { display:grid; grid-template-columns:1fr; }
+    }
+</style>

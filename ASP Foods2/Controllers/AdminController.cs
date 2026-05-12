@@ -40,6 +40,7 @@ namespace ASP_Foods2.Controllers
                 BrandCount = await _context.Brands.CountAsync(),
                 OrderCount = await _context.Orders.CountAsync(),
                 CategoryCount = await _context.Categories.CountAsync(),
+                SupportMessageCount = await _context.SupportMessages.CountAsync(),
                 TotalOrderedQuantity = await _context.Orders.SumAsync(order => (int?)order.Quantity) ?? 0,
                 RecentOrders = recentOrders.Select(order => new AdminRecentOrderViewModel
                 {
@@ -53,6 +54,129 @@ namespace ASP_Foods2.Controllers
             };
 
             return View(model);
+        }
+
+        public async Task<IActionResult> SupportMessages()
+        {
+            var messages = await _context.SupportMessages
+                .AsNoTracking()
+                .OrderByDescending(message => message.ReceivedAt)
+                .ToListAsync();
+
+            var supportMessageIds = messages.Select(message => message.Id).ToList();
+            var replies = await _context.SupportReplies
+                .AsNoTracking()
+                .Where(reply => supportMessageIds.Contains(reply.SupportMessageId))
+                .OrderBy(reply => reply.CreatedAt)
+                .ToListAsync();
+            var supportUsers = await _userManager.Users
+                .AsNoTracking()
+                .Where(user =>
+                    messages.Select(message => message.ClientUserId).Contains(user.Id) ||
+                    messages.Select(message => message.Email).Contains(user.Email ?? string.Empty))
+                .ToListAsync();
+            var supportUsersById = supportUsers
+                .Where(user => !string.IsNullOrWhiteSpace(user.Id))
+                .ToDictionary(user => user.Id, user => user);
+            var supportUsersByEmail = supportUsers
+                .Where(user => !string.IsNullOrWhiteSpace(user.Email))
+                .GroupBy(user => user.Email!, StringComparer.OrdinalIgnoreCase)
+                .ToDictionary(group => group.Key, group => group.First(), StringComparer.OrdinalIgnoreCase);
+            var adminUserIds = new HashSet<string>(StringComparer.Ordinal);
+
+            foreach (var user in supportUsers)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Contains("Admin"))
+                {
+                    adminUserIds.Add(user.Id);
+                }
+            }
+
+            var model = new AdminSupportMessagesPageViewModel
+            {
+                TotalCount = messages.Count,
+                Messages = messages.Select(message => new AdminSupportMessageListItemViewModel
+                {
+                    CanReply = !IsAdminRecipient(message, supportUsersById, supportUsersByEmail, adminUserIds),
+                    ReplyBlockedReason = IsAdminRecipient(message, supportUsersById, supportUsersByEmail, adminUserIds)
+                        ? "Не може да изпращаш support отговор към администраторски акаунт."
+                        : string.Empty,
+                    Id = message.Id,
+                    Name = message.Name,
+                    Email = message.Email,
+                    Subject = message.Subject,
+                    Message = message.Message,
+                    IpAddress = message.IpAddress,
+                    UserAgent = message.UserAgent,
+                    FileName = message.FileName,
+                    ReceivedAt = message.ReceivedAt,
+                    Replies = replies
+                        .Where(reply => reply.SupportMessageId == message.Id)
+                        .Select(reply => new AdminSupportReplyItemViewModel
+                        {
+                            Id = reply.Id,
+                            SenderDisplayName = reply.SenderDisplayName,
+                            Message = reply.Message,
+                            CreatedAt = reply.CreatedAt,
+                            IsRead = reply.IsRead
+                        })
+                        .ToList()
+                }).ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReplyToSupportMessage(int id, string replyMessage)
+        {
+            replyMessage = (replyMessage ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(replyMessage))
+            {
+                TempData["Error"] = "Напиши съобщение за отговор.";
+                return RedirectToAction(nameof(SupportMessages));
+            }
+
+            var supportMessage = await _context.SupportMessages
+                .AsNoTracking()
+                .FirstOrDefaultAsync(message => message.Id == id);
+
+            if (supportMessage == null)
+            {
+                return NotFound();
+            }
+
+            var recipientUserId = supportMessage.ClientUserId;
+            if (string.IsNullOrWhiteSpace(recipientUserId))
+            {
+                var user = await _userManager.FindByEmailAsync(supportMessage.Email);
+                recipientUserId = user?.Id;
+            }
+
+            if (await IsAdminRecipientAsync(supportMessage, recipientUserId))
+            {
+                TempData["Error"] = "Не може да изпращаш support отговор към администраторски акаунт.";
+                return RedirectToAction(nameof(SupportMessages));
+            }
+
+            var reply = new SupportReply
+            {
+                SupportMessageId = supportMessage.Id,
+                RecipientUserId = recipientUserId,
+                RecipientEmail = supportMessage.Email,
+                SenderDisplayName = "SuperFoodsBG Support",
+                Message = replyMessage,
+                CreatedAt = DateTime.Now,
+                IsRead = false
+            };
+
+            _context.SupportReplies.Add(reply);
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Отговорът беше изпратен и е видим в пощата на потребителя.";
+            return RedirectToAction(nameof(SupportMessages));
         }
 
         public async Task<IActionResult> Profiles()
@@ -251,6 +375,52 @@ namespace ASP_Foods2.Controllers
             }
 
             return client.Email ?? client.UserName ?? "Клиент";
+        }
+
+        private async Task<bool> IsAdminRecipientAsync(SupportMessage supportMessage, string? recipientUserId)
+        {
+            Client? recipientUser = null;
+
+            if (!string.IsNullOrWhiteSpace(recipientUserId))
+            {
+                recipientUser = await _userManager.FindByIdAsync(recipientUserId);
+            }
+
+            if (recipientUser == null && !string.IsNullOrWhiteSpace(supportMessage.Email))
+            {
+                recipientUser = await _userManager.FindByEmailAsync(supportMessage.Email);
+            }
+
+            if (recipientUser == null)
+            {
+                return false;
+            }
+
+            return await _userManager.IsInRoleAsync(recipientUser, "Admin");
+        }
+
+        private static bool IsAdminRecipient(
+            SupportMessage supportMessage,
+            IReadOnlyDictionary<string, Client> supportUsersById,
+            IReadOnlyDictionary<string, Client> supportUsersByEmail,
+            ISet<string> adminUserIds)
+        {
+            if (!string.IsNullOrWhiteSpace(supportMessage.ClientUserId) &&
+                adminUserIds.Contains(supportMessage.ClientUserId))
+            {
+                return true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(supportMessage.Email) &&
+                supportUsersByEmail.TryGetValue(supportMessage.Email, out var userByEmail) &&
+                adminUserIds.Contains(userByEmail.Id))
+            {
+                return true;
+            }
+
+            return !string.IsNullOrWhiteSpace(supportMessage.ClientUserId) &&
+                   supportUsersById.TryGetValue(supportMessage.ClientUserId, out var userById) &&
+                   adminUserIds.Contains(userById.Id);
         }
     }
 }

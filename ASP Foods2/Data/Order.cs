@@ -10,7 +10,10 @@
         public int Quantity { get; set; }
         public DateTime DateAdded { get; set; }
         public string Status { get; set; } = "Приета";
-        //Auto add 
+        public decimal UnitPrice { get; set; }
+        public string? PromoCode { get; set; }
+        public decimal DiscountPercent { get; set; }
+        public decimal DiscountAmount { get; set; }
 
     }
 }

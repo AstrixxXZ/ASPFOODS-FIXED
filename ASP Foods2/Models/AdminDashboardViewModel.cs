@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ASP_Foods2.Models
@@ -9,6 +9,7 @@ namespace ASP_Foods2.Models
         public int BrandCount { get; set; }
         public int OrderCount { get; set; }
         public int CategoryCount { get; set; }
+        public int SupportMessageCount { get; set; }
         public int TotalOrderedQuantity { get; set; }
         public List<AdminRecentOrderViewModel> RecentOrders { get; set; } = new();
     }

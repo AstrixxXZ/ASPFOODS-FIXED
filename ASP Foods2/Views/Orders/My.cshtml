@@ -9,7 +9,12 @@
         .ToList();
 
     var totalQuantity = orders.Sum(order => order.Quantity);
-    var totalAmount = orders.Sum(order => (order.Products?.Price ?? 0m) * order.Quantity);
+    var totalAmount = orders.Sum(order =>
+    {
+        var unitPrice = order.UnitPrice > 0m ? order.UnitPrice : order.Products?.Price ?? 0m;
+        var subtotal = unitPrice * order.Quantity;
+        return Math.Max(subtotal - order.DiscountAmount, 0m);
+    });
     var latestStatus = orders.FirstOrDefault()?.Status ?? "Няма поръчки";
 }
 
@@ -66,7 +71,9 @@
                     var catalogId = string.IsNullOrWhiteSpace(product?.CatalogId) ? "Без код" : product.CatalogId;
                     var status = NormalizeStatus(order.Status);
                     var statusClass = GetStatusClass(status);
-                    var itemTotal = (product?.Price ?? 0m) * order.Quantity;
+                    var unitPrice = order.UnitPrice > 0m ? order.UnitPrice : product?.Price ?? 0m;
+                    var itemSubtotal = unitPrice * order.Quantity;
+                    var itemTotal = Math.Max(itemSubtotal - order.DiscountAmount, 0m);
                     var statusPercent = GetStatusPercent(status);
                     var progressStyle = $"--progress:{statusPercent}%";
 
@@ -100,6 +107,14 @@
                                 <span><i class="bi bi-layers"></i> @order.Quantity бр.</span>
                                 <span><i class="bi bi-cash-coin"></i> @itemTotal.ToString("0.00") лв.</span>
                             </div>
+
+                            @if (!string.IsNullOrWhiteSpace(order.PromoCode) && order.DiscountAmount > 0)
+                            {
+                                <div class="my-order-promo">
+                                    <span><i class="bi bi-ticket-perforated"></i> Код: <strong>@order.PromoCode</strong></span>
+                                    <span>-@order.DiscountAmount.ToString("0.00") лв.</span>
+                                </div>
+                            }
 
                             <div class="my-order-tracker my-order-tracker--@statusClass"
                                  style="@progressStyle"
@@ -142,6 +157,33 @@
         }
     </div>
 </section>
+
+<style>
+    .my-order-promo {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 0.9rem;
+        padding: 0.8rem 0.95rem;
+        border-radius: 14px;
+        background: rgba(0, 255, 156, 0.06);
+        border: 1px solid rgba(0, 255, 156, 0.12);
+        color: var(--sf-text);
+        font-size: 0.9rem;
+    }
+
+    .my-order-promo strong,
+    .my-order-promo span:last-child {
+        color: var(--sf-green);
+        font-weight: 700;
+    }
+
+    @@media (max-width: 768px) {
+        .my-order-promo {
+            flex-direction: column;
+        }
+    }
+</style>
 
 @functions {
     private static string NormalizeStatus(string? status)

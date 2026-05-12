@@ -81,7 +81,7 @@ namespace ASP_Foods2.Controllers
 
         // GET: Orders/Create
         [Authorize]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string? promoCode = null)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
@@ -89,14 +89,14 @@ namespace ASP_Foods2.Controllers
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
 
-            return View(await BuildCheckoutViewModelAsync(userId));
+            return View(await BuildCheckoutViewModelAsync(userId, promoCode));
         }
 
         // POST: Orders/Create
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateConfirmed()
+        public async Task<IActionResult> CreateConfirmed(string? promoCode)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
@@ -116,18 +116,42 @@ namespace ASP_Foods2.Controllers
                 return RedirectToAction("Index", "Carts");
             }
 
-            var now = DateTime.Now;
-            var orders = cartItems.Select(cart => new Order
+            var subtotalAmount = cartItems.Sum(cart => (cart.Products?.Price ?? 0m) * cart.Quantity);
+            var promoEvaluation = await EvaluatePromoCodeAsync(promoCode, subtotalAmount);
+            if (!string.IsNullOrWhiteSpace(promoCode) && !promoEvaluation.IsValid)
             {
-                ClientId = userId,
-                ProductId = cart.ProductId,
-                Quantity = cart.Quantity,
-                DateAdded = now,
-                Status = "Приета"
+                return View("Create", await BuildCheckoutViewModelAsync(userId, promoCode, promoEvaluation.Message, true));
+            }
+
+            var now = DateTime.Now;
+            var discountPercent = promoEvaluation.IsValid ? promoEvaluation.DiscountPercent : 0m;
+            var normalizedPromoCode = promoEvaluation.IsValid ? promoEvaluation.AppliedCode : string.Empty;
+            var allocatedDiscounts = AllocateLineDiscounts(cartItems, discountPercent, promoEvaluation.DiscountAmount);
+            var orders = cartItems.Select((cart, index) =>
+            {
+                var unitPrice = cart.Products?.Price ?? 0m;
+
+                return new Order
+                {
+                    ClientId = userId,
+                    ProductId = cart.ProductId,
+                    Quantity = cart.Quantity,
+                    DateAdded = now,
+                    Status = "Приета",
+                    UnitPrice = unitPrice,
+                    PromoCode = string.IsNullOrWhiteSpace(normalizedPromoCode) ? null : normalizedPromoCode,
+                    DiscountPercent = discountPercent,
+                    DiscountAmount = allocatedDiscounts[index]
+                };
             }).ToList();
 
             _context.Orders.AddRange(orders);
             _context.Carts.RemoveRange(_context.Carts.Where(cart => cart.ClientId == userId));
+            if (promoEvaluation.IsValid && promoEvaluation.PromoCode != null)
+            {
+                promoEvaluation.PromoCode.UsedCount += 1;
+                _context.PromoCodes.Update(promoEvaluation.PromoCode);
+            }
 
             try
             {
@@ -138,7 +162,7 @@ namespace ASP_Foods2.Controllers
             catch
             {
                 TempData["Error"] = "Възникна проблем при изпращането на поръчката.";
-                return View("Create", await BuildCheckoutViewModelAsync(userId));
+                return View("Create", await BuildCheckoutViewModelAsync(userId, promoCode));
             }
         }
 
@@ -180,7 +204,18 @@ namespace ASP_Foods2.Controllers
             {
                 try
                 {
-                    _context.Update(order);
+                    var existingOrder = await _context.Orders.FindAsync(id);
+                    if (existingOrder == null)
+                    {
+                        return NotFound();
+                    }
+
+                    existingOrder.ClientId = order.ClientId;
+                    existingOrder.ProductId = order.ProductId;
+                    existingOrder.Quantity = order.Quantity;
+                    existingOrder.DateAdded = order.DateAdded;
+                    existingOrder.Status = order.Status;
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -283,7 +318,11 @@ namespace ASP_Foods2.Controllers
                 string.Equals(orderStatus, normalizedStatus, StringComparison.OrdinalIgnoreCase)) ?? "Приета";
         }
 
-        private async Task<OrderCheckoutViewModel> BuildCheckoutViewModelAsync(string userId)
+        private async Task<OrderCheckoutViewModel> BuildCheckoutViewModelAsync(
+            string userId,
+            string? promoCodeInput = null,
+            string? forcedPromoMessage = null,
+            bool forcedPromoError = false)
         {
             var user = await _context.Users
                 .AsNoTracking()
@@ -296,6 +335,9 @@ namespace ASP_Foods2.Controllers
                 .OrderByDescending(cart => cart.DateAdded)
                 .ToListAsync();
 
+            var subtotalAmount = cartItems.Sum(cart => (cart.Products?.Price ?? 0m) * cart.Quantity);
+            var promoEvaluation = await EvaluatePromoCodeAsync(promoCodeInput, subtotalAmount);
+
             return new OrderCheckoutViewModel
             {
                 ClientName = user == null
@@ -305,6 +347,17 @@ namespace ASP_Foods2.Controllers
                         : $"{user.FirstName} {user.LastName}".Trim(),
                 ClientEmail = user?.Email ?? string.Empty,
                 OrderDate = DateTime.Now,
+                PromoCodeInput = promoCodeInput?.Trim().ToUpperInvariant() ?? string.Empty,
+                AppliedPromoCode = promoEvaluation.IsValid ? promoEvaluation.AppliedCode : string.Empty,
+                PromoDescription = promoEvaluation.IsValid ? promoEvaluation.Description : string.Empty,
+                PromoMessage = !string.IsNullOrWhiteSpace(forcedPromoMessage)
+                    ? forcedPromoMessage
+                    : promoEvaluation.Message,
+                PromoMessageIsError = !string.IsNullOrWhiteSpace(forcedPromoMessage)
+                    ? forcedPromoError
+                    : !promoEvaluation.IsValid && !string.IsNullOrWhiteSpace(promoCodeInput),
+                DiscountPercent = promoEvaluation.IsValid ? promoEvaluation.DiscountPercent : 0m,
+                DiscountAmount = promoEvaluation.IsValid ? promoEvaluation.DiscountAmount : 0m,
                 Items = cartItems.Select(cart => new OrderCheckoutItemViewModel
                 {
                     CartId = cart.Id,
@@ -316,6 +369,116 @@ namespace ASP_Foods2.Controllers
                     Quantity = cart.Quantity
                 }).ToList()
             };
+        }
+
+        private async Task<PromoCodeEvaluationResult> EvaluatePromoCodeAsync(string? promoCodeInput, decimal subtotalAmount)
+        {
+            var normalizedPromoCode = (promoCodeInput ?? string.Empty).Trim().ToUpperInvariant();
+            if (string.IsNullOrWhiteSpace(normalizedPromoCode))
+            {
+                return PromoCodeEvaluationResult.Empty;
+            }
+
+            var promoCode = await _context.PromoCodes
+                .FirstOrDefaultAsync(existingPromoCode => existingPromoCode.Code == normalizedPromoCode);
+
+            if (promoCode == null)
+            {
+                return PromoCodeEvaluationResult.Invalid("Няма такъв промокод.");
+            }
+
+            if (!promoCode.IsActive)
+            {
+                return PromoCodeEvaluationResult.Invalid("Промокодът е изключен.");
+            }
+
+            if (promoCode.ValidFrom.HasValue && promoCode.ValidFrom.Value > DateTime.Now)
+            {
+                return PromoCodeEvaluationResult.Invalid("Промокодът все още не е активен.");
+            }
+
+            if (promoCode.ValidTo.HasValue && promoCode.ValidTo.Value < DateTime.Now)
+            {
+                return PromoCodeEvaluationResult.Invalid("Промокодът е изтекъл.");
+            }
+
+            if (promoCode.UsageLimit.HasValue && promoCode.UsedCount >= promoCode.UsageLimit.Value)
+            {
+                return PromoCodeEvaluationResult.Invalid("Промокодът е изчерпан.");
+            }
+
+            if (subtotalAmount < promoCode.MinimumOrderAmount)
+            {
+                return PromoCodeEvaluationResult.Invalid($"Промокодът важи за поръчки над {promoCode.MinimumOrderAmount:0.00} лв.");
+            }
+
+            var discountAmount = Math.Round(subtotalAmount * promoCode.DiscountPercent / 100m, 2, MidpointRounding.AwayFromZero);
+
+            return PromoCodeEvaluationResult.Valid(
+                promoCode,
+                normalizedPromoCode,
+                promoCode.Description,
+                promoCode.DiscountPercent,
+                discountAmount,
+                $"Промокодът {normalizedPromoCode} е приложен успешно.");
+        }
+
+        private static List<decimal> AllocateLineDiscounts(IEnumerable<Cart> cartItems, decimal discountPercent, decimal totalDiscountAmount)
+        {
+            var items = cartItems.ToList();
+            if (!items.Any() || discountPercent <= 0m || totalDiscountAmount <= 0m)
+            {
+                return items.Select(_ => 0m).ToList();
+            }
+
+            var discounts = new List<decimal>(items.Count);
+            var allocatedAmount = 0m;
+
+            for (var index = 0; index < items.Count; index++)
+            {
+                if (index == items.Count - 1)
+                {
+                    discounts.Add(Math.Max(totalDiscountAmount - allocatedAmount, 0m));
+                    break;
+                }
+
+                var item = items[index];
+                var lineSubtotal = (item.Products?.Price ?? 0m) * item.Quantity;
+                var lineDiscount = Math.Round(
+                    lineSubtotal * discountPercent / 100m,
+                    2,
+                    MidpointRounding.AwayFromZero);
+
+                discounts.Add(lineDiscount);
+                allocatedAmount += lineDiscount;
+            }
+
+            return discounts;
+        }
+
+        private sealed record PromoCodeEvaluationResult(
+            bool IsValid,
+            PromoCode? PromoCode,
+            string AppliedCode,
+            string Description,
+            decimal DiscountPercent,
+            decimal DiscountAmount,
+            string Message)
+        {
+            public static PromoCodeEvaluationResult Empty =>
+                new(false, null, string.Empty, string.Empty, 0m, 0m, string.Empty);
+
+            public static PromoCodeEvaluationResult Invalid(string message) =>
+                new(false, null, string.Empty, string.Empty, 0m, 0m, message);
+
+            public static PromoCodeEvaluationResult Valid(
+                PromoCode promoCode,
+                string appliedCode,
+                string description,
+                decimal discountPercent,
+                decimal discountAmount,
+                string message) =>
+                new(true, promoCode, appliedCode, description, discountPercent, discountAmount, message);
         }
     }
 }

@@ -1,16 +1,55 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
 @using ASP_Foods2.Data
 @inject SignInManager<Client> SignInManager
 @inject UserManager<Client> UserManager
+@inject ApplicationDbContext DbContext
 
 <div class="nav-auth">
 @if (SignInManager.IsSignedIn(User))
 {
+    var currentUser = await UserManager.GetUserAsync(User);
+    var currentUserEmail = currentUser?.Email ?? string.Empty;
+    var supportRepliesQuery = currentUser == null
+        ? null
+        : DbContext.SupportReplies
+            .Join(
+                DbContext.SupportMessages,
+                reply => reply.SupportMessageId,
+                supportMessage => supportMessage.Id,
+                (reply, supportMessage) => new { reply, supportMessage })
+            .Where(item =>
+                (
+                    item.reply.RecipientUserId == currentUser.Id ||
+                    item.supportMessage.ClientUserId == currentUser.Id ||
+                    (!string.IsNullOrWhiteSpace(currentUserEmail) &&
+                        (item.reply.RecipientEmail == currentUserEmail ||
+                         item.supportMessage.Email == currentUserEmail))
+                ));
+    var supportRepliesCount = supportRepliesQuery == null
+        ? 0
+        : await supportRepliesQuery.CountAsync();
+    var unreadSupportReplies = supportRepliesQuery == null
+        ? 0
+        : await supportRepliesQuery.CountAsync(item => !item.reply.IsRead);
+    var returnUrl = Url.Action("Index", "Home", new { area = "" });
+
+    @if (supportRepliesCount > 0)
+    {
+        <a class="btn btn-auth btn-auth-support position-relative @(unreadSupportReplies > 0 ? "btn-auth-support--unread" : string.Empty)" asp-controller="Support" asp-action="Inbox" title="Съпорт поща">
+            <i class="bi bi-envelope-paper"></i>
+            <span>Поща</span>
+            @if (unreadSupportReplies > 0)
+            {
+                <span class="support-badge">@unreadSupportReplies</span>
+            }
+        </a>
+    }
     <a class="btn btn-auth btn-auth-login" asp-area="Identity" asp-page="/Account/Manage/Index" title="Профил">
         <i class="bi bi-person-circle"></i>
         <span>@User.Identity?.Name</span>
     </a>
-    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@returnUrl">
         <button type="submit" class="btn btn-auth btn-auth-logout">
             <i class="bi bi-box-arrow-right"></i> Изход
         </button>
@@ -26,3 +65,66 @@ else
     </a>
 }
 </div>
+
+<style>
+    .btn-auth-support {
+        color: #d8ffee !important;
+        border: 1.5px solid rgba(0, 255, 156, 0.24) !important;
+        background: linear-gradient(180deg, rgba(0, 255, 156, 0.12), rgba(0, 255, 156, 0.05)) !important;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-auth-support i,
+    .btn-auth-support span {
+        color: inherit !important;
+        opacity: 1 !important;
+    }
+
+    .btn-auth-support:hover {
+        color: #ffffff !important;
+        border-color: rgba(0, 255, 156, 0.55) !important;
+        background: linear-gradient(180deg, rgba(0, 255, 156, 0.22), rgba(0, 255, 156, 0.1)) !important;
+        box-shadow: 0 10px 30px rgba(0, 255, 156, 0.16);
+        transform: translateY(-2px);
+    }
+
+    .btn-auth-support--unread {
+        color: #ffffff !important;
+        border-color: rgba(255, 255, 255, 0.28) !important;
+        background:
+            radial-gradient(circle at top right, rgba(239, 68, 68, 0.2), transparent 42%),
+            linear-gradient(180deg, rgba(0, 255, 156, 0.22), rgba(0, 255, 156, 0.08)) !important;
+        box-shadow: 0 10px 28px rgba(0, 255, 156, 0.16);
+    }
+
+    .btn-auth-support--unread:hover {
+        border-color: rgba(255, 255, 255, 0.45) !important;
+        background:
+            radial-gradient(circle at top right, rgba(239, 68, 68, 0.26), transparent 42%),
+            linear-gradient(180deg, rgba(0, 255, 156, 0.28), rgba(0, 255, 156, 0.12)) !important;
+    }
+
+    .support-badge {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        min-width: 22px;
+        height: 22px;
+        padding: 0 6px;
+        border-radius: 999px;
+        background: #ef4444;
+        color: #fff;
+        font-size: 0.72rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 20px rgba(239, 68, 68, 0.28);
+    }
+
+    @@media (max-width: 575.98px) {
+        .btn-auth-support {
+            width: 100%;
+        }
+    }
+</style>

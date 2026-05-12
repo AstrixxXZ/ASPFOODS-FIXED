@@ -64,6 +64,14 @@
                     <strong>@Model.CategoryCount</strong>
                 </div>
             </article>
+
+            <article class="admin-stat-card">
+                <span class="admin-stat-card__icon"><i class="bi bi-headset"></i></span>
+                <div>
+                    <span class="admin-stat-card__label">Съпорт</span>
+                    <strong>@Model.SupportMessageCount</strong>
+                </div>
+            </article>
         </div>
 
         <div class="admin-dashboard-grid">
@@ -108,6 +116,23 @@
                             <p>Виж потребителите, редактирай профили и занулявай пароли.</p>
                         </div>
                     </a>
+
+                    <a asp-controller="Admin" asp-action="SupportMessages" class="admin-shortcut">
+                        <span class="admin-shortcut__icon"><i class="bi bi-chat-left-text"></i></span>
+                        <div>
+                            <strong>Съпорт</strong>
+                            <p>Виж изпратените контактни съобщения с пълната информация.</p>
+                        </div>
+                    </a>
+
+                    <a asp-controller="PromoCodes" asp-action="Index" class="admin-shortcut">
+                        <span class="admin-shortcut__icon"><i class="bi bi-ticket-perforated"></i></span>
+                        <div>
+                            <strong>Промокодове</strong>
+                            <p>Създавай и управлявай кодове за отстъпка при checkout.</p>
+                        </div>
+                    </a>
+
                     <a asp-controller="Categories" asp-action="Index" class="admin-shortcut">
                         <span class="admin-shortcut__icon"><i class="bi bi-diagram-3"></i></span>
                         <div>

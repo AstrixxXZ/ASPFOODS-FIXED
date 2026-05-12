@@ -1,0 +1,265 @@
+﻿@model ASP_Foods2.Models.AdminSupportMessagesPageViewModel
+
+@{
+    ViewData["Title"] = "Съпорт съобщения";
+}
+
+<section class="admin-support-page">
+    <div class="container">
+        <div class="admin-support-hero">
+            <div>
+                <span class="admin-support-hero__eyebrow">
+                    <i class="bi bi-headset"></i>
+                    Support inbox
+                </span>
+                <h1>Съпорт съобщения</h1>
+                <p>
+                    Всички контактни запитвания са тук. От тази страница администраторът може
+                    директно да изпрати отговор, а потребителят да го види в личната си поща.
+                </p>
+            </div>
+
+            <div class="admin-support-hero__stats">
+                <span>Общо съобщения</span>
+                <strong>@Model.TotalCount</strong>
+                <a asp-controller="Admin" asp-action="Index">Обратно към панела</a>
+            </div>
+        </div>
+
+        @if (Model.Messages.Count > 0)
+        {
+            <div class="admin-support-list">
+                @foreach (var message in Model.Messages)
+                {
+                    <article class="admin-support-card">
+                        <div class="admin-support-card__header">
+                            <div>
+                                <div class="admin-support-card__title-row">
+                                    <h2>@message.Name</h2>
+                                    <span class="admin-support-card__id">#@message.Id</span>
+                                </div>
+                                <p>@message.Subject</p>
+                            </div>
+
+                            <div class="admin-support-card__timestamp">
+                                <span>@message.ReceivedAt.ToString("dd.MM.yyyy")</span>
+                                <strong>@message.ReceivedAt.ToString("HH:mm")</strong>
+                            </div>
+                        </div>
+
+                        <div class="admin-support-card__meta">
+                            <div class="admin-support-meta-item">
+                                <span>Имейл</span>
+                                <strong>@message.Email</strong>
+                            </div>
+                            <div class="admin-support-meta-item">
+                                <span>IP адрес</span>
+                                <strong>@message.IpAddress</strong>
+                            </div>
+                            <div class="admin-support-meta-item">
+                                <span>Архив файл</span>
+                                <strong>@message.FileName</strong>
+                            </div>
+                        </div>
+
+                        <div class="admin-support-card__agent">
+                            <span>User Agent</span>
+                            <p>@message.UserAgent</p>
+                        </div>
+
+                        <div class="admin-support-card__message">
+                            <span>Съобщение</span>
+                            <pre>@message.Message</pre>
+                        </div>
+
+                        <div class="admin-support-card__replies">
+                            <div class="admin-support-card__replies-header">
+                                <h3>Отговори от съпорт</h3>
+                                <span>@message.Replies.Count</span>
+                            </div>
+
+                            @if (message.Replies.Count > 0)
+                            {
+                                <div class="admin-support-replies-list">
+                                    @foreach (var reply in message.Replies)
+                                    {
+                                        <div class="admin-support-reply-item">
+                                            <div class="admin-support-reply-item__header">
+                                                <strong>@reply.SenderDisplayName</strong>
+                                                <div>
+                                                    <span>@reply.CreatedAt.ToString("dd.MM.yyyy HH:mm")</span>
+                                                    <span class="admin-support-reply-item__state @(reply.IsRead ? "is-read" : "is-unread")">
+                                                        @(reply.IsRead ? "Прочетено" : "Непрочетено")
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <p>@reply.Message</p>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="admin-support-empty-inline">Все още няма отговор по това съобщение.</div>
+                            }
+                        </div>
+
+                        @if (message.CanReply)
+                        {
+                            <form asp-controller="Admin" asp-action="ReplyToSupportMessage" method="post" class="admin-support-reply-form">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@message.Id" />
+                                <label for="reply-@message.Id">Отговор от SuperFoodsBG</label>
+                                <textarea id="reply-@message.Id" name="replyMessage" rows="4" placeholder="Напиши отговор към потребителя..." required></textarea>
+                                <button type="submit">
+                                    <i class="bi bi-send"></i>
+                                    Изпрати отговор
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="admin-support-reply-form admin-support-reply-form--blocked">
+                                <label>Отговор от SuperFoodsBG</label>
+                                <div class="admin-support-reply-form__notice">
+                                    <i class="bi bi-shield-lock"></i>
+                                    <span>@message.ReplyBlockedReason</span>
+                                </div>
+                            </div>
+                        }
+                    </article>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="admin-support-empty">
+                <i class="bi bi-chat-square-heart"></i>
+                <h2>Все още няма съобщения</h2>
+                <p>Когато някой пише през контактната форма, тук ще се появи пълният запис.</p>
+            </div>
+        }
+    </div>
+</section>
+
+<style>
+    .admin-support-page { padding: 2rem 0 4rem; }
+    .admin-support-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.8fr) minmax(260px, 0.8fr);
+        gap: 1.5rem;
+        align-items: stretch;
+        margin-bottom: 2rem;
+    }
+    .admin-support-hero__eyebrow {
+        display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.5rem 0.85rem; border: 1px solid rgba(34,197,94,.28);
+        border-radius: 999px; background: rgba(34,197,94,.1); color: #8ef0b2; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em;
+    }
+    .admin-support-hero h1 { margin: 1rem 0 .75rem; color: #f7fafc; }
+    .admin-support-hero p { margin: 0; color: rgba(226,232,240,.8); max-width: 62ch; }
+    .admin-support-hero__stats {
+        display: flex; flex-direction: column; justify-content: space-between; gap: .85rem; padding: 1.5rem; border: 1px solid rgba(34,197,94,.18);
+        border-radius: 20px; background: linear-gradient(180deg, rgba(17,24,39,.94), rgba(10,14,24,.98)), rgba(15,23,42,.95); box-shadow: 0 20px 50px rgba(15,23,42,.28);
+    }
+    .admin-support-hero__stats span { color: rgba(148,163,184,.88); text-transform: uppercase; font-size: .8rem; letter-spacing: .08em; }
+    .admin-support-hero__stats strong { color: #f8fafc; font-size: clamp(2rem, 4vw, 3rem); line-height: 1; }
+    .admin-support-hero__stats a {
+        display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: .8rem 1rem; border-radius: 12px;
+        background: linear-gradient(135deg, #22c55e, #16a34a); color: #04130a; font-weight: 700; text-decoration: none;
+    }
+    .admin-support-list { display: grid; gap: 1.25rem; }
+    .admin-support-card {
+        padding: 1.4rem; border: 1px solid rgba(34,197,94,.16); border-radius: 18px; background: rgba(8,15,25,.95); box-shadow: 0 22px 60px rgba(2,6,23,.28);
+    }
+    .admin-support-card__header { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; margin-bottom: 1rem; }
+    .admin-support-card__title-row { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-bottom: .35rem; }
+    .admin-support-card__title-row h2 { margin: 0; color: #f8fafc; font-size: 1.3rem; }
+    .admin-support-card__id {
+        display: inline-flex; align-items: center; min-height: 30px; padding: 0 .7rem; border-radius: 999px; background: rgba(34,197,94,.12); color: #86efac; font-weight: 700; font-size: .85rem;
+    }
+    .admin-support-card__header p, .admin-support-card__agent p { margin: 0; color: rgba(226,232,240,.82); word-break: break-word; }
+    .admin-support-card__timestamp { min-width: 116px; text-align: right; }
+    .admin-support-card__timestamp span { display: block; color: rgba(148,163,184,.92); font-size: .85rem; }
+    .admin-support-card__timestamp strong { color: #f8fafc; font-size: 1.15rem; }
+    .admin-support-card__meta { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .9rem; margin-bottom: 1rem; }
+    .admin-support-meta-item, .admin-support-card__agent, .admin-support-card__message, .admin-support-card__replies {
+        padding: .95rem 1rem; border-radius: 14px; background: rgba(15,23,42,.75); border: 1px solid rgba(148,163,184,.12);
+    }
+    .admin-support-meta-item span, .admin-support-card__agent span, .admin-support-card__message span {
+        display: block; margin-bottom: .45rem; color: rgba(148,163,184,.9); font-size: .8rem; text-transform: uppercase; letter-spacing: .07em;
+    }
+    .admin-support-meta-item strong { color: #f8fafc; display: block; word-break: break-word; }
+    .admin-support-card__agent { margin-bottom: 1rem; }
+    .admin-support-card__message { margin-bottom: 1rem; }
+    .admin-support-card__message pre { margin: 0; color: #e2e8f0; white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size: 1rem; line-height: 1.65; }
+    .admin-support-card__replies { margin-bottom: 1rem; }
+    .admin-support-card__replies-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .85rem; }
+    .admin-support-card__replies-header h3 { margin: 0; color: #f8fafc; font-size: 1rem; }
+    .admin-support-card__replies-header span {
+        min-width: 32px; height: 32px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: rgba(34,197,94,.14); color: #86efac; font-weight: 700;
+    }
+    .admin-support-replies-list { display: grid; gap: .75rem; }
+    .admin-support-reply-item { padding: .9rem 1rem; border-radius: 12px; background: rgba(8,15,25,.75); border: 1px solid rgba(148,163,184,.12); }
+    .admin-support-reply-item__header { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; margin-bottom: .45rem; }
+    .admin-support-reply-item__header strong { color: #f8fafc; }
+    .admin-support-reply-item__header div { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: flex-end; }
+    .admin-support-reply-item__header span { color: rgba(148,163,184,.88); font-size: .84rem; }
+    .admin-support-reply-item__state { padding: .18rem .55rem; border-radius: 999px; }
+    .admin-support-reply-item__state.is-read { background: rgba(34,197,94,.12); color: #86efac; }
+    .admin-support-reply-item__state.is-unread { background: rgba(250,204,21,.12); color: #fde68a; }
+    .admin-support-reply-item p, .admin-support-empty-inline { margin: 0; color: #e2e8f0; }
+    .admin-support-reply-form { display: grid; gap: .75rem; }
+    .admin-support-reply-form label { color: #cbd5e1; font-weight: 600; }
+    .admin-support-reply-form textarea {
+        min-height: 120px; resize: vertical; border-radius: 14px; border: 1px solid rgba(148,163,184,.2); background: rgba(15,23,42,.92); color: #f8fafc; padding: .95rem 1rem;
+    }
+    .admin-support-reply-form button {
+        width: fit-content; min-height: 44px; padding: .75rem 1rem; border: 0; border-radius: 12px; background: linear-gradient(135deg, #22c55e, #16a34a); color: #04130a; font-weight: 800;
+        display: inline-flex; align-items: center; gap: .55rem;
+    }
+    .admin-support-reply-form--blocked {
+        border: 1px dashed rgba(250, 204, 21, 0.25);
+        background: rgba(41, 37, 15, 0.45);
+        padding: 1rem;
+        border-radius: 14px;
+    }
+    .admin-support-reply-form__notice {
+        display: flex;
+        align-items: flex-start;
+        gap: .7rem;
+        color: #fde68a;
+        line-height: 1.55;
+    }
+    .admin-support-reply-form__notice i {
+        font-size: 1rem;
+        margin-top: .1rem;
+    }
+    .admin-support-empty { padding: 3rem 1.5rem; text-align: center; border: 1px dashed rgba(148,163,184,.22); border-radius: 18px; background: rgba(8,15,25,.82); }
+    .admin-support-empty i { font-size: 2.5rem; color: #86efac; }
+    .admin-support-empty h2 { margin: 1rem 0 .5rem; color: #f8fafc; }
+    .admin-support-empty p { margin: 0; color: rgba(226,232,240,.76); }
+    @@media (max-width: 991.98px) {
+        .admin-support-hero, .admin-support-card__meta { grid-template-columns: 1fr; }
+        .admin-support-card__header, .admin-support-reply-item__header { flex-direction: column; }
+        .admin-support-card__timestamp { min-width: 0; text-align: left; }
+        .admin-support-reply-item__header div { justify-content: flex-start; }
+    }
+    @@media (max-width: 575.98px) {
+        .admin-support-page {
+            padding-top: 5.75rem;
+        }
+        .admin-support-card {
+            padding: 1rem;
+        }
+        .admin-support-card__title-row h2 {
+            font-size: 1.05rem;
+        }
+        .admin-support-card__timestamp strong {
+            font-size: 1rem;
+        }
+        .admin-support-reply-form button {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>

@@ -102,13 +102,24 @@ body {
 }
 
 .navbar-sf .navbar-brand .brand-icon {
-  font-size: 1.3rem;
-}
+    width: 180px;
+    max-width: min(42vw, 180px);
+    height: auto;
+    object-fit: contain;
+    display: inline-block;
+  }
 
-.navbar-sf .navbar-brand:hover {
-  color: var(--sf-green-light) !important;
-  transform: scale(1.02);
-}
+  .navbar-sf .navbar-brand:hover {
+    color: var(--sf-green-light) !important;
+    transform: scale(1.02);
+  }
+  
+  @media (max-width: 575.98px) {
+    .navbar-sf .navbar-brand .brand-icon {
+      width: 150px;
+      max-width: 50vw;
+    }
+  }
 
 .navbar-sf .nav-link {
   color: rgba(255, 255, 255, 0.75) !important;
@@ -932,8 +943,12 @@ body {
 }
 
 .footer-brand .brand-icon {
-  margin-right: 0.4rem;
-}
+    margin-right: 0.4rem;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    vertical-align: -4px;
+  }
 
 .text-muted-light {
   color: rgba(255, 255, 255, 0.5);

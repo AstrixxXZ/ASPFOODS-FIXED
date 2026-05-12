@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SuperFoods</title>
+    <link rel="icon" type="image/png" href="~/images/MainLogo.png" asp-append-version="true" />
+    <link rel="apple-touch-icon" href="~/images/MainLogo.png" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,9 +18,8 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark navbar-sf fixed-top">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
-                    <span class="brand-icon me-2">🌿</span>
-                    <span>SuperFoods</span>
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index" aria-label="SuperFoods">
+                    <img class="brand-icon" src="~/images/MainLogo.png" asp-append-version="true" alt="SuperFoods" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -92,7 +93,7 @@
         <div class="container">
             <div class="row py-4">
                 <div class="col-md-4 mb-3 mb-md-0">
-                    <h5 class="footer-brand"><span class="brand-icon">🌿</span> SuperFoods</h5>
+                    <h5 class="footer-brand"><img class="brand-icon" src="~/images/MainLogo.png" asp-append-version="true" alt="SuperFoods logo" /> SuperFoods</h5>
                     <p class="text-muted-light small">Натурални суперхрани за здравословен начин на живот.</p>
                 </div>
                 <div class="col-md-4 mb-3 mb-md-0">
