@@ -23,11 +23,15 @@
                         <div class="product-image" style="background: radial-gradient(circle, rgba(0,255,156,0.1) 0%, transparent 70%); display: flex; align-items: center; justify-content: center; overflow: hidden;">
                             @if (!string.IsNullOrWhiteSpace(product.ImageLink))
                             {
-                                <img src="@product.ImageLink" alt="@product.Name" style="width: 100%; height: 100%; object-fit: cover;" />
+                                <img src="@product.ImageLink"
+                                     alt="@product.Name"
+                                     style="width: 100%; height: 100%; object-fit: cover;"
+                                     onerror="this.style.display='none'; this.parentElement.querySelector('.product-image-fallback').style.display='inline';" />
+                                <span class="product-image-fallback" style="display: none; font-size: 4rem;">🌿</span>
                             }
                             else
                             {
-                                <span style="font-size: 4rem;">🌿</span>
+                                <span class="product-image-fallback" style="font-size: 4rem;">🌿</span>
                             }
                         </div>
                         <div class="product-info">

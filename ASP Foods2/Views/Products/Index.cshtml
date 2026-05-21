@@ -57,11 +57,13 @@
                                             {
                                                 <img src="@item.ImageLink"
                                                      alt="@item.Name"
-                                                     class="product-cell-image" />
+                                                     class="product-cell-image"
+                                                     onerror="this.style.display='none'; this.parentElement.querySelector('.product-cell-fallback').style.display='inline';" />
+                                                <span class="product-cell-fallback" style="display: none;">🌿</span>
                                             }
                                             else
                                             {
-                                                <span>🌿</span>
+                                                <span class="product-cell-fallback">🌿</span>
                                             }
 
                                         </div>

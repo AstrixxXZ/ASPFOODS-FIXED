@@ -23,7 +23,12 @@
             {
                 <img src="@Model.ImageLink"
                      alt="@Model.Name"
-                     class="product-details-image" />
+                     class="product-details-image"
+                     onerror="this.style.display='none'; this.parentElement.querySelector('.product-details-placeholder').style.display='flex';" />
+                <div class="product-details-placeholder" style="display: none;">
+                    <i class="bi bi-card-image"></i>
+                    <span>РќСЏРјР° РєР°С‡РµРЅР° СЃРЅРёРјРєР°</span>
+                </div>
             }
             else
             {
@@ -71,11 +76,14 @@
 
             <div class="product-details-actions">
 
-                <a asp-action="Edit"
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Edit"
                    asp-route-id="@Model?.Id"
                    class="btn-admin-primary">
                     Редактирай
-                </a>
+                    </a>
+                }
 
                 <a asp-action="Index"
                    class="btn-admin-secondary">

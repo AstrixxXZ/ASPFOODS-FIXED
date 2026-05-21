@@ -127,8 +127,9 @@
                                 <label class="form-label">или обнови линка</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
-                                    <input asp-for="ImageLink" type="url" id="imageLinkInput" class="form-control" placeholder="https://example.com/image.jpg" />
+                                    <input asp-for="ImageLink" type="text" inputmode="url" id="imageLinkInput" class="form-control" placeholder="https://example.com/image.jpg" />
                                 </div>
+                                <span asp-validation-for="ImageLink" class="text-danger small"></span>
                                 <small class="text-muted">Остави празно, ако искаш да запазиш текущата снимка</small>
                             </div>
                             @{
