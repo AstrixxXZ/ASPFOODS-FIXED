@@ -46,15 +46,25 @@
                         <tr>
                             <td>
                                 <div class="product-cell">
-                                    <div class="product-cell-icon">
-                                        @if (!string.IsNullOrWhiteSpace(item.ImageUrl))
-                                        {
-                                            <img src="@item.ImageUrl" alt="@item.Name" class="product-cell-image" />
-                                        }
-                                        else
-                                        {
-                                            <span>🌿</span>
-                                        }
+                                    <div class="product-cell">
+                                        <div class="product-cell-icon">
+
+                                            @{
+                                                var productIdString = item?.Id.ToString();
+                                            }
+
+                                            @if (item != null && !string.IsNullOrWhiteSpace(productIdString))
+                                            {
+                                                <img src="@($"/images/products/{productIdString}.jpg")"
+                                                     alt="@item.Name"
+                                                     class="product-cell-image" />
+                                            }
+                                            else
+                                            {
+                                                <span>🌿</span>
+                                            }
+
+                                        </div>
                                     </div>
                                     <div class="product-cell-info">
                                         <span class="product-cell-name">@item.Name</span>

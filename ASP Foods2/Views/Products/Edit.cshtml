@@ -136,32 +136,43 @@
                                 </div>
                                 <small class="text-muted">Остави празно, ако искаш да запазиш текущата снимка</small>
                             </div>
-                        </div>
+                            @{
+                                var productIdString = Model?.Id.ToString();
+                            }
 
-                        @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
-                        {
                             <div class="form-check form-switch image-remove-switch mb-3">
                                 <input class="form-check-input" type="checkbox" id="removeImage" name="removeImage" value="true" />
                                 <label class="form-check-label" for="removeImage">Премахни текущата снимка</label>
                             </div>
-                        }
 
-                        <span asp-validation-for="ImageUrl" class="text-danger small d-block mb-3"></span>
+                            <div class="image-preview-panel">
+                                <div class="image-preview-frame">
 
-                        <div class="image-preview-panel">
-                            <div class="image-preview-frame">
-                                <img src="@Model.ImageUrl" alt="Преглед на снимката" id="productImagePreview" class="product-image-preview @(string.IsNullOrWhiteSpace(Model.ImageUrl) ? "d-none" : string.Empty)" />
-                                <div class="image-preview-empty @(string.IsNullOrWhiteSpace(Model.ImageUrl) ? string.Empty : "d-none")" id="productImageEmpty">
-                                    <i class="bi bi-card-image"></i>
-                                    <span>Тук ще се покаже преглед на снимката</span>
+                                    @if (Model != null && !string.IsNullOrWhiteSpace(productIdString))
+                                    {
+                                        <img src="@($"/images/products/{productIdString}.jpg")"
+                                             alt="Преглед на снимката"
+                                             id="productImagePreview"
+                                             class="product-image-preview" />
+                                    }
+                                    else
+                                    {
+                                        <div class="image-preview-empty" id="productImageEmpty">
+                                            <i class="bi bi-card-image"></i>
+                                            <span>Тук ще се покаже преглед на снимката</span>
+                                        </div>
+                                    }
+
+                                </div>
+
+                                <div class="image-preview-info">
+                                    <h6>Текуща снимка</h6>
+                                    <p>
+                                        Може да я замениш с нов файл,
+                                        да сложиш външен линк или да я премахнеш изцяло.
+                                    </p>
                                 </div>
                             </div>
-                            <div class="image-preview-info">
-                                <h6>Текуща снимка</h6>
-                                <p>Може да я замениш с нов файл, да сложиш външен линк или да я премахнеш изцяло.</p>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="form-actions">
                         <a asp-action="Index" class="btn-admin-secondary">
@@ -488,12 +499,13 @@
             });
         });
 
-        const imageFileInput = document.getElementById('imageFileInput');
+                const imageFileInput = document.getElementById('imageFileInput');
         const imageLinkInput = document.getElementById('imageLinkInput');
         const removeImageInput = document.getElementById('removeImage');
         const imagePreview = document.getElementById('productImagePreview');
         const imageEmpty = document.getElementById('productImageEmpty');
-        const initialImage = '@(Model.ImageUrl ?? string.Empty)';
+
+        const initialImage = '';
 
         function showPreview(src) {
             if (src) {

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Детайли за продукт";
+    var productIdString = Model?.Id.ToString();
 }
 
 <div class="page-hero" style="padding-bottom: 2rem;">
@@ -12,11 +13,17 @@
 </div>
 
 <div class="container">
+
     <div class="product-details-card">
+
+        <!-- IMAGE SECTION -->
         <div class="product-details-media">
-            @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+
+            @if (Model != null && !string.IsNullOrWhiteSpace(productIdString))
             {
-                <img src="@Model.ImageUrl" alt="@Model.Name" class="product-details-image" />
+                <img src="@($"/images/products/{productIdString}.jpg")"
+                     alt="@Model.Name"
+                     class="product-details-image" />
             }
             else
             {
@@ -25,35 +32,66 @@
                     <span>Няма качена снимка</span>
                 </div>
             }
+
         </div>
+
+        <!-- CONTENT SECTION -->
         <div class="product-details-content">
+
             <h2>@Model.Name</h2>
-            <p class="product-details-description">@Model.Description</p>
+
+            <p class="product-details-description">
+                @Model.Description
+            </p>
+
             <dl class="row product-details-list">
+
                 <dt class="col-sm-4">Каталожен номер</dt>
                 <dd class="col-sm-8">@Model.CatalogId</dd>
+
                 <dt class="col-sm-4">Категория</dt>
                 <dd class="col-sm-8">@Model.Categories?.Name</dd>
+
                 <dt class="col-sm-4">Тип</dt>
                 <dd class="col-sm-8">@Model.TypeProducts?.Name</dd>
+
                 <dt class="col-sm-4">Марка</dt>
                 <dd class="col-sm-8">@Model.Brands?.Name</dd>
+
                 <dt class="col-sm-4">Количество</dt>
                 <dd class="col-sm-8">@Model.Quantity @Model.Units?.Name</dd>
+
                 <dt class="col-sm-4">Цена</dt>
                 <dd class="col-sm-8 text-success">@Model.Price.ToString("F2") лв</dd>
+
                 <dt class="col-sm-4">Добавен</dt>
                 <dd class="col-sm-8">@Model.DateAdded.ToString("dd.MM.yyyy")</dd>
+
             </dl>
+
             <div class="product-details-actions">
-                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn-admin-primary">Редактирай</a>
-                <a asp-action="Index" class="btn-admin-secondary">Назад към списъка</a>
+
+                <a asp-action="Edit"
+                   asp-route-id="@Model?.Id"
+                   class="btn-admin-primary">
+                    Редактирай
+                </a>
+
+                <a asp-action="Index"
+                   class="btn-admin-secondary">
+                    Назад към списъка
+                </a>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
 
 <style>
+
     .product-details-card {
         display: grid;
         grid-template-columns: minmax(260px, 340px) 1fr;
@@ -90,10 +128,10 @@
         color: var(--sf-text-muted);
     }
 
-    .product-details-placeholder i {
-        font-size: 2.2rem;
-        color: var(--sf-green);
-    }
+        .product-details-placeholder i {
+            font-size: 2.2rem;
+            color: var(--sf-green);
+        }
 
     .product-details-content h2 {
         margin-bottom: 0.75rem;
@@ -134,4 +172,5 @@
             grid-template-columns: 1fr;
         }
     }
+
 </style>

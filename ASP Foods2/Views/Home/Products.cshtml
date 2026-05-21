@@ -20,16 +20,9 @@
                 @foreach (var product in Model)
                 {
                     <article class="sf-card sf-product-card">
-                        @if (!string.IsNullOrWhiteSpace(product.ImageUrl))
-                        {
-                            <img src="@product.ImageUrl" alt="@product.Name" class="product-image" />
-                        }
-                        else
-                        {
-                            <div class="product-image" style="background: radial-gradient(circle, rgba(0,255,156,0.1) 0%, transparent 70%); display: flex; align-items: center; justify-content: center;">
-                                <span style="font-size: 4rem;">🌿</span>
-                            </div>
-                        }
+                        <div class="product-image" style="background: radial-gradient(circle, rgba(0,255,156,0.1) 0%, transparent 70%); display: flex; align-items: center; justify-content: center;">
+                            <span style="font-size: 4rem;">🌿</span>
+                        </div>
                         <div class="product-info">
                             <h3>@product.Name</h3>
                             <p class="product-description">@product.Description</p>

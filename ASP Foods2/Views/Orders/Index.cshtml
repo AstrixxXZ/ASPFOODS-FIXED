@@ -139,9 +139,16 @@
                                 </td>
                                 <td>
                                     <div class="orders-admin-product">
-                                        @if (!string.IsNullOrWhiteSpace(item.Products?.ImageUrl))
+
+                                        @{
+                                            var productIdString = item.Products?.Id.ToString();
+                                        }
+
+                                        @if (item.Products != null && !string.IsNullOrWhiteSpace(productIdString))
                                         {
-                                            <img src="@item.Products.ImageUrl" alt="@item.Products?.Name" class="orders-admin-product__image" />
+                                            <img src="@($"/images/products/{productIdString}.jpg")"
+                                                 alt="@item.Products?.Name"
+                                                 class="orders-admin-product__image" />
                                         }
                                         else
                                         {
@@ -149,6 +156,7 @@
                                                 <i class="bi bi-image"></i>
                                             </span>
                                         }
+
                                         <div>
                                             <strong>@(item.Products?.Name ?? "Продукт")</strong>
                                             <span>@(string.IsNullOrWhiteSpace(item.Products?.CatalogId) ? "Без код" : item.Products.CatalogId)</span>

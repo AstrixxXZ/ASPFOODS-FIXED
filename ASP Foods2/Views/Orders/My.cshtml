@@ -79,14 +79,21 @@
 
                     <article class="my-order-card">
                         <div class="my-order-card__media">
-                            @if (!string.IsNullOrWhiteSpace(product?.ImageUrl))
+
+                            @{
+                                var productIdString = product?.Id.ToString();
+                            }
+
+                            @if (product != null && !string.IsNullOrWhiteSpace(productIdString))
                             {
-                                <img src="@product.ImageUrl" alt="@productName" />
+                                <img src="@($"/images/products/{productIdString}.jpg")"
+                                     alt="@productName" />
                             }
                             else
                             {
                                 <i class="bi bi-box2-heart"></i>
                             }
+
                         </div>
 
                         <div class="my-order-card__body">

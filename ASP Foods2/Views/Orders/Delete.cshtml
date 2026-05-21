@@ -5,21 +5,31 @@
 
     var client = Model.Clients;
     var product = Model.Products;
+
     var clientName = client == null
         ? "Непознат клиент"
         : string.IsNullOrWhiteSpace(client.FirstName) && string.IsNullOrWhiteSpace(client.LastName)
             ? client.Email ?? client.UserName ?? "Клиент"
             : $"{client.FirstName} {client.LastName}".Trim();
+
     var productName = product?.Name ?? "Продукт";
-    var catalogId = string.IsNullOrWhiteSpace(product?.CatalogId) ? "Без код" : product.CatalogId;
+    var catalogId = string.IsNullOrWhiteSpace(product?.CatalogId)
+        ? "Без код"
+        : product.CatalogId;
+
     var unitPrice = product?.Price ?? 0m;
     var totalPrice = unitPrice * Model.Quantity;
+
+    var productIdString = product?.Id.ToString();
 }
 
 <section class="order-edit-page order-delete-page">
     <div class="container">
+
         <div class="order-edit-hero order-delete-hero">
+
             <div class="order-edit-hero__content">
+
                 <a asp-action="Index" class="order-edit-back">
                     <i class="bi bi-arrow-left"></i>
                     <span>Към поръчките</span>
@@ -29,146 +39,275 @@
                     <i class="bi bi-exclamation-triangle"></i>
                     Потвърждение за изтриване
                 </span>
+
                 <h1>Изтриване на поръчка #@Model.Id</h1>
-                <p>Това действие премахва записа за продукта от админ списъка и не може да бъде върнато от тази страница.</p>
+
+                <p>
+                    Това действие премахва записа за продукта
+                    от админ списъка и не може да бъде върнато.
+                </p>
+
             </div>
 
             <div class="order-delete-warning" aria-label="Внимание">
+
                 <div class="order-delete-warning__orb">
                     <i class="bi bi-trash3"></i>
+
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
+
                 <strong>Внимание</strong>
-                <p>Провери детайлите и потвърди, преди да изтриеш.</p>
+
+                <p>
+                    Провери детайлите и потвърди,
+                    преди да изтриеш.
+                </p>
+
             </div>
+
         </div>
 
         <div class="order-delete-layout">
-            <section class="order-edit-card order-delete-confirm" aria-label="Потвърждение за изтриване">
+
+            <section class="order-edit-card order-delete-confirm"
+                     aria-label="Потвърждение за изтриване">
+
                 <div class="order-delete-confirm__top">
+
                     <span class="order-delete-confirm__icon">
                         <i class="bi bi-shield-exclamation"></i>
                     </span>
+
                     <div>
-                        <span class="order-details-kicker">Наистина ли?</span>
-                        <h2>Да изтрия ли този продукт от поръчката?</h2>
-                        <p>Ще бъде изтрита поръчка #@Model.Id за <strong>@productName</strong>.</p>
+
+                        <span class="order-details-kicker">
+                            Наистина ли?
+                        </span>
+
+                        <h2>
+                            Да изтрия ли този продукт от поръчката?
+                        </h2>
+
+                        <p>
+                            Ще бъде изтрита поръчка
+                            #@Model.Id за
+                            <strong>@productName</strong>.
+                        </p>
+
                     </div>
+
                 </div>
 
                 <div class="order-delete-product">
+
                     <div class="order-delete-product__media">
-                        @if (!string.IsNullOrWhiteSpace(product?.ImageUrl))
+
+                        @if (product != null &&
+                                                !string.IsNullOrWhiteSpace(productIdString))
                         {
-                            <img src="@product.ImageUrl" alt="@productName" />
+                            <img src="@($"/images/products/{productIdString}.jpg")"
+                                 alt="@productName" />
                         }
                         else
                         {
                             <i class="bi bi-box2-heart"></i>
                         }
+
                     </div>
+
                     <div>
+
                         <span>Продукт</span>
+
                         <strong>@productName</strong>
+
                         <p>@catalogId</p>
+
                     </div>
+
                 </div>
 
-                <form asp-action="Delete" class="order-delete-form" data-delete-form>
+                <form asp-action="Delete"
+                      class="order-delete-form"
+                      data-delete-form>
+
                     <input type="hidden" asp-for="Id" />
 
                     <label class="order-delete-check">
-                        <input type="checkbox" data-delete-confirm />
+
+                        <input type="checkbox"
+                               data-delete-confirm />
+
                         <span class="order-delete-check__box">
                             <i class="bi bi-check2"></i>
                         </span>
+
                         <span>
-                            Потвърждавам, че искам да изтрия тази поръчка за <strong>@productName</strong>.
+                            Потвърждавам, че искам да изтрия
+                            тази поръчка за
+                            <strong>@productName</strong>.
                         </span>
+
                     </label>
 
                     <div class="order-edit-actions">
-                        <button type="submit" class="order-edit-btn order-delete-btn" disabled data-delete-button>
+
+                        <button type="submit"
+                                class="order-edit-btn order-delete-btn"
+                                disabled
+                                data-delete-button>
+
                             <i class="bi bi-trash3"></i>
-                            <span data-delete-button-text>Изтрий завинаги</span>
+
+                            <span data-delete-button-text>
+                                Изтрий завинаги
+                            </span>
+
                         </button>
-                        <a asp-action="Details" asp-route-id="@Model.Id" class="order-edit-btn order-edit-btn--ghost">
+
+                        <a asp-action="Details"
+                           asp-route-id="@Model.Id"
+                           class="order-edit-btn order-edit-btn--ghost">
+
                             <i class="bi bi-eye"></i>
                             <span>Виж детайли</span>
+
                         </a>
-                        <a asp-action="Index" class="order-edit-btn order-edit-btn--ghost">
+
+                        <a asp-action="Index"
+                           class="order-edit-btn order-edit-btn--ghost">
+
                             <i class="bi bi-arrow-left"></i>
                             <span>Отказ</span>
+
                         </a>
+
                     </div>
+
                 </form>
+
             </section>
 
-            <aside class="order-edit-summary order-delete-side" aria-label="Детайли преди изтриване">
+            <aside class="order-edit-summary order-delete-side"
+                   aria-label="Детайли преди изтриване">
+
                 <div class="order-edit-summary__header">
+
                     <span class="order-edit-summary__icon order-delete-side__icon">
                         <i class="bi bi-receipt-cutoff"></i>
                     </span>
+
                     <div>
                         <span>Запис за изтриване</span>
                         <strong>#@Model.Id</strong>
                     </div>
+
                 </div>
 
                 <div class="order-edit-summary__list">
+
                     <div class="order-edit-summary__item">
-                        <span><i class="bi bi-person"></i> Клиент</span>
+                        <span>
+                            <i class="bi bi-person"></i>
+                            Клиент
+                        </span>
+
                         <strong>@clientName</strong>
                     </div>
+
                     <div class="order-edit-summary__item">
-                        <span><i class="bi bi-layers"></i> Количество</span>
+                        <span>
+                            <i class="bi bi-layers"></i>
+                            Количество
+                        </span>
+
                         <strong>@Model.Quantity бр.</strong>
                     </div>
+
                     <div class="order-edit-summary__item">
-                        <span><i class="bi bi-cash-coin"></i> Стойност</span>
-                        <strong>@totalPrice.ToString("0.00") лв.</strong>
+                        <span>
+                            <i class="bi bi-cash-coin"></i>
+                            Стойност
+                        </span>
+
+                        <strong>
+                            @totalPrice.ToString("0.00") лв.
+                        </strong>
                     </div>
+
                     <div class="order-edit-summary__item">
-                        <span><i class="bi bi-calendar2-week"></i> Дата</span>
-                        <strong>@Model.DateAdded.ToString("dd.MM.yyyy HH:mm")</strong>
+                        <span>
+                            <i class="bi bi-calendar2-week"></i>
+                            Дата
+                        </span>
+
+                        <strong>
+                            @Model.DateAdded.ToString("dd.MM.yyyy HH:mm")
+                        </strong>
                     </div>
+
                 </div>
+
             </aside>
+
         </div>
+
     </div>
 </section>
 
 @section Scripts {
+
     <script>
+
         (() => {
-            const form = document.querySelector('[data-delete-form]');
-            const checkbox = document.querySelector('[data-delete-confirm]');
-            const button = document.querySelector('[data-delete-button]');
-            const buttonText = document.querySelector('[data-delete-button-text]');
+
+            const form =
+                document.querySelector('[data-delete-form]');
+
+            const checkbox =
+                document.querySelector('[data-delete-confirm]');
+
+            const button =
+                document.querySelector('[data-delete-button]');
+
+            const buttonText =
+                document.querySelector('[data-delete-button-text]');
 
             if (!form || !checkbox || !button || !buttonText) {
                 return;
             }
 
             checkbox.addEventListener('change', () => {
+
                 button.disabled = !checkbox.checked;
+
             });
 
             form.addEventListener('submit', (event) => {
+
                 if (!checkbox.checked) {
+
                     event.preventDefault();
                     return;
                 }
 
                 event.preventDefault();
+
                 document.body.classList.add('order-delete-is-running');
+
                 button.disabled = true;
+
                 buttonText.textContent = 'Изтриване...';
 
                 window.setTimeout(() => form.submit(), 850);
+
             });
+
         })();
+
     </script>
+
 }

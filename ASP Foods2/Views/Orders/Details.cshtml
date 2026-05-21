@@ -55,17 +55,23 @@
                     </span>
                 </div>
 
-                <div class="order-details-product">
-                    <div class="order-details-product__media">
-                        @if (!string.IsNullOrWhiteSpace(product?.ImageUrl))
-                        {
-                            <img src="@product.ImageUrl" alt="@productName" />
-                        }
-                        else
-                        {
-                            <i class="bi bi-box2-heart"></i>
-                        }
-                    </div>
+                <div class="order-details-product__media">
+
+                    @{
+                        var productIdString = product?.Id.ToString();
+                    }
+
+                    @if (product != null && !string.IsNullOrWhiteSpace(productIdString))
+                    {
+                        <img src="@($"/images/products/{productIdString}.jpg")"
+                             alt="@productName" />
+                    }
+                    else
+                    {
+                        <i class="bi bi-box2-heart"></i>
+                    }
+
+                </div>
 
                     <div class="order-details-product__content">
                         <span class="order-details-kicker">Продукт</span>
