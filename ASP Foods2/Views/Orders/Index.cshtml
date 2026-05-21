@@ -144,9 +144,9 @@
                                             var productIdString = item.Products?.Id.ToString();
                                         }
 
-                                        @if (item.Products != null && !string.IsNullOrWhiteSpace(productIdString))
+                                        @if (item.Products != null && !string.IsNullOrWhiteSpace(item.Products.ImageLink))
                                         {
-                                            <img src="@($"/images/products/{productIdString}.jpg")"
+                                            <img src="@item.Products.ImageLink"
                                                  alt="@item.Products?.Name"
                                                  class="orders-admin-product__image" />
                                         }

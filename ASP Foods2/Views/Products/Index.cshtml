@@ -53,9 +53,9 @@
                                                 var productIdString = item?.Id.ToString();
                                             }
 
-                                            @if (item != null && !string.IsNullOrWhiteSpace(productIdString))
+                                            @if (item != null && !string.IsNullOrWhiteSpace(item.ImageLink))
                                             {
-                                                <img src="@($"/images/products/{productIdString}.jpg")"
+                                                <img src="@item.ImageLink"
                                                      alt="@item.Name"
                                                      class="product-cell-image" />
                                             }

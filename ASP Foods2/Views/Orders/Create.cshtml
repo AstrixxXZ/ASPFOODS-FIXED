@@ -68,9 +68,9 @@
                         {
                             <article class="checkout-item">
                                 <div class="checkout-item__media">
-                                    @if (!string.IsNullOrWhiteSpace(item.ImageUrl))
+                                    @if (!string.IsNullOrWhiteSpace(item.ImageLink))
                                     {
-                                        <img src="@item.ImageUrl" alt="@item.ProductName" class="checkout-item__image" />
+                                        <img src="@item.ImageLink" alt="@item.ProductName" class="checkout-item__image" />
                                     }
                                     else
                                     {

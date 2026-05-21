@@ -19,9 +19,9 @@
         <!-- IMAGE SECTION -->
         <div class="product-details-media">
 
-            @if (Model != null && !string.IsNullOrWhiteSpace(productIdString))
+            @if (Model != null && !string.IsNullOrWhiteSpace(Model.ImageLink))
             {
-                <img src="@($"/images/products/{productIdString}.jpg")"
+                <img src="@Model.ImageLink"
                      alt="@Model.Name"
                      class="product-details-image" />
             }

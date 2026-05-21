@@ -5682,3 +5682,4 @@ C:\Users\1212-4\Desktop\aspfoods\ASP Foods2\obj\Debug\net9.0\refint\ASP Foods2.d
 C:\Users\1212-4\Desktop\aspfoods\ASP Foods2\obj\Debug\net9.0\ASP Foods2.pdb
 C:\Users\1212-4\Desktop\aspfoods\ASP Foods2\obj\Debug\net9.0\ASP Foods2.genruntimeconfig.cache
 C:\Users\1212-4\Desktop\aspfoods\ASP Foods2\obj\Debug\net9.0\ref\ASP Foods2.dll
+C:\Users\1212-4\Desktop\aspfoods\ASP Foods2\obj\Debug\net9.0\ASP Foods2.sourcelink.json

@@ -86,7 +86,7 @@
 
                             @if (product != null && !string.IsNullOrWhiteSpace(productIdString))
                             {
-                                <img src="@($"/images/products/{productIdString}.jpg")"
+                                <img src="@order.Products.ImageLink"
                                      alt="@productName" />
                             }
                             else

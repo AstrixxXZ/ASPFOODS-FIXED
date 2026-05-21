@@ -26,7 +26,7 @@
                     </div>
                 </div>
 
-                <form asp-action="Edit" method="post" enctype="multipart/form-data" id="productForm">
+                <form asp-action="Edit" method="post" id="productForm">
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="DateAdded" />
@@ -124,15 +124,10 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label">Качи нова снимка</label>
-                                <input type="file" name="imageFile" class="form-control" id="imageFileInput" accept="image/*" />
-                                <small class="text-muted">Позволени формати: JPG, PNG, WEBP, GIF до 5 MB</small>
-                            </div>
-                            <div class="col-md-6 mb-3">
                                 <label class="form-label">или обнови линка</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
-                                    <input type="url" name="imageLink" id="imageLinkInput" class="form-control" value="@imageLink" placeholder="https://example.com/image.jpg" />
+                                    <input asp-for="ImageLink" type="url" id="imageLinkInput" class="form-control" placeholder="https://example.com/image.jpg" />
                                 </div>
                                 <small class="text-muted">Остави празно, ако искаш да запазиш текущата снимка</small>
                             </div>
@@ -140,17 +135,12 @@
                                 var productIdString = Model?.Id.ToString();
                             }
 
-                            <div class="form-check form-switch image-remove-switch mb-3">
-                                <input class="form-check-input" type="checkbox" id="removeImage" name="removeImage" value="true" />
-                                <label class="form-check-label" for="removeImage">Премахни текущата снимка</label>
-                            </div>
-
                             <div class="image-preview-panel">
                                 <div class="image-preview-frame">
 
-                                    @if (Model != null && !string.IsNullOrWhiteSpace(productIdString))
+                                    @if (Model != null && !string.IsNullOrWhiteSpace(Model.ImageLink))
                                     {
-                                        <img src="@($"/images/products/{productIdString}.jpg")"
+                                        <img src="@Model.ImageLink"
                                              alt="Преглед на снимката"
                                              id="productImagePreview"
                                              class="product-image-preview" />
@@ -499,9 +489,7 @@
             });
         });
 
-                const imageFileInput = document.getElementById('imageFileInput');
-        const imageLinkInput = document.getElementById('imageLinkInput');
-        const removeImageInput = document.getElementById('removeImage');
+                        const imageLinkInput = document.getElementById('imageLinkInput');
         const imagePreview = document.getElementById('productImagePreview');
         const imageEmpty = document.getElementById('productImageEmpty');
 
@@ -509,36 +497,23 @@
 
         function showPreview(src) {
             if (src) {
-                imagePreview.src = src;
-                imagePreview.classList.remove('d-none');
-                imageEmpty.classList.add('d-none');
+                if (imagePreview) {
+                    imagePreview.src = src;
+                    imagePreview.classList.remove('d-none');
+                }
+                imageEmpty?.classList.add('d-none');
             } else {
-                imagePreview.src = '';
-                imagePreview.classList.add('d-none');
-                imageEmpty.classList.remove('d-none');
+                if (imagePreview) {
+                    imagePreview.src = '';
+                    imagePreview.classList.add('d-none');
+                }
+                imageEmpty?.classList.remove('d-none');
             }
         }
+        imageLinkInput.addEventListener('input', function() {
+            showPreview(this.value.trim());
+        });
 
-        function syncPreview() {
-            if (removeImageInput && removeImageInput.checked) {
-                showPreview('');
-                return;
-            }
-
-            const file = imageFileInput.files && imageFileInput.files[0];
-            if (file) {
-                showPreview(URL.createObjectURL(file));
-                return;
-            }
-
-            const link = imageLinkInput.value.trim();
-            showPreview(link || initialImage);
-        }
-
-        imageFileInput.addEventListener('change', syncPreview);
-        imageLinkInput.addEventListener('input', syncPreview);
-        removeImageInput?.addEventListener('change', syncPreview);
-
-        syncPreview();
+        showPreview(imageLinkInput.value.trim());
     </script>
 }

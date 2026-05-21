@@ -18,7 +18,7 @@ namespace ASP_Foods2.Data
         public decimal Quantity { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        //public string? ImageUrl { get; set; }
+        public string? ImageLink { get; set; }
         public DateTime DateAdded { get; set; }
         public ICollection<Cart> Carts { get; set; }
 

@@ -374,7 +374,7 @@ namespace ASP_Foods2.Controllers
                     ProductId = cart.ProductId,
                     ProductName = cart.Products?.Name ?? "Продукт",
                     CatalogId = cart.Products?.CatalogId ?? string.Empty,
-                    //ImageUrl = cart.Products?.ImageUrl,
+                    ImageLink = cart.Products?.ImageLink,
                     UnitPrice = cart.Products?.Price ?? 0m,
                     Quantity = cart.Quantity
                 }).ToList()
