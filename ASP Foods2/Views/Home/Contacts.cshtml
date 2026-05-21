@@ -8,14 +8,14 @@
     var contactError = TempData["ContactError"] as string;
 }
 
-<div class="page-hero">
+<div class="page-hero compact-page-hero contacts-page-hero">
     <div class="container">
         <h1>Свържете се с <span class="text-gradient">Нас</span></h1>
         <p>Имате въпроси? Ще се радваме да ви помогнем. Свържете се с нашия екип.</p>
     </div>
 </div>
 
-<div class="container">
+<div class="container contacts-page">
     <section class="sf-section" style="padding-top: 0;">
         <div class="contact-grid">
             <div class="contact-info">
@@ -100,21 +100,133 @@
 
     <section class="sf-section">
         <div class="sf-section-title">
-            <h2>Често Задавани <span class="text-gradient">Въпроси</span></h2>
+            <h2>Често задавани <span class="text-gradient">въпроси</span></h2>
         </div>
-        <div class="sf-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+        <div class="sf-grid contacts-faq-grid">
             <div class="sf-card">
-                <h3 style="font-size: 1.1rem;">Как мога да направя поръчка?</h3>
+                <h3>Как мога да направя поръчка?</h3>
                 <p>Изберете продуктите, добавете ги в количката и следвайте стъпките за плащане. Приемаме карти и наложен платеж.</p>
             </div>
             <div class="sf-card">
-                <h3 style="font-size: 1.1rem;">Какви са сроковете за доставка?</h3>
+                <h3>Какви са сроковете за доставка?</h3>
                 <p>Доставяме до 48 часа в работни дни до всяка точка в България. Безплатна доставка при поръчки над 100 лв.</p>
             </div>
             <div class="sf-card">
-                <h3 style="font-size: 1.1rem;">Мога ли да върна продукт?</h3>
+                <h3>Мога ли да върна продукт?</h3>
                 <p>Да, имате право на връщане до 14 дни от получаването, ако продуктът е в оригинална опаковка.</p>
             </div>
         </div>
     </section>
 </div>
+
+<style>
+    .contacts-page .sf-section {
+        padding-bottom: 2rem;
+    }
+
+    .contacts-page .contact-grid {
+        grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1fr);
+        gap: 0.9rem;
+        align-items: start;
+    }
+
+    .contacts-page .contact-info {
+        gap: 0.65rem;
+    }
+
+    .contacts-page .contact-item,
+    .contacts-page .contact-form,
+    .contacts-page .sf-card {
+        border-radius: 8px;
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.32);
+    }
+
+    .contacts-page .contact-item {
+        padding: 0.85rem;
+        gap: 0.7rem;
+    }
+
+    .contacts-page .contact-item:hover {
+        transform: translateY(-2px);
+    }
+
+    .contacts-page .contact-item-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+    }
+
+    .contacts-page .contact-item h5 {
+        font-size: 0.95rem;
+    }
+
+    .contacts-page .contact-item p {
+        font-size: 0.82rem;
+        line-height: 1.35;
+    }
+
+    .contacts-page .contact-form {
+        padding: 1rem;
+    }
+
+    .contacts-page .contact-form h3 {
+        margin-bottom: 0.8rem !important;
+        font-size: 1.15rem;
+    }
+
+    .contacts-page .contact-form .mb-3 {
+        margin-bottom: 0.65rem !important;
+    }
+
+    .contacts-page .contact-form .mb-4 {
+        margin-bottom: 0.85rem !important;
+    }
+
+    .contacts-page .contact-form .form-label {
+        font-size: 0.82rem;
+        margin-bottom: 0.28rem;
+    }
+
+    .contacts-page .contact-form .form-control {
+        padding: 0.62rem 0.75rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+    }
+
+    .contacts-page .contact-form textarea {
+        min-height: 108px;
+    }
+
+    .contacts-page .btn-sf-submit {
+        padding: 0.68rem 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+    }
+
+    .contacts-faq-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.85rem;
+    }
+
+    .contacts-faq-grid .sf-card {
+        padding: 1rem;
+    }
+
+    .contacts-faq-grid .sf-card h3 {
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+
+    .contacts-faq-grid .sf-card p {
+        font-size: 0.84rem;
+        line-height: 1.42;
+    }
+
+    @@media (max-width: 991px) {
+        .contacts-page .contact-grid,
+        .contacts-faq-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

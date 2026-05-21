@@ -1,73 +1,73 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\1212-4\\Desktop\\aspfoods\\",
+  "WorkspaceRootPath": "D:\\Zaimov2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\models\\ordercheckoutviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\models\\ordercheckoutviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\models\\ordercheckoutviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\data\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\data\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\data\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\views\\orders\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\views\\orders\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\orders\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\data\\migrations\\20260521083307_addimageurl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\data\\migrations\\20260521083307_addimageurl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\data\\migrations\\20260521083307_addimageurl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\data\\migrations\\20260319183000_addproductimageurl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\data\\migrations\\20260319183000_addproductimageurl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\data\\migrations\\20260319183000_addproductimageurl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\products\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\views\\products\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\views\\products\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\products\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\views\\products\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\views\\products\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\products\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\views\\orders\\my.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\views\\orders\\my.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\orders\\my.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\views\\orders\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\views\\orders\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\orders\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\views\\orders\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\views\\orders\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\orders\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\views\\orders\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\views\\orders\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\orders\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\views\\home\\products.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\views\\home\\products.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\views\\home\\products.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|c:\\users\\1212-4\\desktop\\aspfoods\\asp foods2\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|d:\\zaimov2\\asp foods2\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6BC316BC-B792-48F1-B4C4-43542FE41FEE}|ASP Foods2\\ASP Foods2.csproj|solutionrelative:asp foods2\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -81,37 +81,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{873151d0-cf2e-48cc-b4bf-ad0394f6a3c3}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "OrderCheckoutViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Models\\OrderCheckoutViewModel.cs",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Models\\OrderCheckoutViewModel.cs",
               "RelativeDocumentMoniker": "ASP Foods2\\Models\\OrderCheckoutViewModel.cs",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Models\\OrderCheckoutViewModel.cs",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Models\\OrderCheckoutViewModel.cs",
               "RelativeToolTip": "ASP Foods2\\Models\\OrderCheckoutViewModel.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAABIAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABkAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-21T09:35:01.971Z",
               "EditorCaption": ""
@@ -120,87 +100,81 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Orders\\Create.cshtml",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Views\\Orders\\Create.cshtml",
               "RelativeDocumentMoniker": "ASP Foods2\\Views\\Orders\\Create.cshtml",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Orders\\Create.cshtml",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Views\\Orders\\Create.cshtml",
               "RelativeToolTip": "ASP Foods2\\Views\\Orders\\Create.cshtml",
               "ViewState": "AgIAAD4AAAAAAAAAAAAAAE4AAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-21T09:32:36.613Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-21T09:32:36.613Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "OrdersController.cs",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Controllers\\OrdersController.cs",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Controllers\\OrdersController.cs",
               "RelativeDocumentMoniker": "ASP Foods2\\Controllers\\OrdersController.cs",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Controllers\\OrdersController.cs",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Controllers\\OrdersController.cs",
               "RelativeToolTip": "ASP Foods2\\Controllers\\OrdersController.cs",
               "ViewState": "AgIAAGoBAAAAAAAAAAAAAHgBAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-21T08:37:12.538Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-21T08:37:12.538Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Product.cs",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Data\\Product.cs",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Data\\Product.cs",
               "RelativeDocumentMoniker": "ASP Foods2\\Data\\Product.cs",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Data\\Product.cs",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Data\\Product.cs",
               "RelativeToolTip": "ASP Foods2\\Data\\Product.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAqwBQAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-21T08:21:54.353Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-21T08:21:54.353Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "20260319183000_AddProductImageUrl.cs",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Data\\Migrations\\20260319183000_AddProductImageUrl.cs",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Data\\Migrations\\20260319183000_AddProductImageUrl.cs",
               "RelativeDocumentMoniker": "ASP Foods2\\Data\\Migrations\\20260319183000_AddProductImageUrl.cs",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Data\\Migrations\\20260319183000_AddProductImageUrl.cs",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Data\\Migrations\\20260319183000_AddProductImageUrl.cs",
               "RelativeToolTip": "ASP Foods2\\Data\\Migrations\\20260319183000_AddProductImageUrl.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-21T08:19:21.375Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-21T08:19:21.375Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "20260521083307_AddImageUrl.cs",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Data\\Migrations\\20260521083307_AddImageUrl.cs",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Data\\Migrations\\20260521083307_AddImageUrl.cs",
               "RelativeDocumentMoniker": "ASP Foods2\\Data\\Migrations\\20260521083307_AddImageUrl.cs",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Data\\Migrations\\20260521083307_AddImageUrl.cs",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Data\\Migrations\\20260521083307_AddImageUrl.cs",
               "RelativeToolTip": "ASP Foods2\\Data\\Migrations\\20260521083307_AddImageUrl.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-21T08:33:08.097Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-21T08:33:08.097Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Controllers\\AdminController.cs",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Controllers\\AdminController.cs",
               "RelativeDocumentMoniker": "ASP Foods2\\Controllers\\AdminController.cs",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Controllers\\AdminController.cs",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Controllers\\AdminController.cs",
               "RelativeToolTip": "ASP Foods2\\Controllers\\AdminController.cs",
               "ViewState": "AgIAAHQAAAAAAAAAAAAIwIYAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-21T08:16:30.437Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-21T08:16:30.437Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
               "Title": "My.cshtml",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Orders\\My.cshtml",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Views\\Orders\\My.cshtml",
               "RelativeDocumentMoniker": "ASP Foods2\\Views\\Orders\\My.cshtml",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Orders\\My.cshtml",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Views\\Orders\\My.cshtml",
               "RelativeToolTip": "ASP Foods2\\Views\\Orders\\My.cshtml",
               "ViewState": "AgIAAEEAAAAAAAAAAAAQwGAAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -210,9 +184,9 @@
               "$type": "Document",
               "DocumentIndex": 10,
               "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Products\\Create.cshtml",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Views\\Products\\Create.cshtml",
               "RelativeDocumentMoniker": "ASP Foods2\\Views\\Products\\Create.cshtml",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Products\\Create.cshtml",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Views\\Products\\Create.cshtml",
               "RelativeToolTip": "ASP Foods2\\Views\\Products\\Create.cshtml",
               "ViewState": "AgIAAIoAAAAAAAAAAAAAAJ8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -222,9 +196,9 @@
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Products\\Details.cshtml",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Views\\Products\\Details.cshtml",
               "RelativeDocumentMoniker": "ASP Foods2\\Views\\Products\\Details.cshtml",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Products\\Details.cshtml",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Views\\Products\\Details.cshtml",
               "RelativeToolTip": "ASP Foods2\\Views\\Products\\Details.cshtml",
               "ViewState": "AgIAAJAAAAAAAAAAAAAQwKQAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -234,9 +208,9 @@
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Products\\Index.cshtml",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Views\\Products\\Index.cshtml",
               "RelativeDocumentMoniker": "ASP Foods2\\Views\\Products\\Index.cshtml",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Products\\Index.cshtml",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Views\\Products\\Index.cshtml",
               "RelativeToolTip": "ASP Foods2\\Views\\Products\\Index.cshtml",
               "ViewState": "AgIAACQAAAAAAAAAAAAQwCUAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -246,9 +220,9 @@
               "$type": "Document",
               "DocumentIndex": 9,
               "Title": "Edit.cshtml",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Products\\Edit.cshtml",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Views\\Products\\Edit.cshtml",
               "RelativeDocumentMoniker": "ASP Foods2\\Views\\Products\\Edit.cshtml",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Products\\Edit.cshtml",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Views\\Products\\Edit.cshtml",
               "RelativeToolTip": "ASP Foods2\\Views\\Products\\Edit.cshtml",
               "ViewState": "AgIAAOoBAAAAAAAAAAAuwPsBAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -258,9 +232,9 @@
               "$type": "Document",
               "DocumentIndex": 12,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Orders\\Index.cshtml",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Views\\Orders\\Index.cshtml",
               "RelativeDocumentMoniker": "ASP Foods2\\Views\\Orders\\Index.cshtml",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Orders\\Index.cshtml",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Views\\Orders\\Index.cshtml",
               "RelativeToolTip": "ASP Foods2\\Views\\Orders\\Index.cshtml",
               "ViewState": "AgIAAIAAAAAAAAAAAAAQwIUAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -270,9 +244,9 @@
               "$type": "Document",
               "DocumentIndex": 13,
               "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Orders\\Details.cshtml",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Views\\Orders\\Details.cshtml",
               "RelativeDocumentMoniker": "ASP Foods2\\Views\\Orders\\Details.cshtml",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Orders\\Details.cshtml",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Views\\Orders\\Details.cshtml",
               "RelativeToolTip": "ASP Foods2\\Views\\Orders\\Details.cshtml",
               "ViewState": "AgIAACgAAAAAAAAAAADwvz0AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -282,9 +256,9 @@
               "$type": "Document",
               "DocumentIndex": 14,
               "Title": "Delete.cshtml",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Orders\\Delete.cshtml",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Views\\Orders\\Delete.cshtml",
               "RelativeDocumentMoniker": "ASP Foods2\\Views\\Orders\\Delete.cshtml",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Orders\\Delete.cshtml",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Views\\Orders\\Delete.cshtml",
               "RelativeToolTip": "ASP Foods2\\Views\\Orders\\Delete.cshtml",
               "ViewState": "AgIAAF0AAAAAAAAAAAAAADgBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -294,9 +268,9 @@
               "$type": "Document",
               "DocumentIndex": 15,
               "Title": "Products.cshtml",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Home\\Products.cshtml",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Views\\Home\\Products.cshtml",
               "RelativeDocumentMoniker": "ASP Foods2\\Views\\Home\\Products.cshtml",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Views\\Home\\Products.cshtml",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Views\\Home\\Products.cshtml",
               "RelativeToolTip": "ASP Foods2\\Views\\Home\\Products.cshtml",
               "ViewState": "AgIAAAYAAAAAAAAAAAAlwBoAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
@@ -306,9 +280,9 @@
               "$type": "Document",
               "DocumentIndex": 16,
               "Title": "ProductsController.cs",
-              "DocumentMoniker": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Controllers\\ProductsController.cs",
+              "DocumentMoniker": "D:\\Zaimov2\\ASP Foods2\\Controllers\\ProductsController.cs",
               "RelativeDocumentMoniker": "ASP Foods2\\Controllers\\ProductsController.cs",
-              "ToolTip": "C:\\Users\\1212-4\\Desktop\\aspfoods\\ASP Foods2\\Controllers\\ProductsController.cs",
+              "ToolTip": "D:\\Zaimov2\\ASP Foods2\\Controllers\\ProductsController.cs",
               "RelativeToolTip": "ASP Foods2\\Controllers\\ProductsController.cs",
               "ViewState": "AgIAAFMAAAAAAAAAAAAAAHwAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -317,35 +291,11 @@
             {
               "$type": "Document",
               "DocumentIndex": 17,
-              "Title": "dbo.Products [Data]",
+              "Title": "dbo.Products.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ASPSuperFoods/True/SqlTable/dbo.Products.sql",
-              "ToolTip": "dbo.Products [Data]",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ASPSuperFoods/True/SqlTable/dbo.Products.sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
               "WhenOpened": "2026-05-21T08:32:11.703Z"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 1354,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 136,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             }
           ]
         }

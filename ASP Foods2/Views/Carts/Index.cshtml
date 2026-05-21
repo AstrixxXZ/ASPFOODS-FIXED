@@ -1,86 +1,82 @@
-@model IEnumerable<ASP_Foods2.Data.Cart>
+п»ї@model IEnumerable<ASP_Foods2.Data.Cart>
 @{
-    ViewData["Title"] = "Количка";
+    ViewData["Title"] = "РљРѕР»РёС‡РєР°";
     var total = Model?.Sum(c => c.Products?.Price * c.Quantity ?? 0) ?? 0;
 }
 
-<div class="page-hero">
+<div class="page-hero compact-page-hero cart-page-hero">
     <div class="container">
-        <h1><i class="bi bi-cart3 me-3"></i><span class="text-gradient">Количка</span></h1>
-        <p>Преглед на вашите избрани продукти</p>
+        <h1><i class="bi bi-cart3 me-2"></i><span class="text-gradient">РљРѕР»РёС‡РєР°</span></h1>
+        <p>РџСЂРµРіР»РµРґР°Р№ РёР·Р±СЂР°РЅРёС‚Рµ РїСЂРѕРґСѓРєС‚Рё РїСЂРµРґРё С„РёРЅР°Р»РёР·РёСЂР°РЅРµ РЅР° РїРѕСЂСЉС‡РєР°С‚Р°.</p>
     </div>
 </div>
 
-<div class="container">
+<div class="container cart-page">
     <section class="sf-section" style="padding-top: 0;">
         @if (Model != null && Model.Any())
         {
-            <div class="row">
-                <div class="col-lg-8 mb-4">
+            <div class="cart-layout">
+                <div class="cart-items-list">
                     @foreach (var item in Model)
                     {
                         var itemTotal = (item.Products?.Price ?? 0) * item.Quantity;
-                        <div class="sf-card mb-3" style="flex-direction: row; align-items: center; gap: 1.5rem; text-align: left;">
-                            <div class="cart-product-icon" style="font-size: 2.5rem;">??</div>
-                            <div style="flex: 1;">
-                                <h5 style="margin: 0; font-weight: 700;">@item.Products?.Name</h5>
-                                <p style="margin: 0.25rem 0 0; color: var(--sf-text-muted); font-size: 0.9rem;">@((item.Products?.Price ?? 0).ToString("F2")) лв / бр.</p>
+                        <article class="cart-line-item">
+                            <div class="cart-product-icon"><i class="bi bi-box-seam"></i></div>
+                            <div class="cart-line-main">
+                                <h2>@item.Products?.Name</h2>
+                                <span>@((item.Products?.Price ?? 0).ToString("F2")) Р»РІ / Р±СЂ.</span>
                             </div>
-                            <form asp-controller="Carts" asp-action="UpdateQuantity" method="post" class="d-flex align-items-center gap-2">
+                            <form asp-controller="Carts" asp-action="UpdateQuantity" method="post" class="cart-quantity-form">
                                 <input type="hidden" name="id" value="@item.Id" />
-                                <input type="number" name="quantity" value="@item.Quantity" min="1" class="cart-quantity-input" />
-                                <button type="submit" class="btn btn-sm" style="background: rgba(0,255,156,0.1); color: var(--sf-green); border: none; border-radius: 6px; padding: 0.5rem 0.75rem;">
+                                <input type="number" name="quantity" value="@item.Quantity" min="1" class="cart-quantity-input" aria-label="РљРѕР»РёС‡РµСЃС‚РІРѕ" />
+                                <button type="submit" class="cart-update-btn" aria-label="РћР±РЅРѕРІРё РєРѕР»РёС‡РµСЃС‚РІРѕ">
                                     <i class="bi bi-check-lg"></i>
                                 </button>
                             </form>
-                            <div style="min-width: 100px; text-align: right;">
-                                <span class="cart-price" style="font-size: 1.25rem;">@itemTotal.ToString("F2") лв</span>
-                            </div>
+                            <div class="cart-line-price">@itemTotal.ToString("F2") Р»РІ</div>
                             <form asp-controller="Carts" asp-action="RemoveFromCart" method="post">
                                 <input type="hidden" name="id" value="@item.Id" />
-                                <button type="submit" class="cart-remove-btn">
+                                <button type="submit" class="cart-remove-btn" aria-label="РџСЂРµРјР°С…РЅРё РїСЂРѕРґСѓРєС‚Р°">
                                     <i class="bi bi-trash3"></i>
                                 </button>
                             </form>
-                        </div>
+                        </article>
                     }
                 </div>
-                <div class="col-lg-4">
-                    <div class="cart-summary">
-                        <h4><i class="bi bi-receipt me-2"></i>Обобщение</h4>
-                        <div class="cart-summary-row">
-                            <span>Продукти (@Model.Sum(c => c.Quantity))</span>
-                            <span>@total.ToString("F2") лв</span>
-                        </div>
-                        <div class="cart-summary-row">
-                            <span>Доставка</span>
-                            <span style="color: var(--sf-green);">Безплатна</span>
-                        </div>
-                        <hr style="border-color: rgba(255,255,255,0.1); margin: 1rem 0;" />
-                        <div class="cart-summary-row">
-                            <span style="font-weight: 700;">Общо</span>
-                            <span class="cart-summary-total">@total.ToString("F2") лв</span>
-                        </div>
-                        <a asp-controller="Orders" asp-action="Create" class="btn-sf-primary mt-3" style="text-decoration: none;">
-                            <i class="bi bi-credit-card me-2"></i>Към плащане
-                        </a>
-                        <a asp-controller="Home" asp-action="Products" class="d-block text-center mt-3" style="color: var(--sf-text-muted);">
-                            <i class="bi bi-arrow-left me-1"></i>Продължи пазаруването
-                        </a>
+
+                <aside class="cart-summary">
+                    <h4><i class="bi bi-receipt me-2"></i>РћР±РѕР±С‰РµРЅРёРµ</h4>
+                    <div class="cart-summary-row">
+                        <span>РџСЂРѕРґСѓРєС‚Рё (@Model.Sum(c => c.Quantity))</span>
+                        <span>@total.ToString("F2") Р»РІ</span>
                     </div>
-                </div>
+                    <div class="cart-summary-row">
+                        <span>Р”РѕСЃС‚Р°РІРєР°</span>
+                        <span class="cart-free-delivery">Р‘РµР·РїР»Р°С‚РЅР°</span>
+                    </div>
+                    <div class="cart-summary-row cart-summary-row--total">
+                        <span>РћР±С‰Рѕ</span>
+                        <span class="cart-summary-total">@total.ToString("F2") Р»РІ</span>
+                    </div>
+                    <a asp-controller="Orders" asp-action="Create" class="btn-sf-primary cart-checkout-btn">
+                        <i class="bi bi-credit-card me-2"></i>РљСЉРј РїРѕСЂСЉС‡РєР°
+                    </a>
+                    <a asp-controller="Home" asp-action="Products" class="cart-back-link">
+                        <i class="bi bi-arrow-left me-1"></i>РџСЂРѕРґСЉР»Р¶Рё РїР°Р·Р°СЂСѓРІР°РЅРµС‚Рѕ
+                    </a>
+                </aside>
             </div>
         }
         else
         {
-            <div class="empty-state">
+            <div class="empty-state cart-empty-state">
                 <div class="empty-state-icon">
                     <i class="bi bi-cart-x"></i>
                 </div>
-                <h3>Количката е празна</h3>
-                <p>Все още нямате добавени продукти в количката.</p>
-                <a asp-controller="Home" asp-action="Products" class="btn-sf-hero" style="margin-top: 1.5rem;">
-                    <i class="bi bi-box-seam me-2"></i>Разгледай продуктите
+                <h3>РљРѕР»РёС‡РєР°С‚Р° Рµ РїСЂР°Р·РЅР°</h3>
+                <p>Р’СЃРµ РѕС‰Рµ РЅСЏРјР°С€ РґРѕР±Р°РІРµРЅРё РїСЂРѕРґСѓРєС‚Рё.</p>
+                <a asp-controller="Home" asp-action="Products" class="btn-sf-hero">
+                    <i class="bi bi-box-seam me-2"></i>Р Р°Р·РіР»РµРґР°Р№ РїСЂРѕРґСѓРєС‚РёС‚Рµ
                 </a>
             </div>
         }
@@ -88,36 +84,31 @@
 </div>
 
 <style>
-    .empty-state {
-        text-align: center;
-        padding: 4rem 2rem;
-        background: var(--sf-bg-card);
-        border-radius: var(--sf-radius-lg);
-        border: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .empty-state-icon {
-        font-size: 4rem;
-        color: var(--sf-text-muted);
-        margin-bottom: 1.5rem;
-    }
-
-    .empty-state h3 {
-        color: var(--sf-text);
-        margin-bottom: 0.5rem;
-    }
-
-    .empty-state p {
-        color: var(--sf-text-muted);
-    }
-
-    .cart-product-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 12px;
-        background: rgba(0, 255, 156, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+    .cart-page .sf-section { padding-bottom: 2.5rem; }
+    .cart-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 0.38fr); gap: 0.9rem; align-items: start; }
+    .cart-items-list { display: grid; gap: 0.65rem; }
+    .cart-line-item, .cart-summary, .cart-empty-state { background: var(--sf-bg-card); border: 1px solid rgba(255,255,255,.05); border-radius: 8px; box-shadow: 0 14px 32px rgba(0,0,0,.32); }
+    .cart-line-item { display: grid; grid-template-columns: 42px minmax(0, 1fr) auto auto 38px; gap: 0.7rem; align-items: center; padding: 0.75rem; }
+    .cart-line-main h2 { margin: 0; font-size: 1rem; line-height: 1.2; color: #fff; }
+    .cart-line-main span { color: var(--sf-text-muted); font-size: 0.82rem; }
+    .cart-product-icon { width: 42px; height: 42px; border-radius: 8px; background: rgba(0,255,156,.1); color: var(--sf-green); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .cart-quantity-form { display: flex; align-items: center; gap: 0.35rem; }
+    .cart-quantity-input { width: 58px; padding: 0.45rem; border-radius: 8px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.05); color: #fff; text-align: center; }
+    .cart-update-btn, .cart-remove-btn { width: 34px; height: 34px; border-radius: 8px; border: 1px solid transparent; display: inline-flex; align-items: center; justify-content: center; }
+    .cart-update-btn { background: rgba(0,255,156,.1); color: var(--sf-green); }
+    .cart-remove-btn { padding: 0; background: rgba(255,107,107,.1); border-color: rgba(255,107,107,.24); color: #ff6b6b; }
+    .cart-line-price { min-width: 88px; text-align: right; color: var(--sf-green); font-weight: 800; font-size: 1rem; }
+    .cart-summary { position: sticky; top: 6rem; padding: 1rem; }
+    .cart-summary h4 { margin-bottom: 0.85rem; font-size: 1.05rem; }
+    .cart-summary-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.62rem 0; color: var(--sf-text-muted); border-bottom: 1px solid rgba(255,255,255,.06); font-size: 0.9rem; }
+    .cart-summary-row--total { color: #fff; font-weight: 800; border-bottom: 0; }
+    .cart-free-delivery, .cart-summary-total { color: var(--sf-green); }
+    .cart-summary-total { font-size: 1.2rem; }
+    .cart-checkout-btn { margin-top: 0.85rem; padding: 0.7rem 1rem; border-radius: 8px; text-decoration: none; }
+    .cart-back-link { display: block; margin-top: 0.8rem; color: var(--sf-text-muted); text-align: center; font-size: 0.86rem; text-decoration: none; }
+    .cart-empty-state { text-align: center; padding: 2rem 1rem; }
+    .cart-empty-state .empty-state-icon { font-size: 2.4rem; color: var(--sf-text-muted); margin-bottom: 0.8rem; }
+    .cart-empty-state .btn-sf-hero { margin-top: 1rem; padding: 0.7rem 1rem; border-radius: 8px; font-size: 0.9rem; }
+    @@media (max-width: 991px) { .cart-layout { grid-template-columns: 1fr; } .cart-summary { position: static; } }
+    @@media (max-width: 767px) { .cart-line-item { grid-template-columns: 38px minmax(0, 1fr) 34px; } .cart-quantity-form, .cart-line-price { grid-column: 2 / 4; justify-content: flex-start; text-align: left; } }
 </style>

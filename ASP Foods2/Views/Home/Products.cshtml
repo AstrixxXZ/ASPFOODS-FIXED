@@ -5,14 +5,14 @@
     var productsReturnUrl = Url.Action("Products", "Home");
 }
 
-<div class="page-hero">
+<div class="page-hero product-catalog-hero">
     <div class="container">
         <h1>Натурални <span class="text-gradient">Суперхрани</span></h1>
         <p>Подбрани продукти за ежедневна енергия, силен имунитет и устойчив тонус.</p>
     </div>
 </div>
 
-<div class="container">
+<div class="container product-catalog-page">
     <section class="sf-section" style="padding-top: 0;">
         @if (Model != null && Model.Any())
         {
@@ -121,30 +121,83 @@
 </div>
 
 <style>
+    .product-catalog-hero {
+        padding: 6.5rem 0 1.6rem;
+    }
+
+    .product-catalog-hero h1 {
+        font-size: clamp(1.7rem, 3vw, 2.65rem);
+        margin-bottom: 0.45rem;
+        letter-spacing: 0;
+    }
+
+    .product-catalog-hero p {
+        font-size: 0.95rem;
+        max-width: 520px;
+        line-height: 1.45;
+    }
+
+    .product-catalog-page .sf-section {
+        padding-bottom: 2.5rem;
+    }
+
+    .product-catalog-page .sf-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 0.85rem;
+    }
+
+    .product-catalog-page .sf-card {
+        padding: 0.9rem;
+        gap: 0.72rem;
+        border-radius: 8px;
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.34);
+    }
+
+    .product-catalog-page .sf-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .product-catalog-page .sf-product-card .product-image {
+        height: 145px;
+        padding: 0.65rem;
+        margin-bottom: 0.15rem;
+        border-radius: 8px;
+    }
+
+    .product-catalog-page .sf-card h3 {
+        font-size: 1.02rem;
+        line-height: 1.2;
+    }
+
     .product-info {
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 0.55rem;
         flex-grow: 1;
     }
 
     .product-description {
-        font-size: 0.9rem;
+        font-size: 0.82rem;
         color: var(--sf-text-muted);
-        line-height: 1.6;
+        line-height: 1.38;
         flex-grow: 1;
+        margin-bottom: 0;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
     }
 
     .product-meta {
         display: flex;
-        gap: 0.5rem;
+        gap: 0.35rem;
         flex-wrap: wrap;
     }
 
     .sf-tag-small {
-        padding: 0.3rem 0.8rem;
-        font-size: 0.75rem;
-        border-radius: 20px;
+        padding: 0.22rem 0.55rem;
+        font-size: 0.68rem;
+        border-radius: 999px;
         background: rgba(0, 255, 156, 0.08);
         border: 1px solid rgba(0, 255, 156, 0.2);
         color: var(--sf-green);
@@ -155,29 +208,34 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 0.75rem;
+        gap: 0.55rem;
         margin-top: auto;
-        padding-top: 1rem;
+        padding-top: 0.65rem;
         border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .product-actions {
         display: flex;
         align-items: center;
-        gap: 0.6rem;
+        gap: 0.45rem;
         flex-wrap: wrap;
         justify-content: flex-end;
+    }
+
+    .product-catalog-page .sf-product-card .product-price {
+        font-size: 1.08rem;
+        white-space: nowrap;
     }
 
     .btn-details {
         display: inline-flex;
         align-items: center;
-        padding: 0.6rem 1rem;
-        border-radius: 10px;
+        padding: 0.48rem 0.72rem;
+        border-radius: 8px;
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
         color: var(--sf-text);
-        font-size: 0.9rem;
+        font-size: 0.82rem;
         font-weight: 600;
         text-decoration: none;
         transition: var(--sf-transition);
@@ -190,24 +248,32 @@
     }
 
     .guest-buy-note {
-        margin: 0.85rem 0 0;
+        margin: 0.35rem 0 0;
         color: var(--sf-text-muted);
+        font-size: 0.74rem;
+        line-height: 1.35;
+    }
+
+    .product-catalog-page .sf-product-card .btn-buy {
+        width: auto;
+        margin-top: 0;
+        padding: 0.48rem 0.78rem;
+        border-radius: 8px;
         font-size: 0.82rem;
-        line-height: 1.5;
     }
 
     .empty-state {
         text-align: center;
-        padding: 4rem 2rem;
+        padding: 2rem 1.2rem;
         background: var(--sf-bg-card);
-        border-radius: var(--sf-radius-lg);
+        border-radius: 8px;
         border: 1px solid rgba(255, 255, 255, 0.04);
     }
 
     .empty-state-icon {
-        font-size: 4rem;
+        font-size: 2.4rem;
         color: var(--sf-text-muted);
-        margin-bottom: 1.5rem;
+        margin-bottom: 0.8rem;
     }
 
     .empty-state h3 {
@@ -222,19 +288,19 @@
     .admin-actions {
         background: rgba(255, 193, 7, 0.05);
         border: 1px solid rgba(255, 193, 7, 0.2);
-        border-radius: var(--sf-radius);
-        padding: 1.5rem;
+        border-radius: 8px;
+        padding: 1rem;
     }
 
     .btn-admin {
         display: inline-flex;
         align-items: center;
-        padding: 0.6rem 1.2rem;
-        border-radius: 10px;
+        padding: 0.5rem 0.8rem;
+        border-radius: 8px;
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
         color: var(--sf-text);
-        font-size: 0.9rem;
+        font-size: 0.82rem;
         font-weight: 500;
         text-decoration: none;
         transition: var(--sf-transition);
@@ -247,6 +313,14 @@
     }
 
     @@media (max-width: 767px) {
+        .product-catalog-hero {
+            padding: 5.8rem 0 1.1rem;
+        }
+
+        .product-catalog-page .sf-grid {
+            grid-template-columns: 1fr;
+        }
+
         .product-footer {
             flex-direction: column;
             align-items: flex-start;
@@ -255,6 +329,12 @@
         .product-actions {
             width: 100%;
             justify-content: flex-start;
+        }
+
+        .product-catalog-page .sf-product-card .btn-buy,
+        .btn-details {
+            flex: 1 1 0;
+            justify-content: center;
         }
     }
 </style>

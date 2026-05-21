@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ASP Foods2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e18bb202abf7da64a6864b887b0cbd7695fc0dc1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee40b062c9af5cc9ca63666073a04807aa5a6b0b")]
 [assembly: System.Reflection.AssemblyProductAttribute("ASP Foods2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ASP Foods2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

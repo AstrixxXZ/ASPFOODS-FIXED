@@ -8,19 +8,20 @@ namespace ASP_Foods2.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Status",
-                table: "Orders",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "\u041f\u0440\u0438\u0435\u0442\u0430");
+            migrationBuilder.Sql(
+                "IF COL_LENGTH(N'dbo.Orders', N'Status') IS NULL " +
+                "BEGIN " +
+                "ALTER TABLE [Orders] ADD [Status] nvarchar(max) NOT NULL DEFAULT N'\u041f\u0440\u0438\u0435\u0442\u0430'; " +
+                "END");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Status",
-                table: "Orders");
+            migrationBuilder.Sql(
+                "IF COL_LENGTH(N'dbo.Orders', N'Status') IS NOT NULL " +
+                "BEGIN " +
+                "ALTER TABLE [Orders] DROP COLUMN [Status]; " +
+                "END");
         }
     }
 }
